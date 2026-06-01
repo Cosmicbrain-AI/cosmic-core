@@ -152,44 +152,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Humanoid panel */}
-        <div className="relative">
-          <div className="glass scan relative aspect-[4/5] overflow-hidden rounded-2xl">
-            <img
-              src={humanoid}
-              alt="CosmicBrain humanoid telemetry view"
-              width={1280}
-              height={1280}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            {/* HUD overlays */}
-            <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-background/60 px-3 py-1 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              <span className="font-mono text-[10px] tracking-widest text-foreground/80">UNIT CB-002 · LIVE</span>
-            </div>
-            <div className="absolute right-4 top-4 rounded-md bg-background/60 px-2 py-1 font-mono text-[10px] tracking-widest text-foreground/70 backdrop-blur">
-              ISO 30°
-            </div>
-
-            <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2 font-mono text-[10px]">
-              {[
-                ["Δ-time", "00:14:22"],
-                ["task", "PICK/PLACE"],
-                ["torque", "12.4 Nm"],
-              ].map(([k, v]) => (
-                <div key={k} className="rounded-md bg-background/70 p-2 backdrop-blur">
-                  <div className="text-muted-foreground">{k}</div>
-                  <div className="mt-1 text-foreground">{v}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* floating label */}
-          <div className="absolute -left-3 top-6 hidden rotate-[-90deg] origin-top-left font-mono text-[10px] tracking-[0.4em] text-muted-foreground md:block">
-            FIG.01 — HUMANOID OPERATIONS
-          </div>
-        </div>
+        <HumanoidPanel />
       </div>
     </section>
   );
