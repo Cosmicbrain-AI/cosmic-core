@@ -310,7 +310,143 @@ function Primitives() {
   );
 }
 
+/* ---------------------------- Primitive Glyphs ---------------------------- */
+
+function PrimitiveGlyph({ code }: { code: string }) {
+  const stroke = "currentColor";
+  const common = {
+    width: 64,
+    height: 64,
+    viewBox: "0 0 64 64",
+    fill: "none",
+    stroke,
+    strokeWidth: 1,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    className: "text-foreground/25 transition group-hover:text-primary/80",
+  };
+  switch (code) {
+    case "PX": // Pixel Understanding — pixel grid
+      return (
+        <svg {...common}>
+          {Array.from({ length: 5 }).map((_, r) =>
+            Array.from({ length: 5 }).map((_, c) => (
+              <rect key={`${r}-${c}`} x={12 + c * 8} y={12 + r * 8} width={6} height={6} opacity={((r + c) % 2 === 0 ? 0.9 : 0.35)} />
+            )),
+          )}
+        </svg>
+      );
+    case "DP": // Depth & Geometry — nested cubes
+      return (
+        <svg {...common}>
+          <path d="M16 22 L32 14 L48 22 L48 42 L32 50 L16 42 Z" />
+          <path d="M16 22 L32 30 L48 22" />
+          <path d="M32 30 L32 50" />
+          <path d="M24 26 L24 46 M40 26 L40 46" opacity={0.5} />
+        </svg>
+      );
+    case "OT": // Object Tracking — bounding box + trail
+      return (
+        <svg {...common}>
+          <rect x="22" y="22" width="20" height="20" />
+          <path d="M10 54 Q22 40 32 32 T54 14" strokeDasharray="2 3" />
+          <circle cx="32" cy="32" r="1.8" fill={stroke} />
+          <path d="M22 22 L18 18 M42 22 L46 18 M22 42 L18 46 M42 42 L46 46" />
+        </svg>
+      );
+    case "SG": // Segmentation — masked silhouette
+      return (
+        <svg {...common}>
+          <path d="M32 12 a8 8 0 1 1 0 16 a8 8 0 1 1 0 -16 Z" />
+          <path d="M20 52 Q20 34 32 34 Q44 34 44 52 Z" />
+          <path d="M16 16 L48 48 M48 16 L16 48" opacity={0.25} strokeDasharray="1 3" />
+        </svg>
+      );
+    case "TF": // Tactile Force — fingertip + force rings
+      return (
+        <svg {...common}>
+          <path d="M32 12 L32 36 a6 6 0 0 1 -12 0 L20 22" />
+          <path d="M32 36 a6 6 0 0 0 12 0 L44 22" />
+          <circle cx="32" cy="46" r="6" />
+          <circle cx="32" cy="46" r="10" opacity={0.5} />
+          <circle cx="32" cy="46" r="14" opacity={0.25} />
+        </svg>
+      );
+    case "PR": // Proprioception — articulated limb
+      return (
+        <svg {...common}>
+          <circle cx="14" cy="20" r="3" />
+          <circle cx="34" cy="32" r="3" />
+          <circle cx="50" cy="48" r="3" />
+          <path d="M14 20 L34 32 L50 48" />
+          <path d="M34 32 m-9 0 a9 9 0 0 1 9 -9" opacity={0.6} />
+        </svg>
+      );
+    case "SM": // Speed & Motion — vector arrows
+      return (
+        <svg {...common}>
+          <path d="M10 32 L46 32" />
+          <path d="M46 32 L40 26 M46 32 L40 38" />
+          <path d="M10 20 L34 20" opacity={0.6} />
+          <path d="M34 20 L29 16 M34 20 L29 24" opacity={0.6} />
+          <path d="M10 44 L40 44" opacity={0.4} />
+          <path d="M40 44 L35 40 M40 44 L35 48" opacity={0.4} />
+        </svg>
+      );
+    case "PC": // Point Cloud — scattered dots
+      return (
+        <svg {...common}>
+          {[
+            [16, 20], [22, 28], [28, 18], [34, 30], [40, 22], [46, 28],
+            [18, 36], [26, 42], [32, 38], [40, 44], [48, 38],
+            [22, 50], [32, 50], [42, 50],
+          ].map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r={1.3} fill={stroke} />
+          ))}
+          <path d="M12 14 L12 54 L54 54" opacity={0.4} />
+        </svg>
+      );
+    case "GP": // Grasp Planning — gripper around object
+      return (
+        <svg {...common}>
+          <circle cx="32" cy="34" r="8" />
+          <path d="M14 18 L22 26 L22 38 L18 42" />
+          <path d="M50 18 L42 26 L42 38 L46 42" />
+          <path d="M32 12 L32 22" strokeDasharray="2 2" />
+        </svg>
+      );
+    case "LC": // Localization — crosshair + map ticks
+      return (
+        <svg {...common}>
+          <circle cx="32" cy="32" r="12" />
+          <circle cx="32" cy="32" r="4" />
+          <path d="M32 8 L32 18 M32 46 L32 56 M8 32 L18 32 M46 32 L56 32" />
+          <circle cx="32" cy="32" r="1.5" fill={stroke} />
+        </svg>
+      );
+    case "LM": // Language Map — text lines on grid
+      return (
+        <svg {...common}>
+          <rect x="12" y="14" width="40" height="36" />
+          <path d="M18 24 L36 24 M18 30 L46 30 M18 36 L30 36 M18 42 L42 42" />
+          <circle cx="46" cy="42" r="2" fill={stroke} />
+        </svg>
+      );
+    case "AF": // Affordance — hand + action arc
+      return (
+        <svg {...common}>
+          <path d="M20 40 L20 28 a3 3 0 0 1 6 0 L26 22 a3 3 0 0 1 6 0 L32 20 a3 3 0 0 1 6 0 L38 24 a3 3 0 0 1 6 0 L44 40 a10 10 0 0 1 -20 0 Z" />
+          <path d="M14 18 Q26 8 38 14" opacity={0.6} />
+          <path d="M38 14 L36 10 M38 14 L34 16" opacity={0.6} />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
 /* ---------------------------- Loop / Integrator ---------------------------- */
+
 
 function Loop() {
   return (
