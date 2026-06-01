@@ -291,6 +291,12 @@ function Primitives() {
               {String(i + 1).padStart(2, "0")} / {code}
             </div>
             <div className="absolute right-3 top-3 h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary" />
+
+            {/* primitive glyph */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <PrimitiveGlyph code={code} />
+            </div>
+
             <div className="absolute bottom-4 left-4 right-4">
               <div className="font-display text-lg leading-tight">{name}</div>
             </div>
