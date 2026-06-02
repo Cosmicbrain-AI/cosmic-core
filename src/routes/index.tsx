@@ -558,7 +558,9 @@ function CTA() {
             Enterprise pilots, research access, and dataset partnerships.
           </p>
           <a
-            href="mailto:hello@cosmicbrainai.com"
+            href="https://formspree.io/f/xkoawoon"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-10 inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground glow-primary"
           >
             Talk to us <span aria-hidden>→</span>

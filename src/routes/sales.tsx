@@ -64,13 +64,17 @@ function CTAButtons() {
   return (
     <div className="flex flex-wrap gap-3">
       <a
-        href="mailto:sales@cosmicbrainai.com?subject=Book%20a%20Pilot"
+        href="https://formspree.io/f/xkoawoon"
+        target="_blank"
+        rel="noopener noreferrer"
         className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
       >
         Book a Pilot
       </a>
       <a
-        href="mailto:sales@cosmicbrainai.com?subject=Talk%20to%20Sales"
+        href="https://formspree.io/f/xkoawoon"
+        target="_blank"
+        rel="noopener noreferrer"
         className="rounded-full border border-border-strong px-6 py-3 text-sm font-medium text-foreground hover:bg-card"
       >
         Talk to Sales
