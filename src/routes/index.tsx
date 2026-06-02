@@ -97,6 +97,7 @@ function Home() {
         <Primitives />
         <Loop />
         <Platform />
+        <Showreel />
         <CTA />
         <FAQ />
         <Footer />
@@ -495,6 +496,45 @@ function Platform() {
             </a>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------- Showreel ---------------------------- */
+
+function Showreel() {
+  return (
+    <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
+      <SectionHead index="05.5" title="Showreel" meta="FIELD FOOTAGE" />
+      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">
+        <h2 className="md:col-span-7 font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
+          See the brain<br />
+          <span className="italic text-primary">in motion.</span>
+        </h2>
+        <p className="md:col-span-5 text-muted-foreground">
+          A walk-through of the humanoid platform — capture, refine, deploy — from raw signal to a policy
+          running in the field.
+        </p>
+      </div>
+      <div className="mt-12 relative overflow-hidden rounded-2xl border border-border-strong glass">
+        <div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-full bg-background/70 px-3 py-1 backdrop-blur">
+          <span className="pulse-dot" />
+          <span className="font-mono text-[10px] tracking-widest text-foreground/80">REEL · 4K</span>
+        </div>
+        <div className="absolute right-3 top-3 z-10 rounded-md bg-background/70 px-2 py-1 font-mono text-[10px] tracking-widest text-foreground/70 backdrop-blur">
+          CB-REEL-001
+        </div>
+        <div className="aspect-video w-full">
+          <iframe
+            className="h-full w-full"
+            src="https://www.youtube.com/embed/TipCCtr0OIg?rel=0&modestbranding=1"
+            title="CosmicBrain showreel"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
       </div>
     </section>
   );
