@@ -63,22 +63,30 @@ function Section({
 function CTAButtons() {
   return (
     <div className="flex flex-wrap gap-3">
-      <a
-        href="https://formspree.io/f/xkoawoon"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
-      >
-        Book a Pilot
-      </a>
-      <a
-        href="https://formspree.io/f/xkoawoon"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="rounded-full border border-border-strong px-6 py-3 text-sm font-medium text-foreground hover:bg-card"
-      >
-        Talk to Sales
-      </a>
+      <ContactDialog
+        title="Book a Pilot"
+        description="Tell us about your fleet and timeline."
+        trigger={
+          <button
+            type="button"
+            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
+          >
+            Book a Pilot
+          </button>
+        }
+      />
+      <ContactDialog
+        title="Talk to Sales"
+        description="We'll respond within one business day."
+        trigger={
+          <button
+            type="button"
+            className="rounded-full border border-border-strong px-6 py-3 text-sm font-medium text-foreground hover:bg-card"
+          >
+            Talk to Sales
+          </button>
+        }
+      />
     </div>
   );
 }
