@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ContactDialog } from "@/components/ContactDialog";
 
 export const Route = createFileRoute("/sales")({
   head: () => ({
