@@ -10,11 +10,22 @@ export const Route = createFileRoute("/sales")({
         content:
           "CosmicBrain is the middleware infrastructure powering humanoid data, teleoperation, and enterprise deployment. Book a free pilot.",
       },
-      { property: "og:title", content: "CosmicBrain — Sales" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
+      { property: "og:title", content: "Sales — CosmicBrain · Deploy humanoids into your operations" },
       {
         property: "og:description",
         content: "The operating system for the humanoid era. Free pilot. No commitment.",
       },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:url", content: "https://www.cosmicbrain.ai/sales" },
+      { name: "twitter:title", content: "Sales — CosmicBrain · Deploy humanoids into your operations" },
+      {
+        name: "twitter:description",
+        content: "The operating system for the humanoid era. Free pilot. No commitment.",
+      },
+      { name: "keywords", content: "humanoid robotics, robot sales, enterprise deployment, free pilot, warehouse automation" },
+      { rel: "canonical", href: "https://www.cosmicbrain.ai/sales" },
     ],
   }),
   component: SalesPage,
