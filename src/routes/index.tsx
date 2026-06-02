@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HumanoidPanel } from "@/components/HumanoidPanel";
+import { ContactDialog } from "@/components/ContactDialog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
