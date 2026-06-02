@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HumanoidPanel } from "@/components/HumanoidPanel";
+import { ContactDialog } from "@/components/ContactDialog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -557,14 +558,18 @@ function CTA() {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             Enterprise pilots, research access, and dataset partnerships.
           </p>
-          <a
-            href="https://formspree.io/f/xkoawoon"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground glow-primary"
-          >
-            Talk to us <span aria-hidden>→</span>
-          </a>
+          <ContactDialog
+            title="Talk to us"
+            description="Enterprise pilots, research access, and dataset partnerships."
+            trigger={
+              <button
+                type="button"
+                className="mt-10 inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground glow-primary"
+              >
+                Talk to us <span aria-hidden>→</span>
+              </button>
+            }
+          />
         </div>
       </div>
     </section>
