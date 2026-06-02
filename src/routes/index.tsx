@@ -97,6 +97,7 @@ function Home() {
         <Primitives />
         <Loop />
         <Platform />
+        <Showreel />
         <CTA />
         <FAQ />
         <Footer />
