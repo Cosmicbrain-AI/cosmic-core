@@ -160,7 +160,7 @@ function Hero() {
   );
 }
 
-/* ---------------------------- Live ticker ---------------------------- */
+/* Live ticker */
 
 function Telemetry() {
   const items = [...telemetry, ...telemetry];
@@ -178,7 +178,7 @@ function Telemetry() {
   );
 }
 
-/* ---------------------------- Manifest ---------------------------- */
+/* Manifest */
 
 function Manifest() {
   return (
@@ -195,7 +195,7 @@ function Manifest() {
   );
 }
 
-/* ---------------------------- Stack ---------------------------- */
+/* Stack */
 
 function Stack() {
   return (
@@ -230,7 +230,7 @@ function Stack() {
   );
 }
 
-/* ---------------------------- Primitives ---------------------------- */
+/* Primitives */
 
 function Primitives() {
   return (
@@ -275,7 +275,7 @@ function Primitives() {
   );
 }
 
-/* ---------------------------- Primitive Glyphs ---------------------------- */
+/* Primitive Glyphs */
 
 function PrimitiveGlyph({ code }: { code: string }) {
   const stroke = "currentColor";
@@ -410,7 +410,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
   }
 }
 
-/* ---------------------------- Loop / Integrator ---------------------------- */
+/* Loop / Integrator */
 
 
 function Loop() {
@@ -455,7 +455,7 @@ function Loop() {
   );
 }
 
-/* ---------------------------- Platform ---------------------------- */
+/* Platform */
 
 function Platform() {
   return (
@@ -502,7 +502,7 @@ function Platform() {
   );
 }
 
-/* ---------------------------- Showreel ---------------------------- */
+/* Showreel */
 
 function Showreel() {
   return (
@@ -541,7 +541,7 @@ function Showreel() {
   );
 }
 
-/* ---------------------------- CTA ---------------------------- */
+/* CTA */
 
 function CTA() {
   return (
@@ -576,7 +576,7 @@ function CTA() {
   );
 }
 
-/* ---------------------------- FAQ ---------------------------- */
+/* FAQ */
 
 function FAQ() {
   return (
@@ -602,7 +602,7 @@ function FAQ() {
   );
 }
 
-/* ---------------------------- Footer ---------------------------- */
+/* Footer */
 
 function Footer() {
   return (
@@ -644,7 +644,7 @@ function FootCol({ head, links }: { head: string; links: [string, string][] }) {
   );
 }
 
-/* ---------------------------- Section head ---------------------------- */
+/* Section head */
 
 function SectionHead({ index, title, meta }: { index: string; title: string; meta?: string }) {
   return (
