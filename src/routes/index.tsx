@@ -6,11 +6,11 @@ import { ContactDialog } from "@/components/ContactDialog";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CosmicBrain — The data & deployment stack for humanoids" },
+      { title: "CosmicBrain - The data & deployment stack for humanoids" },
       {
         name: "description",
         content:
-          "CosmicBrain powers the data and deployment stack behind humanoids — telemetry, learning, and reliable field deployment.",
+          "CosmicBrain powers the data and deployment stack behind humanoids - telemetry, learning, and reliable field deployment.",
       },
       { property: "og:title", content: "CosmicBrain" },
       { property: "og:description", content: "Data & deployment stack for humanoids." },
@@ -38,7 +38,7 @@ const stack = [
   {
     code: "01 / Capture",
     t: "Real-world data, captured in motion",
-    c: "Multi-modal capture from human operators and humanoid fleets — video, depth, IMU, tactile, audio — synchronized at the millisecond.",
+    c: "Multi-modal capture from human operators and humanoid fleets - video, depth, IMU, tactile, audio - synchronized at the millisecond.",
   },
   {
     code: "02 / Refine",
@@ -48,7 +48,7 @@ const stack = [
   {
     code: "03 / Deploy",
     t: "Policies that ship to the field",
-    c: "Evaluation harnesses, OTA rollout, and live telemetry — close the loop from a deployed humanoid back into your dataset.",
+    c: "Evaluation harnesses, OTA rollout, and live telemetry - close the loop from a deployed humanoid back into your dataset.",
   },
 ];
 
@@ -70,7 +70,7 @@ const primitives = [
 const faqs = [
   {
     q: "What does CosmicBrain do?",
-    a: "We are the data and deployment stack behind humanoids — capturing real-world signal, refining it into training-ready datasets, and shipping policies that work in the field.",
+    a: "We are the data and deployment stack behind humanoids - capturing real-world signal, refining it into training-ready datasets, and shipping policies that work in the field.",
   },
   {
     q: "Who is it built for?",
@@ -78,7 +78,7 @@ const faqs = [
   },
   {
     q: "Do you build the humanoids?",
-    a: "No — we sit between the hardware, the models, and the operator. CosmicBrain is the integration and data layer that makes specialized humanoid deployments possible.",
+    a: "No - we sit between the hardware, the models, and the operator. CosmicBrain is the integration and data layer that makes specialized humanoid deployments possible.",
   },
   {
     q: "How can teams start?",
@@ -134,7 +134,7 @@ function Hero() {
           </h1>
           <p className="mt-10 max-w-lg text-lg leading-relaxed text-muted-foreground md:text-xl">
             CosmicBrain powers the <span className="text-foreground">data and deployment stack</span> behind
-            humanoids — from first capture to live operation in the field.
+            humanoids - from first capture to live operation in the field.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -291,7 +291,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
     className: "text-foreground/25 transition group-hover:text-primary/80",
   };
   switch (code) {
-    case "PX": // Pixel Understanding — pixel grid
+    case "PX": // Pixel Understanding - pixel grid
       return (
         <svg {...common}>
           {Array.from({ length: 5 }).map((_, r) =>
@@ -301,7 +301,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           )}
         </svg>
       );
-    case "DP": // Depth & Geometry — nested cubes
+    case "DP": // Depth & Geometry - nested cubes
       return (
         <svg {...common}>
           <path d="M16 22 L32 14 L48 22 L48 42 L32 50 L16 42 Z" />
@@ -310,7 +310,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M24 26 L24 46 M40 26 L40 46" opacity={0.5} />
         </svg>
       );
-    case "OT": // Object Tracking — bounding box + trail
+    case "OT": // Object Tracking - bounding box + trail
       return (
         <svg {...common}>
           <rect x="22" y="22" width="20" height="20" />
@@ -319,7 +319,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M22 22 L18 18 M42 22 L46 18 M22 42 L18 46 M42 42 L46 46" />
         </svg>
       );
-    case "SG": // Segmentation — masked silhouette
+    case "SG": // Segmentation - masked silhouette
       return (
         <svg {...common}>
           <path d="M32 12 a8 8 0 1 1 0 16 a8 8 0 1 1 0 -16 Z" />
@@ -327,7 +327,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M16 16 L48 48 M48 16 L16 48" opacity={0.25} strokeDasharray="1 3" />
         </svg>
       );
-    case "TF": // Tactile Force — fingertip + force rings
+    case "TF": // Tactile Force - fingertip + force rings
       return (
         <svg {...common}>
           <path d="M32 12 L32 36 a6 6 0 0 1 -12 0 L20 22" />
@@ -337,7 +337,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <circle cx="32" cy="46" r="14" opacity={0.25} />
         </svg>
       );
-    case "PR": // Proprioception — articulated limb
+    case "PR": // Proprioception - articulated limb
       return (
         <svg {...common}>
           <circle cx="14" cy="20" r="3" />
@@ -347,7 +347,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M34 32 m-9 0 a9 9 0 0 1 9 -9" opacity={0.6} />
         </svg>
       );
-    case "SM": // Speed & Motion — vector arrows
+    case "SM": // Speed & Motion - vector arrows
       return (
         <svg {...common}>
           <path d="M10 32 L46 32" />
@@ -358,7 +358,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M40 44 L35 40 M40 44 L35 48" opacity={0.4} />
         </svg>
       );
-    case "PC": // Point Cloud — scattered dots
+    case "PC": // Point Cloud - scattered dots
       return (
         <svg {...common}>
           {[
@@ -371,7 +371,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M12 14 L12 54 L54 54" opacity={0.4} />
         </svg>
       );
-    case "GP": // Grasp Planning — gripper around object
+    case "GP": // Grasp Planning - gripper around object
       return (
         <svg {...common}>
           <circle cx="32" cy="34" r="8" />
@@ -380,7 +380,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <path d="M32 12 L32 22" strokeDasharray="2 2" />
         </svg>
       );
-    case "LC": // Localization — crosshair + map ticks
+    case "LC": // Localization - crosshair + map ticks
       return (
         <svg {...common}>
           <circle cx="32" cy="32" r="12" />
@@ -389,7 +389,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <circle cx="32" cy="32" r="1.5" fill={stroke} />
         </svg>
       );
-    case "LM": // Language Map — text lines on grid
+    case "LM": // Language Map - text lines on grid
       return (
         <svg {...common}>
           <rect x="12" y="14" width="40" height="36" />
@@ -397,7 +397,7 @@ function PrimitiveGlyph({ code }: { code: string }) {
           <circle cx="46" cy="42" r="2" fill={stroke} />
         </svg>
       );
-    case "AF": // Affordance — hand + action arc
+    case "AF": // Affordance - hand + action arc
       return (
         <svg {...common}>
           <path d="M20 40 L20 28 a3 3 0 0 1 6 0 L26 22 a3 3 0 0 1 6 0 L32 20 a3 3 0 0 1 6 0 L38 24 a3 3 0 0 1 6 0 L44 40 a10 10 0 0 1 -20 0 Z" />
@@ -514,7 +514,7 @@ function Showreel() {
           <span className="italic text-primary">in motion.</span>
         </h2>
         <p className="md:col-span-5 text-muted-foreground">
-          A walk-through of the humanoid platform — capture, refine, deploy — from raw signal to a policy
+          A walk-through of the humanoid platform - capture, refine, deploy - from raw signal to a policy
           running in the field.
         </p>
       </div>
@@ -652,7 +652,7 @@ function SectionHead({ index, title, meta }: { index: string; title: string; met
       <span className="font-mono text-xs text-primary">[ {index} ]</span>
       <span className="h-px w-12 bg-primary" />
       <span className="tech-label !text-foreground">{title}</span>
-      {meta && <span className="tech-label">— {meta}</span>}
+      {meta && <span className="tech-label">- {meta}</span>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { ContactDialog } from "@/components/ContactDialog";
 export const Route = createFileRoute("/sales")({
   head: () => ({
     meta: [
-      { title: "Sales — CosmicBrain · Deploy humanoids into your operations" },
+      { title: "Sales - CosmicBrain · Deploy humanoids into your operations" },
       {
         name: "description",
         content:
@@ -13,14 +13,14 @@ export const Route = createFileRoute("/sales")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
-      { property: "og:title", content: "Sales — CosmicBrain · Deploy humanoids into your operations" },
+      { property: "og:title", content: "Sales - CosmicBrain · Deploy humanoids into your operations" },
       {
         property: "og:description",
         content: "The operating system for the humanoid era. Free pilot. No commitment.",
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/sales" },
-      { name: "twitter:title", content: "Sales — CosmicBrain · Deploy humanoids into your operations" },
+      { name: "twitter:title", content: "Sales - CosmicBrain · Deploy humanoids into your operations" },
       {
         name: "twitter:description",
         content: "The operating system for the humanoid era. Free pilot. No commitment.",
@@ -111,7 +111,7 @@ function SalesPage() {
           </h1>
           <p className="mt-8 max-w-3xl text-lg text-foreground/75 md:text-xl">
             CosmicBrain is the middleware infrastructure that connects humanoid hardware to the
-            real world — powering data collection, model training, teleoperation, and enterprise
+            real world - powering data collection, model training, teleoperation, and enterprise
             deployment at scale.
           </p>
           <p className="mt-4 font-mono text-sm text-muted-foreground">
@@ -133,7 +133,7 @@ function SalesPage() {
             },
             {
               t: "Enterprise Deployers",
-              c: "We work with warehouses, manufacturers, and logistics operators to deploy humanoids into live operations — one laborer replaced at a time, starting with a free pilot.",
+              c: "We work with warehouses, manufacturers, and logistics operators to deploy humanoids into live operations - one laborer replaced at a time, starting with a free pilot.",
             },
           ].map((x) => (
             <div key={x.t} className="glass rounded-xl p-8">
@@ -156,8 +156,8 @@ function SalesPage() {
         </p>
         <div className="grid gap-px overflow-hidden rounded-xl border border-border-strong bg-border-strong md:grid-cols-2">
           {[
-            ["Video-to-Robot Pipeline", "We ingest raw video and sensor data directly from your hardware and structure it into clean, labeled training data — ready for model companies and robotics AI teams."],
-            ["Teleoperation with Full VR", "Our teleoperation stack lets human operators control your robots remotely in real time, through a fully immersive VR interface. Hardware agnostic — no proprietary lockout."],
+            ["Video-to-Robot Pipeline", "We ingest raw video and sensor data directly from your hardware and structure it into clean, labeled training data - ready for model companies and robotics AI teams."],
+            ["Teleoperation with Full VR", "Our teleoperation stack lets human operators control your robots remotely in real time, through a fully immersive VR interface. Hardware agnostic - no proprietary lockout."],
             ["Data Collection at the Source", "We collect directly from specific hardware configurations, producing high-fidelity datasets that model companies and robot makers actually need. Your hardware generates the data. We turn it into revenue."],
             ["Built for Model Companies", "The data we collect is sold directly to teams training the next generation of foundation models and locomotion systems. Your hardware becomes part of the training loop."],
           ].map(([t, c]) => (
@@ -183,7 +183,7 @@ function SalesPage() {
           <div className="tech-label mb-3 text-primary">Free Pilot Program</div>
           <div className="font-display text-3xl md:text-4xl">See it before you commit.</div>
           <p className="mt-4 max-w-3xl text-foreground/80">
-            We deploy humanoids directly onto your floor — working side by side with your human
+            We deploy humanoids directly onto your floor - working side by side with your human
             workforce. You compare output, reliability, and cost in real conditions, 24/7. No
             obligation. No upfront investment.
           </p>
@@ -233,10 +233,10 @@ function SalesPage() {
       <Section code="05 / Process" kicker="How it works" title="Four steps to a working floor.">
         <div className="grid gap-6 md:grid-cols-2">
           {[
-            ["01", "We assess your operation", "Our team maps your workflow and identifies the highest-value positions for humanoid replacement — typically repetitive, physically demanding, or high-turnover roles."],
+            ["01", "We assess your operation", "Our team maps your workflow and identifies the highest-value positions for humanoid replacement - typically repetitive, physically demanding, or high-turnover roles."],
             ["02", "Free pilot deployment", "We bring the hardware. We run the deployment. Your team watches the robots work alongside your people in real conditions, on real tasks."],
-            ["03", "You compare the numbers", "Productivity, error rate, throughput, cost per unit — you see everything. We don't ask you to trust projections."],
-            ["04", "Scale on your terms", "Once the pilot proves out, we scale. One unit or one hundred — CosmicBrain handles the full deployment and ongoing operations stack."],
+            ["03", "You compare the numbers", "Productivity, error rate, throughput, cost per unit - you see everything. We don't ask you to trust projections."],
+            ["04", "Scale on your terms", "Once the pilot proves out, we scale. One unit or one hundred - CosmicBrain handles the full deployment and ongoing operations stack."],
           ].map(([n, t, c]) => (
             <div key={n} className="rounded-xl border border-border-strong p-8">
               <div className="font-mono text-xs text-primary">STEP {n}</div>
@@ -251,7 +251,7 @@ function SalesPage() {
       <Section code="06 / Why" kicker="Why CosmicBrain" title="The operational edge.">
         <div className="grid gap-px overflow-hidden rounded-xl border border-border-strong bg-border-strong md:grid-cols-3">
           {[
-            ["Hardware Agnostic", "We don't sell robots. We work with the best available hardware for your use case — and as the market evolves, you're never locked into yesterday's model."],
+            ["Hardware Agnostic", "We don't sell robots. We work with the best available hardware for your use case - and as the market evolves, you're never locked into yesterday's model."],
             ["Teleop by Overseas Operators", "When full autonomy isn't ready, skilled human operators run robots remotely at a fraction of local employee cost. Human judgment at machine economics."],
             ["No Software Training. Ever.", "Your team doesn't touch the software. CosmicBrain manages the entire stack. Robots arrive ready to work."],
             ["24/7 Operation", "Humanoids don't have shifts. They don't call in. Production continuity is the default, not a premium."],
@@ -290,8 +290,8 @@ function SalesPage() {
       <Section code="08 / Vision" kicker="The bigger picture" title="The infrastructure layer for an industry being born.">
         <p className="max-w-3xl text-foreground/80">
           We are at the beginning of the humanoid deployment curve. The companies that establish
-          the operational playbook now — the workflows, the data pipelines, the teleoperation
-          infrastructure — will define how this industry scales.
+          the operational playbook now - the workflows, the data pipelines, the teleoperation
+          infrastructure - will define how this industry scales.
         </p>
         <p className="mt-4 max-w-3xl text-foreground/80">
           CosmicBrain is building that infrastructure. For manufacturers who need the software
