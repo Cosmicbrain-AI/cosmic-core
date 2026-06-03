@@ -172,7 +172,7 @@ export function HumanoidPanel() {
       </div>
 
       <div className="absolute -left-3 top-6 hidden rotate-[-90deg] origin-top-left font-mono text-[10px] tracking-[0.4em] text-muted-foreground md:block">
-        FIG.01 — HUMANOID OPERATIONS · HOVER TO DISASSEMBLE
+        FIG.01 - HUMANOID OPERATIONS · HOVER TO DISASSEMBLE
       </div>
     </div>
   );
