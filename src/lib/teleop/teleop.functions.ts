@@ -1,94 +1,131 @@
-// teleop.functions.ts — server functions (the API for the teleop pages).
-// Pattern mirrors src/lib/api/example.functions.ts (createServerFn + zod).
+// teleop.functions.ts — server functions backed by Supabase.
+// Operator actions run through the SECURITY DEFINER RPCs as the signed-in user
+// (auth.uid()); admin actions use the privileged service client after an admin check.
+// The client passes its Supabase access token in `accessToken` (see lib/teleop/client.ts).
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { getBroker, getCurrentOperatorId } from "./store.server";
+import { requireOperator, requireAdmin, serviceClient, robotStatus } from "./supabase.server";
+
+const auth = z.object({ accessToken: z.string() });
 
 // ---------- operator-facing ----------
 
-/** Robots the signed-in operator may drive, plus their current session (if any). */
-export const getMyDashboard = createServerFn({ method: "GET" }).handler(async () => {
-  const b = getBroker();
-  const meId = getCurrentOperatorId();
-  const me = b.operators.get(meId);
-  const active = b.activeSessionForOperator(meId);
-  return {
-    me: me ? { id: me.id, email: me.email, role: me.role, approved: me.approved } : null,
-    robots: b.robotsForOperator(meId),
-    activeSession: active ? { id: active.id, robotId: active.robotId, startedAt: active.startedAt } : null,
-  };
-});
-
-/** Acquire a robot (the exclusive lock). Returns the sessionId or a reason it was refused. */
-export const launchSession = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ robotId: z.string().min(1) }))
+export const getMyDashboard = createServerFn({ method: "POST" })
+  .inputValidator(auth)
   .handler(async ({ data }) => {
-    const b = getBroker();
-    return b.requestSession(getCurrentOperatorId(), data.robotId);
+    const { uc, userId } = await requireOperator(data.accessToken);
+    const [me, robots, active] = await Promise.all([
+      uc.from("operators").select("id,email,role,approved").eq("id", userId).single(),
+      uc.from("robots").select("id,name,model,location,online,estopped,current_session_id"), // RLS -> granted only
+      uc.from("sessions").select("id,robot_id,started_at").eq("operator_id", userId).eq("state", "active").maybeSingle(),
+    ]);
+    return {
+      me: me.data,
+      robots: (robots.data ?? []).map((r) => ({
+        id: r.id, name: r.name, model: r.model, location: r.location, status: robotStatus(r),
+      })),
+      activeSession: active.data ? { id: active.data.id, robotId: active.data.robot_id, startedAt: active.data.started_at } : null,
+    };
   });
 
-/** Prove the operator is still there (called on an interval by the live session UI). */
-export const heartbeat = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ sessionId: z.string().min(1) }))
-  .handler(async ({ data }) => getBroker().heartbeat(data.sessionId));
+export const launchSession = createServerFn({ method: "POST" })
+  .inputValidator(auth.extend({ robotId: z.string().min(1) }))
+  .handler(async ({ data }) => {
+    const { uc } = await requireOperator(data.accessToken);
+    const { data: rows, error } = await uc.rpc("claim_robot", { p_robot_id: data.robotId });
+    if (error) return { ok: false as const, reason: error.message };
+    const row = Array.isArray(rows) ? rows[0] : rows;
+    return row?.ok ? { ok: true as const, sessionId: row.session_id } : { ok: false as const, reason: row?.reason ?? "unavailable" };
+  });
 
-/** End the session and release the robot. */
+export const heartbeat = createServerFn({ method: "POST" })
+  .inputValidator(auth.extend({ sessionId: z.string().min(1) }))
+  .handler(async ({ data }) => {
+    const { uc } = await requireOperator(data.accessToken);
+    const { data: ok } = await uc.rpc("session_heartbeat", { p_session_id: data.sessionId });
+    return { ok: !!ok };
+  });
+
 export const stopSession = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ sessionId: z.string().min(1) }))
-  .handler(async ({ data }) => getBroker().endSession(data.sessionId, "operator-ended"));
+  .inputValidator(auth.extend({ sessionId: z.string().min(1) }))
+  .handler(async ({ data }) => {
+    const { uc } = await requireOperator(data.accessToken);
+    const { data: ok } = await uc.rpc("end_session", { p_session_id: data.sessionId, p_reason: "operator-ended" });
+    return { ok: !!ok };
+  });
 
 // ---------- admin-facing (Anto's curation) ----------
 
-function assertAdmin() {
-  const b = getBroker();
-  const me = b.operators.get(getCurrentOperatorId());
-  if (!me || me.role !== "admin") throw new Error("forbidden: admin only");
-  return b;
-}
-
-export const adminListOperators = createServerFn({ method: "GET" }).handler(async () =>
-  assertAdmin().allOperators(),
-);
-
-export const adminApproveOperator = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ operatorId: z.string().min(1), approved: z.boolean() }))
+export const adminListOperators = createServerFn({ method: "POST" })
+  .inputValidator(auth)
   .handler(async ({ data }) => {
-    const b = assertAdmin();
-    b.approveOperator(data.operatorId, data.approved);
-    return { ok: true };
+    const { svc } = await requireAdmin(data.accessToken);
+    const { data: ops } = await svc.from("operators").select("id,email,role,approved").order("created_at");
+    return ops ?? [];
   });
 
-export const adminListRobots = createServerFn({ method: "GET" }).handler(async () => assertAdmin().allRobots());
+export const adminApproveOperator = createServerFn({ method: "POST" })
+  .inputValidator(auth.extend({ operatorId: z.string().min(1), approved: z.boolean() }))
+  .handler(async ({ data }) => {
+    const { svc } = await requireAdmin(data.accessToken);
+    const { error } = await svc.from("operators").update({ approved: data.approved }).eq("id", data.operatorId);
+    return { ok: !error, error: error?.message };
+  });
+
+export const adminListRobots = createServerFn({ method: "POST" })
+  .inputValidator(auth)
+  .handler(async ({ data }) => {
+    const { svc } = await requireAdmin(data.accessToken);
+    const { data: rows } = await svc.from("robots").select("id,name,model,location,online,estopped,current_session_id");
+    return (rows ?? []).map((r) => ({ ...r, status: robotStatus(r) }));
+  });
 
 export const adminAddRobot = createServerFn({ method: "POST" })
-  .inputValidator(
-    z.object({
-      id: z.string().min(1),
-      name: z.string().min(1),
-      model: z.string().min(1).default("Unitree G1 (G1_29, 29-DOF)"),
-      location: z.string().min(1),
-    }),
-  )
+  .inputValidator(auth.extend({
+    id: z.string().min(1), name: z.string().min(1),
+    model: z.string().min(1).default("Unitree G1 (G1_29, 29-DOF)"), location: z.string().min(1),
+  }))
   .handler(async ({ data }) => {
-    const b = assertAdmin();
-    b.addRobot(data);
-    return { ok: true };
+    const { svc } = await requireAdmin(data.accessToken);
+    const { error } = await svc.from("robots").insert({ id: data.id, name: data.name, model: data.model, location: data.location });
+    return { ok: !error, error: error?.message };
   });
 
 export const adminGrantAccess = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ operatorId: z.string().min(1), robotId: z.string().min(1), grant: z.boolean() }))
+  .inputValidator(auth.extend({ operatorId: z.string().min(1), robotId: z.string().min(1), grant: z.boolean() }))
   .handler(async ({ data }) => {
-    const b = assertAdmin();
-    if (data.grant) b.grantAccess(data.operatorId, data.robotId);
-    else b.revokeAccess(data.operatorId, data.robotId);
-    return { ok: true };
+    const { svc } = await requireAdmin(data.accessToken);
+    const q = data.grant
+      ? svc.from("access_grants").upsert({ operator_id: data.operatorId, robot_id: data.robotId })
+      : svc.from("access_grants").delete().eq("operator_id", data.operatorId).eq("robot_id", data.robotId);
+    const { error } = await q;
+    return { ok: !error, error: error?.message };
   });
 
 export const adminEstop = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ robotId: z.string().min(1), estop: z.boolean() }))
+  .inputValidator(auth.extend({ robotId: z.string().min(1), estop: z.boolean() }))
   .handler(async ({ data }) => {
-    const b = assertAdmin();
-    return data.estop ? b.estopRobot(data.robotId) : (b.clearEstop(data.robotId), { ok: true });
+    const { svc } = await requireAdmin(data.accessToken);
+    if (data.estop) {
+      // end any active session and release the lock, then latch estop
+      await svc.from("sessions").update({ state: "ended", ended_at: new Date().toISOString(), ended_reason: "estop" })
+        .eq("robot_id", data.robotId).eq("state", "active");
+      await svc.from("robots").update({ estopped: true, current_session_id: null }).eq("id", data.robotId);
+    } else {
+      await svc.from("robots").update({ estopped: false }).eq("id", data.robotId);
+    }
+    return { ok: true };
   });
+
+export const adminListGrants = createServerFn({ method: "POST" })
+  .inputValidator(auth)
+  .handler(async ({ data }) => {
+    const { svc } = await requireAdmin(data.accessToken);
+    const { data: rows } = await svc.from("access_grants").select("operator_id,robot_id");
+    return rows ?? [];
+  });
+
+// serviceClient re-exported for a future stale-session cron (reap_stale_sessions RPC).
+export { serviceClient };

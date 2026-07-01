@@ -6,12 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  getMyDashboard,
-  launchSession,
-  stopSession,
-  heartbeat,
-} from "@/lib/teleop/teleop.functions";
+import { fetchDashboard, launch, stop as stopSessionCall, sendHeartbeat } from "@/lib/teleop/client";
 
 export const Route = createFileRoute("/app")({
   head: () => ({ meta: [{ title: "Teleop — CosmicBrain" }] }),
@@ -28,11 +23,11 @@ const statusVariant: Record<Status, "default" | "secondary" | "destructive" | "o
 
 function OperatorApp() {
   const qc = useQueryClient();
-  const dash = useQuery({ queryKey: ["teleop", "dashboard"], queryFn: () => getMyDashboard() });
+  const dash = useQuery({ queryKey: ["teleop", "dashboard"], queryFn: () => fetchDashboard() });
   const invalidate = () => qc.invalidateQueries({ queryKey: ["teleop", "dashboard"] });
 
-  const launch = useMutation({
-    mutationFn: (robotId: string) => launchSession({ data: { robotId } }),
+  const launchMut = useMutation({
+    mutationFn: (robotId: string) => launch(robotId),
     onSuccess: (res) => {
       if (res.ok) toast.success("Session acquired — you have exclusive control.");
       else toast.error(`Can't launch: ${res.reason.replace(/-/g, " ")}`);
@@ -41,7 +36,7 @@ function OperatorApp() {
   });
 
   const stop = useMutation({
-    mutationFn: (sessionId: string) => stopSession({ data: { sessionId } }),
+    mutationFn: (sessionId: string) => stopSessionCall(sessionId),
     onSuccess: () => {
       toast.message("Session ended. Robot released.");
       invalidate();
@@ -55,7 +50,7 @@ function OperatorApp() {
   useEffect(() => {
     if (!active) return;
     const t = setInterval(() => {
-      heartbeat({ data: { sessionId: active.id } }).catch(() => {});
+      sendHeartbeat(active.id).catch(() => {});
     }, 2000);
     return () => clearInterval(t);
   }, [active?.id]);
@@ -105,7 +100,7 @@ function OperatorApp() {
       <div className="grid gap-4 sm:grid-cols-2">
         {dash.data?.robots.map((r) => {
           const status = r.status as Status;
-          const canLaunch = status === "available" && !active;
+          const canLaunch = status === "available" && !active && !launchMut.isPending;
           return (
             <Card key={r.id}>
               <CardHeader>
@@ -118,8 +113,8 @@ function OperatorApp() {
               <CardContent>
                 <Button
                   className="w-full"
-                  disabled={!canLaunch || launch.isPending}
-                  onClick={() => launch.mutate(r.id)}
+                  disabled={!canLaunch}
+                  onClick={() => launchMut.mutate(r.id)}
                 >
                   {status === "in_session" ? "In use" : "Launch teleop"}
                 </Button>

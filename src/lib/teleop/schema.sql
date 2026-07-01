@@ -139,5 +139,11 @@ create policy robots_granted_read on robots for select
 drop policy if exists sessions_self_read on sessions;
 create policy sessions_self_read on sessions for select using (operator_id = auth.uid());
 
+-- ---- seed: the robot we've been working with in the teleop repo -------------
+insert into robots (id, name, model, location, online) values
+  ('g1-cell-a', 'G1 — Cell A', 'Unitree G1 (G1_29, 29-DOF)', 'Lab cell A (fenced)', true)
+on conflict (id) do nothing;
+
 -- NOTE: to make yourself admin after signing up, run once:
 --   update operators set role='admin', approved=true where email='anto@cosmicbrain.ai';
+-- Then in the /admin page: approve yourself, and toggle the G1 grant so it appears in /app.
