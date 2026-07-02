@@ -17,12 +17,34 @@ import {
   adminGrant,
   adminAddRobot,
   adminEstop,
+  adminSetTeleopUrl,
 } from "@/lib/teleop/client";
+import { RequireAuth, SignOutButton } from "@/lib/auth";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — CosmicBrain Teleop" }] }),
-  component: Admin,
+  component: () => (
+    <RequireAuth>
+      <Admin />
+    </RequireAuth>
+  ),
 });
+
+// Validate a headset (televuer/WebXR) URL. Empty is allowed (optional field). Catches
+// the exact mistake that shipped a dead link: an un-substituted <placeholder>.
+function teleopUrlError(u: string): string | null {
+  const s = u.trim();
+  if (!s) return null;
+  if (/[<>]/.test(s)) return "Looks like a placeholder — replace <…> with the real host IP.";
+  let parsed: URL;
+  try {
+    parsed = new URL(s);
+  } catch {
+    return "Not a valid URL.";
+  }
+  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return "Must be an http(s):// URL.";
+  return null;
+}
 
 function Admin() {
   const qc = useQueryClient();
@@ -55,7 +77,10 @@ function Admin() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="mb-1 text-2xl font-semibold">Admin — access & robots</h1>
+      <div className="mb-1 flex items-start justify-between gap-4">
+        <h1 className="text-2xl font-semibold">Admin — access & robots</h1>
+        <SignOutButton />
+      </div>
       <p className="mb-8 text-sm text-muted-foreground">Curate who can drive, and manage the robot fleet.</p>
 
       <Card className="mb-8">
@@ -102,20 +127,23 @@ function Admin() {
         </CardHeader>
         <CardContent className="space-y-3">
           {robots.data?.map((r) => (
-            <div key={r.id} className="flex items-center justify-between border-b pb-2 last:border-0">
-              <div>
-                <div className="font-medium">{r.name}</div>
-                <div className="text-xs text-muted-foreground">{r.model} · {r.location}</div>
+            <div key={r.id} className="border-b pb-3 last:border-0">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium">{r.name}</div>
+                  <div className="text-xs text-muted-foreground">{r.model} · {r.location}</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Badge variant={r.status === "estopped" ? "destructive" : r.status === "available" ? "default" : "secondary"}>
+                    {r.status.replace(/_/g, " ")}
+                  </Badge>
+                  <label className="flex items-center gap-2 text-sm text-destructive">
+                    E-stop
+                    <Switch checked={r.estopped} onCheckedChange={(v) => estop.mutate({ robotId: r.id, estop: v })} />
+                  </label>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Badge variant={r.status === "estopped" ? "destructive" : r.status === "available" ? "default" : "secondary"}>
-                  {r.status.replace(/_/g, " ")}
-                </Badge>
-                <label className="flex items-center gap-2 text-sm text-destructive">
-                  E-stop
-                  <Switch checked={r.estopped} onCheckedChange={(v) => estop.mutate({ robotId: r.id, estop: v })} />
-                </label>
-              </div>
+              <TeleopUrlEditor robotId={r.id} initial={r.teleop_url ?? ""} onSaved={refetchRobots} />
             </div>
           ))}
           {robots.data?.length === 0 && <p className="text-muted-foreground">No robots yet — add one below.</p>}
@@ -127,8 +155,40 @@ function Admin() {
   );
 }
 
+function TeleopUrlEditor({ robotId, initial, onSaved }: { robotId: string; initial: string; onSaved: () => void }) {
+  const [url, setUrl] = useState(initial);
+  const err = teleopUrlError(url);
+  const save = useMutation({
+    mutationFn: () => adminSetTeleopUrl(robotId, url),
+    onSuccess: (res) => {
+      if (res && "ok" in res && !res.ok) return toast.error(res.error ?? "Failed to save URL");
+      toast.success("Headset URL saved.");
+      onSaved();
+    },
+    onError: (e) => toast.error(String(e)),
+  });
+  return (
+    <div className="mt-2 flex flex-wrap items-end gap-2">
+      <div className="flex-1 space-y-1" style={{ minWidth: 260 }}>
+        <Label className="text-xs text-muted-foreground">Headset URL (televuer/WebXR endpoint)</Label>
+        <Input
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="https://<host-ip>:8012/?ws=wss://<host-ip>:8012"
+          className="font-mono text-xs"
+          aria-invalid={!!err}
+        />
+        {err && <p className="text-xs text-destructive">{err}</p>}
+      </div>
+      <Button size="sm" variant="secondary" disabled={url === initial || !!err || save.isPending} onClick={() => save.mutate()}>
+        Save
+      </Button>
+    </div>
+  );
+}
+
 function AddRobot({ onAdded }: { onAdded: () => void }) {
-  const empty = { id: "", name: "", model: "Unitree G1 (G1_29, 29-DOF)", location: "" };
+  const empty = { id: "", name: "", model: "Unitree G1 (G1_29, 29-DOF)", location: "", teleopUrl: "" };
   const [form, setForm] = useState(empty);
   const add = useMutation({
     mutationFn: () => adminAddRobot(form),
@@ -141,6 +201,7 @@ function AddRobot({ onAdded }: { onAdded: () => void }) {
     onError: (e) => toast.error(String(e)),
   });
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [k]: e.target.value });
+  const urlErr = teleopUrlError(form.teleopUrl);
 
   return (
     <Card>
@@ -151,8 +212,12 @@ function AddRobot({ onAdded }: { onAdded: () => void }) {
           <Field label="Name"><Input value={form.name} onChange={set("name")} placeholder="G1 — Cell B" /></Field>
           <Field label="Model"><Input value={form.model} onChange={set("model")} /></Field>
           <Field label="Location"><Input value={form.location} onChange={set("location")} placeholder="Lab cell B (fenced)" /></Field>
+          <Field label="Headset URL (optional)">
+            <Input value={form.teleopUrl} onChange={set("teleopUrl")} placeholder="https://<host-ip>:8012/?ws=wss://<host-ip>:8012" aria-invalid={!!urlErr} />
+            {urlErr && <p className="text-xs text-destructive">{urlErr}</p>}
+          </Field>
         </div>
-        <Button className="mt-4" disabled={!form.id || !form.name || !form.location || add.isPending} onClick={() => add.mutate()}>
+        <Button className="mt-4" disabled={!form.id || !form.name || !form.location || !!urlErr || add.isPending} onClick={() => add.mutate()}>
           Add robot
         </Button>
       </CardContent>

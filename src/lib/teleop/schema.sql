@@ -20,8 +20,11 @@ create table if not exists robots (
   location    text not null,
   online      boolean not null default false,         -- set by the robot edge agent
   estopped    boolean not null default false,
-  current_session_id uuid                              -- the exclusive lock (null = free)
+  current_session_id uuid,                             -- the exclusive lock (null = free)
+  teleop_url  text                                     -- televuer/WebXR endpoint the operator opens on the headset
 );
+-- Idempotent add for existing databases created before teleop_url existed:
+alter table robots add column if not exists teleop_url text;
 
 create table if not exists access_grants (
   operator_id uuid references operators (id) on delete cascade,
@@ -131,6 +134,12 @@ alter table sessions      enable row level security;
 
 drop policy if exists op_self_read on operators;
 create policy op_self_read on operators for select using (id = auth.uid());
+
+-- Operators may read their own grants. REQUIRED: robots_granted_read's EXISTS subquery
+-- reads access_grants under the caller's JWT, so without this policy that subquery returns
+-- nothing (RLS-enabled, deny-by-default) and no robot is ever visible.
+drop policy if exists grants_self_read on access_grants;
+create policy grants_self_read on access_grants for select using (operator_id = auth.uid());
 
 drop policy if exists robots_granted_read on robots;
 create policy robots_granted_read on robots for select

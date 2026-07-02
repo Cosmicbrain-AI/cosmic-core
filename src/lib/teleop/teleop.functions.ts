@@ -18,15 +18,23 @@ export const getMyDashboard = createServerFn({ method: "POST" })
     const { uc, userId } = await requireOperator(data.accessToken);
     const [me, robots, active] = await Promise.all([
       uc.from("operators").select("id,email,role,approved").eq("id", userId).single(),
-      uc.from("robots").select("id,name,model,location,online,estopped,current_session_id"), // RLS -> granted only
+      uc.from("robots").select("id,name,model,location,online,estopped,current_session_id,teleop_url"), // RLS -> granted only
       uc.from("sessions").select("id,robot_id,started_at").eq("operator_id", userId).eq("state", "active").maybeSingle(),
     ]);
+    const robotById = new Map((robots.data ?? []).map((r) => [r.id, r]));
     return {
       me: me.data,
       robots: (robots.data ?? []).map((r) => ({
-        id: r.id, name: r.name, model: r.model, location: r.location, status: robotStatus(r),
+        id: r.id, name: r.name, model: r.model, location: r.location, status: robotStatus(r), teleopUrl: r.teleop_url ?? null,
       })),
-      activeSession: active.data ? { id: active.data.id, robotId: active.data.robot_id, startedAt: active.data.started_at } : null,
+      activeSession: active.data
+        ? {
+            id: active.data.id,
+            robotId: active.data.robot_id,
+            startedAt: active.data.started_at,
+            teleopUrl: robotById.get(active.data.robot_id)?.teleop_url ?? null,
+          }
+        : null,
     };
   });
 
@@ -78,7 +86,7 @@ export const adminListRobots = createServerFn({ method: "POST" })
   .inputValidator(auth)
   .handler(async ({ data }) => {
     const { svc } = await requireAdmin(data.accessToken);
-    const { data: rows } = await svc.from("robots").select("id,name,model,location,online,estopped,current_session_id");
+    const { data: rows } = await svc.from("robots").select("id,name,model,location,online,estopped,current_session_id,teleop_url");
     return (rows ?? []).map((r) => ({ ...r, status: robotStatus(r) }));
   });
 
@@ -86,10 +94,23 @@ export const adminAddRobot = createServerFn({ method: "POST" })
   .inputValidator(auth.extend({
     id: z.string().min(1), name: z.string().min(1),
     model: z.string().min(1).default("Unitree G1 (G1_29, 29-DOF)"), location: z.string().min(1),
+    teleopUrl: z.string().optional(),
   }))
   .handler(async ({ data }) => {
     const { svc } = await requireAdmin(data.accessToken);
-    const { error } = await svc.from("robots").insert({ id: data.id, name: data.name, model: data.model, location: data.location });
+    const { error } = await svc.from("robots").insert({
+      id: data.id, name: data.name, model: data.model, location: data.location,
+      teleop_url: data.teleopUrl?.trim() || null,
+    });
+    return { ok: !error, error: error?.message };
+  });
+
+// Set/clear the headset connect URL for a robot (the televuer/WebXR endpoint operators open).
+export const adminSetTeleopUrl = createServerFn({ method: "POST" })
+  .inputValidator(auth.extend({ robotId: z.string().min(1), teleopUrl: z.string() }))
+  .handler(async ({ data }) => {
+    const { svc } = await requireAdmin(data.accessToken);
+    const { error } = await svc.from("robots").update({ teleop_url: data.teleopUrl.trim() || null }).eq("id", data.robotId);
     return { ok: !error, error: error?.message };
   });
 
