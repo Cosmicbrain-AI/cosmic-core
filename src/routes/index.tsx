@@ -9,10 +9,19 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - telemetry, learning, and reliable field deployment.",
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
       },
       { property: "og:title", content: "CosmicBrain" },
-      { property: "og:description", content: "Data & deployment stack for humanoids." },
+      {
+        property: "og:description",
+        content:
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+      },
     ],
   }),
   component: Home,
