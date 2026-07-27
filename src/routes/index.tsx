@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
-import { HumanoidPanel } from "@/components/HumanoidPanel";
 import { ContactDialog } from "@/components/ContactDialog";
 
 export const Route = createFileRoute("/")({
@@ -111,50 +110,74 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative mx-auto max-w-[1400px] px-6 pt-36 pb-20 md:px-12 md:pt-44 md:pb-32">
-      {/* status row */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2 rounded-full border border-border-strong bg-card/60 px-3 py-1 backdrop-blur">
-          <span className="pulse-dot" />
-          <span className="font-mono text-[11px] tracking-widest text-muted-foreground">
-            FLEET ONLINE · 142 UNITS · 9 SITES
-          </span>
-        </div>
-        <span className="font-mono text-[11px] tracking-widest text-muted-foreground">
-          CB-OS · v2.7.1
-        </span>
+    <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-black">
+      {/* Fullscreen golden-hand still with slow Ken Burns zoom + light sweep. */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black">
+        <img
+          src="/media/HERO-robot-hand.png"
+          alt=""
+          className="hero-media h-full w-full object-cover"
+          style={{ objectPosition: "62% 50%" }}
+        />
+        <div className="hero-sweep absolute inset-0" />
+        {/* cinematic black scrims for legibility */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.62) 38%, rgba(0,0,0,0.15) 68%, transparent 88%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/80 to-transparent" />
       </div>
 
-      <div className="mt-12 grid items-center gap-12 md:grid-cols-[1.15fr_0.85fr]">
-        <div>
-          <h1 className="font-display text-[12vw] leading-[0.9] tracking-[-0.02em] md:text-[7.5rem]">
-            The brain<br />
-            <span className="italic text-muted-foreground">behind the</span><br />
-            <span className="text-primary">humanoid.</span>
-          </h1>
-          <p className="mt-10 max-w-lg text-lg leading-relaxed text-muted-foreground md:text-xl">
-            CosmicBrain powers the <span className="text-foreground">data and deployment stack</span> behind
-            humanoids - from first capture to live operation in the field.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground glow-primary transition hover:translate-y-[-1px]"
-            >
-              Request access
-              <span aria-hidden className="transition group-hover:translate-x-1">→</span>
-            </a>
-            <a
-              href="#stack"
-              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-card/40 px-6 py-3 text-sm backdrop-blur hover:border-primary/60"
-            >
-              See the stack
-            </a>
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-28 pb-24 md:px-12">
+        {/* status row */}
+        <div className="animate-fade-rise flex flex-wrap items-center gap-3">
+          <div className="liquid-glass flex items-center gap-2 rounded-full px-3 py-1">
+            <span className="pulse-dot" />
+            <span className="font-mono text-[11px] tracking-widest text-white/70">
+              FLEET ONLINE · 142 UNITS · 9 SITES
+            </span>
           </div>
+          <span className="font-mono text-[11px] tracking-widest text-white/50">
+            CB-OS · v2.7.1
+          </span>
         </div>
 
-        <HumanoidPanel />
+        <h1
+          className="animate-fade-rise-delay mt-10 text-[15vw] font-normal leading-[0.9] tracking-[-0.03em] text-white md:text-[9rem]"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          The brain<br />
+          <em className="text-white/45">behind the</em><br />
+          <span className="text-primary">humanoid.</span>
+        </h1>
+        <p className="animate-fade-rise-delay-2 mt-8 max-w-lg text-lg leading-relaxed text-white/70 md:text-xl">
+          CosmicBrain powers the <span className="text-white">data and deployment stack</span> behind
+          humanoids - from first capture to live operation in the field.
+        </p>
+
+        <div className="animate-fade-rise-delay-3 mt-10 flex flex-wrap items-center gap-4">
+          <a
+            href="#contact"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground glow-primary transition hover:scale-[1.03]"
+          >
+            Request access
+            <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="#stack"
+            className="liquid-glass inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm text-white transition hover:scale-[1.03]"
+          >
+            See the stack
+          </a>
+        </div>
+      </div>
+
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-mono text-[10px] tracking-widest text-white/40">
+        SCROLL ↓
       </div>
     </section>
   );

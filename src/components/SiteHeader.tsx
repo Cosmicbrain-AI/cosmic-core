@@ -1,21 +1,16 @@
 import { Link } from "@tanstack/react-router";
 
 export function SiteHeader() {
-  // Landing-page anchor links (hash) vs real route links, split so the router's
-  // typed <Link> only ever receives valid routes (and tsc stays clean).
-  const hashLinks = [
-    ["01", "Meet", "/#meet"],
-    ["02", "Stack", "/#stack"],
-    ["03", "Primitives", "/#primitives"],
-    ["04", "Platform", "/#platform"],
-  ] as const;
   const routeLinks = [
-    ["05", "Sales", "/sales"],
-    ["06", "Live Teleop", "/app"],
+    ["01", "Catalog", "/catalog"],
+    ["02", "Brands", "/brands"],
+    ["03", "Solutions", "/solutions"],
+    ["04", "Sales", "/sales"],
+    ["05", "Live Teleop", "/app"],
   ] as const;
 
   const cls =
-    "group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-foreground/80 hover:text-foreground";
+    "group flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm text-foreground/80 hover:text-foreground";
   const content = (n: string, label: string) => (
     <>
       <span className="font-mono text-[10px] text-muted-foreground group-hover:text-primary">{n}</span>
@@ -31,11 +26,6 @@ export function SiteHeader() {
           <span className="font-mono text-sm font-semibold tracking-tight">cosmicbrain</span>
         </Link>
         <nav className="hidden md:flex items-center">
-          {hashLinks.map(([n, label, href]) => (
-            <a key={href} href={href} className={cls}>
-              {content(n, label)}
-            </a>
-          ))}
           {routeLinks.map(([n, label, href]) => (
             <Link key={href} to={href} className={cls}>
               {content(n, label)}

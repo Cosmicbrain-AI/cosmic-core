@@ -11,10 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
+import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
+import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
+import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
 
 const SalesRoute = SalesRouteImport.update({
   id: '/sales',
@@ -24,6 +29,11 @@ const SalesRoute = SalesRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsRoute = BrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -41,9 +51,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
+  id: '/solutions/',
+  path: '/solutions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogIndexRoute = CatalogIndexRouteImport.update({
+  id: '/catalog/',
+  path: '/catalog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
+  id: '/solutions/$slug',
+  path: '/solutions/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapXmlRoute = SitemapXmlRouteImport.update({
   id: '/sitemap/xml',
   path: '/sitemap/xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogSlugRoute = CatalogSlugRouteImport.update({
+  id: '/catalog/$slug',
+  path: '/catalog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -51,43 +81,96 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
+  '/brands': typeof BrandsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/catalog/$slug': typeof CatalogSlugRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/catalog/': typeof CatalogIndexRoute
+  '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
+  '/brands': typeof BrandsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/catalog/$slug': typeof CatalogSlugRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/catalog': typeof CatalogIndexRoute
+  '/solutions': typeof SolutionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
+  '/brands': typeof BrandsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/catalog/$slug': typeof CatalogSlugRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/catalog/': typeof CatalogIndexRoute
+  '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/app' | '/login' | '/sales' | '/sitemap/xml'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/app'
+    | '/brands'
+    | '/login'
+    | '/sales'
+    | '/catalog/$slug'
+    | '/sitemap/xml'
+    | '/solutions/$slug'
+    | '/catalog/'
+    | '/solutions/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/app' | '/login' | '/sales' | '/sitemap/xml'
+  to:
+    | '/'
+    | '/admin'
+    | '/app'
+    | '/brands'
+    | '/login'
+    | '/sales'
+    | '/catalog/$slug'
+    | '/sitemap/xml'
+    | '/solutions/$slug'
+    | '/catalog'
+    | '/solutions'
   id:
-    '__root__' | '/' | '/admin' | '/app' | '/login' | '/sales' | '/sitemap/xml'
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/app'
+    | '/brands'
+    | '/login'
+    | '/sales'
+    | '/catalog/$slug'
+    | '/sitemap/xml'
+    | '/solutions/$slug'
+    | '/catalog/'
+    | '/solutions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   AppRoute: typeof AppRoute
+  BrandsRoute: typeof BrandsRoute
   LoginRoute: typeof LoginRoute
   SalesRoute: typeof SalesRoute
+  CatalogSlugRoute: typeof CatalogSlugRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
+  SolutionsSlugRoute: typeof SolutionsSlugRoute
+  CatalogIndexRoute: typeof CatalogIndexRoute
+  SolutionsIndexRoute: typeof SolutionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -104,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands': {
+      id: '/brands'
+      path: '/brands'
+      fullPath: '/brands'
+      preLoaderRoute: typeof BrandsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app': {
@@ -127,11 +217,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/solutions/': {
+      id: '/solutions/'
+      path: '/solutions'
+      fullPath: '/solutions/'
+      preLoaderRoute: typeof SolutionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog/': {
+      id: '/catalog/'
+      path: '/catalog'
+      fullPath: '/catalog/'
+      preLoaderRoute: typeof CatalogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/$slug': {
+      id: '/solutions/$slug'
+      path: '/solutions/$slug'
+      fullPath: '/solutions/$slug'
+      preLoaderRoute: typeof SolutionsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap/xml': {
       id: '/sitemap/xml'
       path: '/sitemap/xml'
       fullPath: '/sitemap/xml'
       preLoaderRoute: typeof SitemapXmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog/$slug': {
+      id: '/catalog/$slug'
+      path: '/catalog/$slug'
+      fullPath: '/catalog/$slug'
+      preLoaderRoute: typeof CatalogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -141,9 +259,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   AppRoute: AppRoute,
+  BrandsRoute: BrandsRoute,
   LoginRoute: LoginRoute,
   SalesRoute: SalesRoute,
+  CatalogSlugRoute: CatalogSlugRoute,
   SitemapXmlRoute: SitemapXmlRoute,
+  SolutionsSlugRoute: SolutionsSlugRoute,
+  CatalogIndexRoute: CatalogIndexRoute,
+  SolutionsIndexRoute: SolutionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

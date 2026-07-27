@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { robots } from "@/data/catalog";
+import { solutions } from "@/data/solutions";
+
 const BASE_URL = "https://www.cosmicbrain.ai";
 
 interface SitemapEntry {
@@ -16,6 +19,19 @@ export const Route = createFileRoute("/sitemap/xml")({
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/sales", changefreq: "weekly", priority: "0.9" },
+          { path: "/catalog", changefreq: "weekly", priority: "0.8" },
+          { path: "/brands", changefreq: "weekly", priority: "0.7" },
+          { path: "/solutions", changefreq: "weekly", priority: "0.8" },
+          ...solutions.map((s) => ({
+            path: `/solutions/${s.slug}`,
+            changefreq: "weekly" as const,
+            priority: "0.7",
+          })),
+          ...robots.map((r) => ({
+            path: `/catalog/${r.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.5",
+          })),
         ];
 
         const urls = entries.map((e) =>
