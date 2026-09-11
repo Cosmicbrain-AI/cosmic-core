@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { ArrowUpRight, Search, RotateCcw } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PageHero, FilterPill, SiteFooterCTA } from "@/components/explore/shared";
 import { brands, type Brand } from "@/data/catalog";
@@ -7,14 +8,14 @@ import { brands, type Brand } from "@/data/catalog";
 export const Route = createFileRoute("/brands")({
   head: () => ({
     meta: [
-      { title: "Brands - CosmicBrain · The companies building humanoids" },
+      { title: "Meet the makers · CosmicBrain" },
       {
         name: "description",
         content:
-          "The manufacturers behind the humanoid era — headquarters, founding year, shipping status, and flagship platforms, tracked by CosmicBrain.",
+          "Get to know the companies building robots. Explore manufacturers, their stories, and the platforms they are bringing into the world.",
       },
-      { rel: "canonical", href: "https://www.cosmicbrain.ai/brands" },
     ],
+    links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/brands" }],
   }),
   component: BrandsPage,
 });
@@ -28,134 +29,149 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 function BrandCard({ brand }: { brand: Brand }) {
+  const [failed, setFailed] = useState(false);
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border-strong/60 bg-card/60 p-6 transition-colors hover:border-primary/50">
-      <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-border/60 bg-background">
-          {brand.logo ? (
-            <img
-              src={brand.logo}
-              alt={brand.name}
-              loading="lazy"
-              className="h-8 w-8 object-contain"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
+    <article className="explore-brand">
+      <div className="explore-brand-head">
+        <div className="explore-brand-logo">
+          {brand.logo && !failed ? (
+            <img src={brand.logo} alt="" loading="lazy" onError={() => setFailed(true)} />
           ) : (
-            <span className="font-mono text-xs text-muted-foreground">{brand.name[0]}</span>
+            <span aria-hidden="true">{brand.name[0]}</span>
           )}
         </div>
-        <div className="min-w-0">
-          <div className="truncate text-lg font-medium tracking-tight">{brand.name}</div>
-          <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            {[brand.country, brand.founded && `est. ${brand.founded}`]
+        <div>
+          <h2>{brand.name}</h2>
+          <span className="explore-note-label">
+            {[brand.country, brand.founded && `Est. ${brand.founded}`]
               .filter(Boolean)
-              .join(" · ")}
-          </div>
+              .join(" · ") || "Robotics maker"}
+          </span>
         </div>
       </div>
-      <p className="line-clamp-3 text-sm text-foreground/65">{brand.description}</p>
-      <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-border/60 pt-4">
+      <p>{brand.description}</p>
+      <div className="explore-brand-bottom">
         {brand.status && (
-          <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-primary">
-            {STATUS_LABEL[brand.status] ?? brand.status}
-          </span>
+          <span className="explore-brand-status">{STATUS_LABEL[brand.status] ?? brand.status}</span>
         )}
-        {brand.sector && (
-          <span className="rounded-full border border-border-strong px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-foreground/60">
-            {brand.sector}
-          </span>
-        )}
+        {brand.sector && <span className="explore-note-label">{brand.sector}</span>}
         {brand.robotCount != null && brand.robotCount > 0 && (
-          <span className="ml-auto font-mono text-[11px] text-muted-foreground">
+          <span className="explore-note-label">
             {brand.robotCount} platform{brand.robotCount === 1 ? "" : "s"}
           </span>
         )}
+        {brand.website && (
+          <a
+            href={brand.website}
+            target="_blank"
+            rel="noreferrer"
+            className="explore-text-link"
+            aria-label={`Visit ${brand.name} website`}
+          >
+            Meet the maker <ArrowUpRight size={15} />
+          </a>
+        )}
       </div>
       {brand.topProducts.length > 0 && (
-        <div className="font-mono text-[11px] text-muted-foreground">
-          {brand.topProducts.join(" · ")}
-        </div>
+        <span className="explore-brand-products">
+          In their workshop: {brand.topProducts.join(" · ")}
+        </span>
       )}
-      {brand.website && (
-        <a
-          href={brand.website}
-          target="_blank"
-          rel="noreferrer"
-          className="font-mono text-xs text-foreground/70 hover:text-primary"
-        >
-          Visit site ↗
-        </a>
-      )}
-    </div>
+    </article>
   );
 }
 
 function BrandsPage() {
   const [query, setQuery] = useState("");
   const [sector, setSector] = useState<string | null>(null);
-
   const sectors = useMemo(
     () => [...new Set(brands.map((b) => b.sector).filter((s): s is string => !!s))].sort(),
     [],
   );
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return brands.filter((b) => {
-      if (sector && b.sector !== sector) return false;
-      if (!q) return true;
-      return (
-        b.name.toLowerCase().includes(q) || (b.country ?? "").toLowerCase().includes(q)
-      );
-    });
+    return brands.filter(
+      (b) =>
+        (!sector || b.sector === sector) &&
+        (!q || b.name.toLowerCase().includes(q) || (b.country ?? "").toLowerCase().includes(q)),
+    );
   }, [query, sector]);
-
+  const reset = () => {
+    setQuery("");
+    setSector(null);
+  };
   return (
-    <main className="relative min-h-screen">
+    <main className="explore-page">
       <SiteHeader />
       <PageHero
-        kicker="CB · Brands / Manufacturers"
-        title="The companies building"
-        accent="the humanoid era."
-        sub={`${brands.length} manufacturers tracked — from research labs to shipping fleets. CosmicBrain is the deployment layer across all of them.`}
+        kicker="Field guide / 03 / The makers"
+        title="Behind every robot,"
+        accent="a team of people."
+        sub={`Meet ${brands.length} manufacturers asking big questions and building the hardware to answer them. A directory of the people moving robotics forward.`}
+        sketch="orbit"
+        note="Many minds. A shared sense of wonder."
       />
-      <section className="px-6 pb-24 md:px-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-8 flex flex-col gap-4">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search brands or countries…"
-              className="w-full max-w-md rounded-full border border-border-strong bg-card/60 px-5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
-            />
-            <div className="flex flex-wrap gap-2">
-              <FilterPill active={sector === null} onClick={() => setSector(null)}>
-                All sectors
-              </FilterPill>
-              {sectors.map((s) => (
-                <FilterPill
-                  key={s}
-                  active={sector === s}
-                  onClick={() => setSector(sector === s ? null : s)}
-                >
-                  {s}
+      <section className="explore-content">
+        <div className="explore-wrap">
+          <div className="explore-toolbar">
+            <div className="explore-toolbar-top">
+              <h2>Good company to keep.</h2>
+              <label className="explore-search">
+                <span className="sr-only">Search brands or countries</span>
+                <Search size={16} aria-hidden="true" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Find a maker or a place…"
+                />
+              </label>
+            </div>
+            <div className="explore-filter-row">
+              <span className="explore-filter-label">Their focus</span>
+              <div className="explore-filter-options">
+                <FilterPill active={sector === null} onClick={() => setSector(null)}>
+                  All sectors
                 </FilterPill>
-              ))}
-              <span className="ml-2 self-center font-mono text-xs text-muted-foreground">
-                {filtered.length} / {brands.length} shown
-              </span>
+                {sectors.map((s) => (
+                  <FilterPill
+                    key={s}
+                    active={sector === s}
+                    onClick={() => setSector(sector === s ? null : s)}
+                  >
+                    {s}
+                  </FilterPill>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="explore-results-bar">
+            <span aria-live="polite">
+              {filtered.length} of {brands.length} makers
+            </span>
+            {(query || sector) && (
+              <button type="button" onClick={reset} className="explore-reset">
+                <RotateCcw size={12} />
+                Clear filters
+              </button>
+            )}
+          </div>
+          <div className="explore-brand-grid">
             {filtered.map((b) => (
               <BrandCard key={b.slug} brand={b} />
             ))}
           </div>
+          {filtered.length === 0 && (
+            <div className="explore-empty">
+              <h3>A fresh page?</h3>
+              <p>We couldn’t find a maker with those filters. Try another name or country.</p>
+              <button type="button" onClick={reset} className="explore-primary-link">
+                Show all makers <RotateCcw size={14} />
+              </button>
+            </div>
+          )}
         </div>
       </section>
-      <SiteFooterCTA context="these manufacturers' platforms" />
+      <SiteFooterCTA context="one of these platforms" />
     </main>
   );
 }

@@ -1,14 +1,22 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { Bot, Headset, ShieldCheck } from "lucide-react";
+import "@/components/workspace.css";
+import { CosmicMark } from "@/components/SiteHeader";
 
 import { RequireAuth, SignOutButton } from "@/lib/auth";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { fetchDashboard, launch, stop as stopSessionCall, sendHeartbeat } from "@/lib/teleop/client";
+import {
+  fetchDashboard,
+  launch,
+  stop as stopSessionCall,
+  sendHeartbeat,
+} from "@/lib/teleop/client";
 
 export const Route = createFileRoute("/app")({
   head: () => ({ meta: [{ title: "Teleop — CosmicBrain" }] }),
@@ -46,6 +54,8 @@ function OperatorApp() {
       else toast.error(`Can't launch: ${res.reason.replace(/-/g, " ")}`);
       invalidate();
     },
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "The request failed. Please try again."),
   });
 
   const stop = useMutation({
@@ -54,6 +64,8 @@ function OperatorApp() {
       toast.message("Session ended. Robot released.");
       invalidate();
     },
+    onError: (error) =>
+      toast.error(error instanceof Error ? error.message : "The request failed. Please try again."),
   });
 
   const active = dash.data?.activeSession ?? null;
@@ -68,18 +80,26 @@ function OperatorApp() {
     return () => clearInterval(t);
   }, [active?.id]);
 
-  if (dash.isLoading) return <Shell><p className="text-muted-foreground">Loading…</p></Shell>;
+  if (dash.isLoading)
+    return (
+      <Shell>
+        <p className="cb-workspace-notice" role="status">
+          Getting your workspace ready…
+        </p>
+      </Shell>
+    );
 
   const me = dash.data?.me;
   if (me && !me.approved) {
     return (
       <Shell>
-        <Card>
+        <Card className="cb-workspace-card">
           <CardHeader>
-            <CardTitle>Account pending approval</CardTitle>
+            <ShieldCheck className="mb-3 text-signal" size={30} strokeWidth={1.4} />
+            <CardTitle className="cb-workspace-title">You’re on the list.</CardTitle>
             <CardDescription>
-              Your account exists but hasn't been granted operator access yet. CosmicBrain
-              curates who can drive robots — you'll get access once approved.
+              Your account is pending approval. An admin will grant operator access and assign your
+              robots before you can start a session.
             </CardDescription>
           </CardHeader>
         </Card>
@@ -89,10 +109,25 @@ function OperatorApp() {
 
   return (
     <Shell>
+      {dash.isError && (
+        <div className="cb-workspace-notice cb-workspace-error" role="alert">
+          We couldn’t refresh your workspace.{" "}
+          <button
+            type="button"
+            className="underline underline-offset-4"
+            onClick={() => dash.refetch()}
+          >
+            Try again
+          </button>
+        </div>
+      )}
       {active && (
-        <Card className="mb-6 border-primary">
+        <Card className="cb-workspace-card cb-workspace-live mb-6">
           <CardHeader>
-            <CardTitle>Live session</CardTitle>
+            <span className="cb-workspace-status">
+              <Headset size={16} /> Live session
+            </span>
+            <CardTitle className="cb-workspace-title">You’re in the loop.</CardTitle>
             <CardDescription>
               You hold exclusive control of <b>{active.robotId}</b>. Put on your headset to drive.
             </CardDescription>
@@ -102,8 +137,12 @@ function OperatorApp() {
                 LAN/edge, not through this browser. This gate just grants the exclusive lock and
                 hands the operator the WebXR URL to open on the headset. */}
             <HeadsetHandoff url={active.teleopUrl} />
-            <Button variant="destructive" onClick={() => stop.mutate(active.id)} disabled={stop.isPending}>
-              Stop session
+            <Button
+              variant="destructive"
+              onClick={() => stop.mutate(active.id)}
+              disabled={stop.isPending}
+            >
+              {stop.isPending ? "Stopping session…" : "Stop session"}
             </Button>
           </CardContent>
         </Card>
@@ -114,13 +153,18 @@ function OperatorApp() {
           const status = r.status as Status;
           const canLaunch = status === "available" && !active && !launchMut.isPending;
           return (
-            <Card key={r.id}>
+            <Card key={r.id} className="cb-workspace-card">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{r.name}</CardTitle>
+                  <div className="cb-workspace-robot-id">
+                    <Bot size={23} strokeWidth={1.4} />
+                    <CardTitle className="cb-workspace-robot-title">{r.name}</CardTitle>
+                  </div>
                   <Badge variant={statusVariant[status]}>{status.replace(/_/g, " ")}</Badge>
                 </div>
-                <CardDescription>{r.model} · {r.location}</CardDescription>
+                <CardDescription>
+                  {r.model} · {r.location}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button
@@ -128,14 +172,20 @@ function OperatorApp() {
                   disabled={!canLaunch}
                   onClick={() => launchMut.mutate(r.id)}
                 >
-                  {status === "in_session" ? "In use" : "Launch teleop"}
+                  {launchMut.isPending && launchMut.variables === r.id
+                    ? "Starting session…"
+                    : status === "in_session"
+                      ? "In use"
+                      : "Launch teleop"}
                 </Button>
               </CardContent>
             </Card>
           );
         })}
         {dash.data?.robots.length === 0 && (
-          <p className="text-muted-foreground">No robots assigned to you yet.</p>
+          <p className="cb-workspace-notice sm:col-span-2">
+            Your workbench is ready. An admin can assign a robot to help you get started.
+          </p>
         )}
       </div>
     </Shell>
@@ -165,15 +215,19 @@ function HeadsetHandoff({ url }: { url: string | null }) {
         <div className="mt-1 break-all font-mono text-sm text-primary">{url}</div>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Button size="sm" variant="secondary" onClick={copy}>Copy URL</Button>
+        <Button size="sm" variant="secondary" onClick={copy}>
+          Copy URL
+        </Button>
         <Button size="sm" variant="outline" asChild>
-          <a href={url} target="_blank" rel="noreferrer">Open in this browser</a>
+          <a href={url} target="_blank" rel="noreferrer">
+            Open in this browser
+          </a>
         </Button>
       </div>
       <p className="text-xs text-muted-foreground">
         Video and hand/controller pose stream directly between your headset and the robot. Your
-        device must be able to reach the robot's network (LAN or VPN). This page holds your exclusive
-        lock — keep it open; closing it releases the robot.
+        device must be able to reach the robot's network (LAN or VPN). This page holds your
+        exclusive lock — keep it open; closing it releases the robot.
       </p>
     </div>
   );
@@ -181,13 +235,28 @@ function HeadsetHandoff({ url }: { url: string | null }) {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
-      <div className="mb-1 flex items-start justify-between gap-4">
-        <h1 className="text-2xl font-semibold">Teleoperation</h1>
-        <SignOutButton />
+    <main className="cb-workspace">
+      <div className="cb-workspace-topbar">
+        <Link to="/" className="cb-workspace-brand">
+          <CosmicMark className="h-6 w-6" /> cosmicbrain.
+        </Link>
+        <span>Operator workspace</span>
       </div>
-      <p className="mb-8 text-sm text-muted-foreground">Drive a CosmicBrain robot from anywhere.</p>
-      {children}
-    </div>
+      <div className="cb-workspace-inner">
+        <p className="cb-eyebrow">People + robots, working together</p>
+        <div className="cb-workspace-heading">
+          <h1>Your robot workbench.</h1>
+          <SignOutButton />
+        </div>
+        <p className="cb-workspace-description">
+          Your assigned robots, their availability, and your teleoperation session — all in one
+          place.
+        </p>
+        {children}
+        <p className="cb-workspace-footer">
+          CosmicBrain / Teleoperation · Built around the human in the loop.
+        </p>
+      </div>
+    </main>
   );
 }

@@ -12,7 +12,7 @@ interface SitemapEntry {
   priority?: string;
 }
 
-export const Route = createFileRoute("/sitemap/xml")({
+export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/sitemap/xml")({
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/sales", changefreq: "weekly", priority: "0.9" },
           { path: "/catalog", changefreq: "weekly", priority: "0.8" },
+          { path: "/docs", changefreq: "monthly", priority: "0.7" },
           { path: "/brands", changefreq: "weekly", priority: "0.7" },
           { path: "/solutions", changefreq: "weekly", priority: "0.8" },
           ...solutions.map((s) => ({

@@ -1,44 +1,97 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import "./CompanyLogo.css";
 
-export function SiteHeader() {
-  const routeLinks = [
-    ["01", "Catalog", "/catalog"],
-    ["02", "Brands", "/brands"],
-    ["03", "Solutions", "/solutions"],
-    ["04", "Sales", "/sales"],
-    ["05", "Live Teleop", "/app"],
-  ] as const;
-
-  const cls =
-    "group flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm text-foreground/80 hover:text-foreground";
-  const content = (n: string, label: string) => (
-    <>
-      <span className="font-mono text-[10px] text-muted-foreground group-hover:text-primary">{n}</span>
-      <span>{label}</span>
-    </>
-  );
-
+export function CosmicMark({ className = "" }: { className?: string }) {
   return (
-    <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
-      <div className="flex items-center gap-1 rounded-full border border-border-strong bg-card/90 px-2 py-1.5 shadow-sm backdrop-blur">
-        <Link to="/" className="flex items-center gap-2 rounded-full px-3 py-1.5">
-          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-primary" />
-          <span className="font-mono text-sm font-semibold tracking-tight">cosmicbrain</span>
+    <img
+      className={`company-logo ${className}`}
+      src="/brand/cosmicbrain-logo.png"
+      width="40"
+      height="40"
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+    />
+  );
+}
+const links = [
+  ["Our approach", "/#stack"],
+  ["The robots", "/catalog"],
+  ["Solutions", "/solutions"],
+  ["Technical report", "/docs"],
+  ["Live Teleop", "/app"],
+] as const;
+export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+  return (
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          menuRef.current?.focus();
+        }
+      }}
+    >
+      <div className="site-header-inner">
+        <Link to="/" className="wordmark" aria-label="CosmicBrain home">
+          <CosmicMark />
+          <span>
+            cosmicbrain<span className="wordmark-dot">.</span>
+          </span>
         </Link>
-        <nav className="hidden md:flex items-center">
-          {routeLinks.map(([n, label, href]) => (
-            <Link key={href} to={href} className={cls}>
-              {content(n, label)}
-            </Link>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {links.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className={href === "/app" ? "nav-teleop" : undefined}
+              aria-current={pathname === href ? "page" : undefined}
+            >
+              {label}
+            </a>
           ))}
         </nav>
-        <Link
-          to="/sales"
-          className="rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
-        >
-          Request access
-        </Link>
+        <div className="header-actions">
+          <Link to="/sales" className="button button-small">
+            Let’s talk <ArrowUpRight size={16} />
+          </Link>
+          <button
+            ref={menuRef}
+            className="menu-toggle"
+            type="button"
+            aria-label={open ? "Close navigation" : "Open navigation"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={23} /> : <Menu size={23} />}
+          </button>
+        </div>
       </div>
+      {open && (
+        <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">
+          {links.map(([label, href]) => (
+            <a key={href} href={href} onClick={() => setOpen(false)}>
+              {label}
+              <ArrowUpRight size={18} />
+            </a>
+          ))}
+          <Link to="/brands">
+            Meet the makers <ArrowUpRight size={18} />
+          </Link>
+          <Link to="/sales">
+            Start a conversation <ArrowUpRight size={18} />
+          </Link>
+        </nav>
+      )}
     </header>
   );
 }

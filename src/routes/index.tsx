@@ -1,690 +1,513 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUpRight,
+  MoveUpRight,
+  Play,
+  Plus,
+  Sparkles,
+} from "lucide-react";
+import { SiteHeader, CosmicMark } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { DeploymentRobot } from "@/components/DeploymentRobot";
+import { DeploymentGallery } from "@/components/DeploymentGallery";
+import { TeleopFeature } from "@/components/TeleopFeature";
 import { ContactDialog } from "@/components/ContactDialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import "@/components/home.css";
 
+const description =
+  "Robots learn from people. CosmicBrain brings human demonstrations, training data, teleoperation, and real-world robot deployment into one thoughtful loop.";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CosmicBrain - The data & deployment stack for humanoids" },
-      {
-        name: "description",
-        content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
-      },
-      { property: "og:title", content: "CosmicBrain" },
-      {
-        property: "og:description",
-        content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
-      },
-      {
-        name: "twitter:description",
-        content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
-      },
+      { title: "CosmicBrain · A human touch for a robotic world" },
+      { name: "description", content: description },
+      { property: "og:title", content: "CosmicBrain · A human touch for a robotic world" },
+      { property: "og:description", content: description },
+      { name: "twitter:title", content: "CosmicBrain · A human touch for a robotic world" },
+      { name: "twitter:description", content: description },
     ],
+    links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/" }],
   }),
   component: Home,
 });
 
-const telemetry = [
-  "TLM/sf-04",
-  "GRIP 0.82N",
-  "JNT-θ 28DOF",
-  "VEL 1.4 m/s",
-  "BAL ±0.3°",
-  "BAT 87%",
-  "LATENCY 12ms",
-  "PKT 1.2M/s",
-  "POLICY v2.7.1",
-  "GPS LOCK",
-  "EGO-VIEW ON",
-  "TASK Q:14",
-];
-
-const stack = [
+const stages = [
   {
-    code: "01 / Capture",
-    t: "Real-world data, captured in motion",
-    c: "Multi-modal capture from human operators and humanoid fleets - video, depth, IMU, tactile, audio - synchronized at the millisecond.",
+    name: "Capture",
+    subtitle: "It starts with you.",
+    body: "A hand reaching for a cup. A careful lift. The little adjustments we make without thinking. We capture human demonstrations and robot sensor data so those moments can become something a robot can learn from.",
+    equation: "D = { (sₜ, aₜ) }",
+    explanation: "A dataset of observations and actions, one moment at a time.",
+    labels: ["Human demonstration", "Synchronized signals", "A shared experience"],
+    icon: "01",
   },
   {
-    code: "02 / Refine",
-    t: "From raw signal to training-ready",
-    c: "Annotation, motion understanding, segmentation, and evaluation pipelines that turn hours of footage into policy-ready datasets.",
+    name: "Refine",
+    subtitle: "Give experience meaning.",
+    body: "Real life is wonderfully messy. We organize, annotate, and evaluate the raw signals, turning movements and interactions into task-specific datasets for robotics teams.",
+    equation: "θ* = arg min L(θ; D)",
+    explanation: "Learning looks for the parameters that reduce error on the data.",
+    labels: ["Raw observations", "Label + evaluate", "Training-ready data"],
+    icon: "02",
   },
   {
-    code: "03 / Deploy",
-    t: "Policies that ship to the field",
-    c: "Evaluation harnesses, OTA rollout, and live telemetry - close the loop from a deployed humanoid back into your dataset.",
+    name: "Deploy",
+    subtitle: "Bring learning into the world.",
+    body: "Connect hardware, policies, and human operators around a real task. Evaluate what works, learn from what doesn't, and bring those experiences back into the next round of training.",
+    equation: "aₜ = πθ(sₜ)",
+    explanation: "A policy maps what a robot observes to the action it takes.",
+    labels: ["Robot + policy", "Human supervision", "Experience feeds back"],
+    icon: "03",
   },
 ];
-
-const primitives = [
-  ["PX", "Pixel Understanding"],
-  ["DP", "Depth & Geometry"],
-  ["OT", "Object Tracking"],
-  ["SG", "Segmentation"],
-  ["TF", "Tactile Force"],
-  ["PR", "Proprioception"],
-  ["SM", "Speed & Motion"],
-  ["PC", "Point Cloud"],
-  ["GP", "Grasp Planning"],
-  ["LC", "Localization"],
-  ["LM", "Language Map"],
-  ["AF", "Affordance"],
-] as const;
-
 const faqs = [
-  {
-    q: "What does CosmicBrain do?",
-    a: "We are the data and deployment stack behind humanoids - capturing real-world signal, refining it into training-ready datasets, and shipping policies that work in the field.",
-  },
-  {
-    q: "Who is it built for?",
-    a: "Humanoid OEMs, frontier model labs, and enterprises piloting embodied systems. Anyone who needs task-specific real-world data, evaluation harnesses, and a path from lab to deployment.",
-  },
-  {
-    q: "Do you build the humanoids?",
-    a: "No - we sit between the hardware, the models, and the operator. CosmicBrain is the integration and data layer that makes specialized humanoid deployments possible.",
-  },
-  {
-    q: "How can teams start?",
-    a: "Enterprise pilots, research access, and dataset partnerships. Reach out and we'll respond within a few days.",
-  },
+  [
+    "So, what does CosmicBrain actually do?",
+    "We build the data and deployment layer for humanoid robotics: capture real-world demonstrations and signals, refine them into useful training data, and connect hardware, policies, and human operators in the field.",
+  ],
+  [
+    "Do you build the robots, too?",
+    "We work with robot makers. Our focus is the software, data, integration, and human operations that help their hardware become useful in real settings. You can explore platforms and their source specifications in our robot catalog.",
+  ],
+  [
+    "Who do you work with?",
+    "Robotics teams collecting task-specific data, model builders learning from the physical world, and organizations exploring a supervised robot pilot. We start with the task and the people around it.",
+  ],
+  [
+    "Are the robots fully autonomous?",
+    "Autonomy depends on the hardware, task, and environment. Human operators provide supervision and teleoperation where needed. We agree on the operating limits and evaluate a workflow before expanding it.",
+  ],
+  [
+    "How do we get started?",
+    "Tell us about the task you're working on, the setting, and what a useful result would look like. We'll talk through hardware, data, supervision, and a practical next step together.",
+  ],
 ];
 
 function Home() {
+  const [reelOpen, setReelOpen] = useState(false);
+  const reelTriggerRef = useRef<HTMLButtonElement>(null);
   return (
-    <div id="top" className="relative isolate min-h-screen">
+    <div id="top" className="home-page">
       <SiteHeader />
-      <div className="relative z-10">
-        <Hero />
-        <Telemetry />
-        <Manifest />
-        <Stack />
-        <Primitives />
-        <Loop />
-        <Platform />
-        <Showreel />
-        <CTA />
-        <FAQ />
-        <Footer />
-      </div>
-    </div>
-  );
-}
-
-/* Hero */
-
-function Hero() {
-  return (
-    <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-black">
-      {/* Fullscreen golden-hand still with slow Ken Burns zoom + light sweep. */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black">
-        <img
-          src="/media/HERO-robot-hand.png"
-          alt=""
-          className="hero-media h-full w-full object-cover"
-          style={{ objectPosition: "62% 50%" }}
-        />
-        <div className="hero-sweep absolute inset-0" />
-        {/* cinematic black scrims for legibility */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.62) 38%, rgba(0,0,0,0.15) 68%, transparent 88%)",
-          }}
-        />
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/80 to-transparent" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-28 pb-24 md:px-12">
-        {/* status row */}
-        <div className="animate-fade-rise flex flex-wrap items-center gap-3">
-          <div className="liquid-glass flex items-center gap-2 rounded-full px-3 py-1">
-            <span className="pulse-dot" />
-            <span className="font-mono text-[11px] tracking-widest text-white/70">
-              FLEET ONLINE · 142 UNITS · 9 SITES
-            </span>
+      <main>
+        <section className="home-hero page-width">
+          <div className="hero-copy">
+            <div className="eyebrow hero-kicker">
+              <span className="little-star">✳</span> A human touch for a robotic world
+            </div>
+            <h1>
+              Big possibilities.
+              <br />
+              <em>Human beginnings.</em>
+            </h1>
+            <p>
+              Meet the robot we’re putting to work. Built around real human experience, thoughtful
+              engineering, and the familiar places where a helping hand makes a difference.
+            </p>
+            <div className="hero-buttons">
+              <Link to="/sales" className="button">
+                Let’s build together <ArrowUpRight size={17} />
+              </Link>
+              <button
+                ref={reelTriggerRef}
+                className="reel-trigger"
+                onClick={() => setReelOpen(true)}
+              >
+                <span>
+                  <Play size={12} fill="currentColor" />
+                </span>{" "}
+                Meet CosmicBrain
+              </button>
+            </div>
+            <div className="hero-note">
+              <span className="note-rule" />
+              <span>
+                Data. Teleoperation. Deployment.
+                <br />
+                The brain behind a helping hand.
+              </span>
+            </div>
           </div>
-          <span className="font-mono text-[11px] tracking-widest text-white/50">
-            CB-OS · v2.7.1
-          </span>
-        </div>
-
-        <h1
-          className="animate-fade-rise-delay mt-10 text-[15vw] font-normal leading-[0.9] tracking-[-0.03em] text-white md:text-[9rem]"
-          style={{ fontFamily: "'Instrument Serif', serif" }}
-        >
-          The brain<br />
-          <em className="text-white/45">behind the</em><br />
-          <span className="text-primary">humanoid.</span>
-        </h1>
-        <p className="animate-fade-rise-delay-2 mt-8 max-w-lg text-lg leading-relaxed text-white/70 md:text-xl">
-          CosmicBrain powers the <span className="text-white">data and deployment stack</span> behind
-          humanoids - from first capture to live operation in the field.
-        </p>
-
-        <div className="animate-fade-rise-delay-3 mt-10 flex flex-wrap items-center gap-4">
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground glow-primary transition hover:scale-[1.03]"
-          >
-            Request access
-            <span aria-hidden className="transition group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href="#stack"
-            className="liquid-glass inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm text-white transition hover:scale-[1.03]"
-          >
-            See the stack
-          </a>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-mono text-[10px] tracking-widest text-white/40">
-        SCROLL ↓
-      </div>
-    </section>
-  );
-}
-
-/* Live ticker */
-
-function Telemetry() {
-  const items = [...telemetry, ...telemetry];
-  return (
-    <div className="relative overflow-hidden border-y border-border bg-card/40">
-      <div className="ticker flex w-max items-center gap-12 py-3 font-mono text-xs text-muted-foreground">
-        {items.map((t, i) => (
-          <span key={i} className="flex items-center gap-3">
-            <span className="h-1 w-1 rounded-full bg-primary" />
-            {t}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* Manifest */
-
-function Manifest() {
-  return (
-    <section id="meet" className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="01" title="Manifest" />
-      <h2 className="mt-10 max-w-4xl font-display text-4xl leading-[1.05] tracking-tight md:text-6xl">
-        Humanoids will be the largest GDP-expanding technology of our lifetimes.{" "}
-        <span className="text-muted-foreground">
-          But none of it ships without a real-world data and deployment layer underneath.
-        </span>{" "}
-        <span className="text-primary">That's what we build.</span>
-      </h2>
-    </section>
-  );
-}
-
-/* Stack */
-
-function Stack() {
-  return (
-    <section id="stack" className="relative mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="02" title="The Stack" meta="Capture · Refine · Deploy" />
-      <h2 className="mt-10 max-w-3xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-        Three layers. One loop.
-      </h2>
-
-      <div className="mt-16 space-y-px">
-        {stack.map((s, i) => (
-          <div
-            key={s.code}
-            className="group grid items-start gap-6 border-t border-border py-10 md:grid-cols-[140px_1fr_1fr] md:gap-10"
-          >
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-primary">{s.code}</span>
-            </div>
-            <h3 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">{s.t}</h3>
-            <p className="max-w-md text-muted-foreground md:pt-3">{s.c}</p>
-            <div className="md:col-span-3">
-              <div className="h-px w-0 bg-primary transition-all duration-700 group-hover:w-full" />
-            </div>
-            <span aria-hidden className="hidden text-7xl text-border-strong md:block md:col-start-3 md:justify-self-end">
-              0{i + 1}
-            </span>
+          <div className="hero-robot">
+            <DeploymentRobot />
           </div>
-        ))}
-        <div className="border-t border-border" />
-      </div>
-    </section>
-  );
-}
-
-/* Primitives */
-
-function Primitives() {
-  return (
-    <section id="primitives" className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="03" title="Signal Primitives" meta="CB-SIG modules" />
-      <div className="mt-10 grid items-end gap-10 md:grid-cols-[1.2fr_1fr]">
-        <h2 className="font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-          How a humanoid <em className="text-primary not-italic">feels</em> the world.
-        </h2>
-        <p className="max-w-md text-muted-foreground">
-          Every primitive is a way of measuring or acting on physical reality. Together they form the signal
-          vocabulary behind every CosmicBrain dataset.
-        </p>
-      </div>
-
-      <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {primitives.map(([code, name], i) => (
-          <div
-            key={code}
-            className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-card/40 p-4 transition hover:border-primary/60 hover:bg-card"
-          >
-            <div className="font-mono text-[10px] tracking-widest text-muted-foreground">
-              {String(i + 1).padStart(2, "0")} / {code}
-            </div>
-            <div className="absolute right-3 top-3 h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary" />
-
-            {/* primitive glyph */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <PrimitiveGlyph code={code} />
-            </div>
-
-            <div className="absolute bottom-4 left-4 right-4">
-              <div className="font-display text-lg leading-tight">{name}</div>
-            </div>
-            {/* corner ticks */}
-            <span className="absolute left-2 top-2 h-2 w-2 border-l border-t border-border-strong" />
-            <span className="absolute right-2 bottom-2 h-2 w-2 border-b border-r border-border-strong" />
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* Primitive Glyphs */
-
-function PrimitiveGlyph({ code }: { code: string }) {
-  const stroke = "currentColor";
-  const common = {
-    width: 64,
-    height: 64,
-    viewBox: "0 0 64 64",
-    fill: "none",
-    stroke,
-    strokeWidth: 1,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    className: "text-foreground/25 transition group-hover:text-primary/80",
-  };
-  switch (code) {
-    case "PX": // Pixel Understanding - pixel grid
-      return (
-        <svg {...common}>
-          {Array.from({ length: 5 }).map((_, r) =>
-            Array.from({ length: 5 }).map((_, c) => (
-              <rect key={`${r}-${c}`} x={12 + c * 8} y={12 + r * 8} width={6} height={6} opacity={((r + c) % 2 === 0 ? 0.9 : 0.35)} />
-            )),
-          )}
-        </svg>
-      );
-    case "DP": // Depth & Geometry - nested cubes
-      return (
-        <svg {...common}>
-          <path d="M16 22 L32 14 L48 22 L48 42 L32 50 L16 42 Z" />
-          <path d="M16 22 L32 30 L48 22" />
-          <path d="M32 30 L32 50" />
-          <path d="M24 26 L24 46 M40 26 L40 46" opacity={0.5} />
-        </svg>
-      );
-    case "OT": // Object Tracking - bounding box + trail
-      return (
-        <svg {...common}>
-          <rect x="22" y="22" width="20" height="20" />
-          <path d="M10 54 Q22 40 32 32 T54 14" strokeDasharray="2 3" />
-          <circle cx="32" cy="32" r="1.8" fill={stroke} />
-          <path d="M22 22 L18 18 M42 22 L46 18 M22 42 L18 46 M42 42 L46 46" />
-        </svg>
-      );
-    case "SG": // Segmentation - masked silhouette
-      return (
-        <svg {...common}>
-          <path d="M32 12 a8 8 0 1 1 0 16 a8 8 0 1 1 0 -16 Z" />
-          <path d="M20 52 Q20 34 32 34 Q44 34 44 52 Z" />
-          <path d="M16 16 L48 48 M48 16 L16 48" opacity={0.25} strokeDasharray="1 3" />
-        </svg>
-      );
-    case "TF": // Tactile Force - fingertip + force rings
-      return (
-        <svg {...common}>
-          <path d="M32 12 L32 36 a6 6 0 0 1 -12 0 L20 22" />
-          <path d="M32 36 a6 6 0 0 0 12 0 L44 22" />
-          <circle cx="32" cy="46" r="6" />
-          <circle cx="32" cy="46" r="10" opacity={0.5} />
-          <circle cx="32" cy="46" r="14" opacity={0.25} />
-        </svg>
-      );
-    case "PR": // Proprioception - articulated limb
-      return (
-        <svg {...common}>
-          <circle cx="14" cy="20" r="3" />
-          <circle cx="34" cy="32" r="3" />
-          <circle cx="50" cy="48" r="3" />
-          <path d="M14 20 L34 32 L50 48" />
-          <path d="M34 32 m-9 0 a9 9 0 0 1 9 -9" opacity={0.6} />
-        </svg>
-      );
-    case "SM": // Speed & Motion - vector arrows
-      return (
-        <svg {...common}>
-          <path d="M10 32 L46 32" />
-          <path d="M46 32 L40 26 M46 32 L40 38" />
-          <path d="M10 20 L34 20" opacity={0.6} />
-          <path d="M34 20 L29 16 M34 20 L29 24" opacity={0.6} />
-          <path d="M10 44 L40 44" opacity={0.4} />
-          <path d="M40 44 L35 40 M40 44 L35 48" opacity={0.4} />
-        </svg>
-      );
-    case "PC": // Point Cloud - scattered dots
-      return (
-        <svg {...common}>
-          {[
-            [16, 20], [22, 28], [28, 18], [34, 30], [40, 22], [46, 28],
-            [18, 36], [26, 42], [32, 38], [40, 44], [48, 38],
-            [22, 50], [32, 50], [42, 50],
-          ].map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r={1.3} fill={stroke} />
-          ))}
-          <path d="M12 14 L12 54 L54 54" opacity={0.4} />
-        </svg>
-      );
-    case "GP": // Grasp Planning - gripper around object
-      return (
-        <svg {...common}>
-          <circle cx="32" cy="34" r="8" />
-          <path d="M14 18 L22 26 L22 38 L18 42" />
-          <path d="M50 18 L42 26 L42 38 L46 42" />
-          <path d="M32 12 L32 22" strokeDasharray="2 2" />
-        </svg>
-      );
-    case "LC": // Localization - crosshair + map ticks
-      return (
-        <svg {...common}>
-          <circle cx="32" cy="32" r="12" />
-          <circle cx="32" cy="32" r="4" />
-          <path d="M32 8 L32 18 M32 46 L32 56 M8 32 L18 32 M46 32 L56 32" />
-          <circle cx="32" cy="32" r="1.5" fill={stroke} />
-        </svg>
-      );
-    case "LM": // Language Map - text lines on grid
-      return (
-        <svg {...common}>
-          <rect x="12" y="14" width="40" height="36" />
-          <path d="M18 24 L36 24 M18 30 L46 30 M18 36 L30 36 M18 42 L42 42" />
-          <circle cx="46" cy="42" r="2" fill={stroke} />
-        </svg>
-      );
-    case "AF": // Affordance - hand + action arc
-      return (
-        <svg {...common}>
-          <path d="M20 40 L20 28 a3 3 0 0 1 6 0 L26 22 a3 3 0 0 1 6 0 L32 20 a3 3 0 0 1 6 0 L38 24 a3 3 0 0 1 6 0 L44 40 a10 10 0 0 1 -20 0 Z" />
-          <path d="M14 18 Q26 8 38 14" opacity={0.6} />
-          <path d="M38 14 L36 10 M38 14 L34 16" opacity={0.6} />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
-
-/* Loop / Integrator */
-
-
-function Loop() {
-  return (
-    <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="04" title="The Integrator" meta="Hardware × Models × Operators" />
-      <h2 className="mt-10 max-w-3xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-        We sit between the makers, the minds, and the field.
-      </h2>
-
-      <div className="relative mt-20 grid gap-6 md:grid-cols-3">
-        {[
-          { k: "Hardware", c: "Humanoid OEMs, actuator vendors, sensor suites." },
-          { k: "Models", c: "Frontier labs, base policies, foundation models." },
-          { k: "Operators", c: "Pilot sites, warehouses, factories, homes." },
-        ].map((x, i) => (
-          <div key={x.k} className="glass relative rounded-2xl p-6">
-            <div className="flex items-center justify-between">
-              <span className="tech-label">Plug-in 0{i + 1}</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            </div>
-            <div className="mt-6 font-display text-3xl">{x.k}</div>
-            <p className="mt-3 text-sm text-muted-foreground">{x.c}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border-strong bg-border md:grid-cols-3">
-        {[
-          ["Last-mile data", "Human + humanoid, per-task"],
-          ["System integration", "Hardware + software glue"],
-          ["Evaluation", "Task-proven at scale"],
-        ].map(([t, s]) => (
-          <div key={t} className="bg-background p-8">
-            <div className="tech-label text-primary">CosmicBrain owns</div>
-            <div className="mt-4 font-display text-2xl tracking-tight">{t}</div>
-            <div className="mt-1 font-mono text-xs text-muted-foreground">{s}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* Platform */
-
-function Platform() {
-  return (
-    <section id="platform" className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="05" title="Platform" />
-      <h2 className="mt-10 max-w-3xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-        Foundations to physical AI.
-      </h2>
-
-      <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {[
-          {
-            k: "Capture",
-            t: "Collect data at scale",
-            c: "Mobile + wearable capture for operators in labs and in the field. Synced multi-modal streams.",
-            cta: "Get the SDK",
-          },
-          {
-            k: "Studio",
-            t: "Browse, visualize, infer",
-            c: "Web studio for browsing, visualizing, and querying datasets. Run inference APIs. Collaborate.",
-            cta: "Open studio",
-          },
-          {
-            k: "Fleet",
-            t: "Evaluate & deploy",
-            c: "Evaluation harnesses, OTA rollout, and live telemetry from humanoids in commercial settings.",
-            cta: "Talk to sales",
-          },
-        ].map((x) => (
-          <div key={x.k} className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card/40 p-8 transition hover:border-primary/60">
-            <div>
-              <div className="tech-label text-primary">{x.k}</div>
-              <h3 className="mt-6 font-display text-3xl leading-tight tracking-tight">{x.t}</h3>
-              <p className="mt-4 text-muted-foreground">{x.c}</p>
-            </div>
-            <a href="#contact" className="mt-12 inline-flex items-center gap-2 font-mono text-xs text-primary">
-              {x.cta} <span aria-hidden>↗</span>
+          <div className="hero-bottom">
+            <span className="eyebrow">Built by curious people, for the real world.</span>
+            <a href="#deployment" className="eyebrow">
+              See the deployment <ArrowDown size={13} />
             </a>
           </div>
-        ))}
-      </div>
-    </section>
+        </section>
+
+        <div className="principle-strip">
+          <div className="page-width">
+            <span>Human experience</span>
+            <Plus size={13} />
+            <span>Physical intelligence</span>
+            <span className="strip-equals">=</span>
+            <span className="strip-result">
+              More possibility for everyone <Sparkles size={17} />
+            </span>
+            <span className="strip-formula">∑ small steps → big things</span>
+          </div>
+        </div>
+
+        <DeploymentGallery />
+
+        <section id="meet" className="manifest-section page-width section-space">
+          <div className="manifest-heading">
+            <span className="eyebrow">01 / A note from us</span>
+            <h2>
+              The future should feel
+              <br />
+              <em>a little more human.</em>
+            </h2>
+            <figure className="manifest-diagram">
+              <div className="manifest-diagram-path">
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <circle cx="23" cy="10" r="6" />
+                    <path d="M12 37v-9a11 11 0 0 1 22 0v9M16 26l-5 5M30 26l8 5 8-8M18 37h10" />
+                    <path className="manifest-diagram-accent" d="m40 12 3 2 5-6" />
+                  </svg>
+                  <span>Human experience</span>
+                </div>
+                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <rect x="15" y="4" width="22" height="13" rx="5" />
+                    <path d="M20 10h12M26 17v4M17 23h18l-3 13H20ZM13 24l-3 11M39 24l3 11M20 40h12" />
+                    <circle className="manifest-diagram-accent" cx="26" cy="28" r="2" />
+                  </svg>
+                  <span>Robot learning</span>
+                </div>
+                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <path d="m7 31 9-5h11a4 4 0 0 1 0 8h-7M7 40l11-5 15 1 13-11a3 3 0 0 0-4-4l-9 7" />
+                    <path
+                      className="manifest-diagram-accent"
+                      d="M19 8h15v12H19ZM22 8V5h9v3M25 8v4h3V8"
+                    />
+                  </svg>
+                  <span>A helping hand</span>
+                </div>
+              </div>
+              <figcaption>
+                <span>observe → learn → help</span>
+                <span>People, in the loop.</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div className="manifest-copy">
+            <p>
+              Robotics begins with something beautifully ordinary: a person showing another way to
+              do a thing.
+            </p>
+            <p>
+              We’re here for the space between a clever machine and a useful one. The careful
+              engineering. The shared learning. The people who make it all work. CosmicBrain brings
+              those pieces together, so robots can lend a hand in the places that need one.
+            </p>
+            <div className="signature">
+              <span className="signature-line">With curiosity,</span>
+              <span>The CosmicBrain team</span>
+              <span className="eyebrow">San Francisco · Planet Earth</span>
+            </div>
+          </div>
+        </section>
+
+        <LearningLoop />
+
+        <section id="primitives" className="senses-section page-width section-space">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">03 / A feeling for the physical world</span>
+              <h2>
+                There’s a little physics
+                <br />
+                in every <em>helping hand.</em>
+              </h2>
+            </div>
+            <p>
+              A useful robot needs more than instructions. It needs ways to understand what’s around
+              it, how it’s moving, and when to be gentle.
+            </p>
+          </div>
+          <div className="physics-notes">
+            <article className="physics-note">
+              <div className="note-top">
+                <span className="eyebrow">01 / Perception</span>
+                <span>↗</span>
+              </div>
+              <div className="physics-drawing depth-drawing" aria-hidden="true">
+                <svg viewBox="0 0 240 110">
+                  <path d="M35 80 100 45l100 35-68 27ZM100 45V8l100 33v39M132 107V65L35 30v50M35 30l65-22M132 65l68-24" />
+                  <path d="m15 90 7-4m187-8 16-9M110 20l8 3m4 2 8 3" strokeDasharray="4 4" />
+                  <circle cx="132" cy="65" r="4" />
+                </svg>
+                <span>x, y, z</span>
+              </div>
+              <h3>See the possibilities.</h3>
+              <p>
+                Pixels, depth, and geometry turn a scene into something a robot can reason about.
+              </p>
+              <div className="note-equation">
+                p = (x, y, z)<span>A place in three-dimensional space.</span>
+              </div>
+            </article>
+            <article className="physics-note">
+              <div className="note-top">
+                <span className="eyebrow">02 / Motion</span>
+                <span>↗</span>
+              </div>
+              <div className="physics-drawing" aria-hidden="true">
+                <svg viewBox="0 0 240 110">
+                  <path d="M24 85h191M35 98V10" />
+                  <path
+                    d="M35 83c30 0 25-57 56-57s28 60 58 60 25-59 65-59"
+                    className="motion-curve"
+                  />
+                  <path d="m208 18 9 7-7 9" />
+                  <circle cx="92" cy="26" r="4" />
+                </svg>
+                <span>One small movement.</span>
+              </div>
+              <h3>Make every move count.</h3>
+              <p>
+                Joint positions and motion signals connect intent to a coordinated physical action.
+              </p>
+              <div className="note-equation">
+                v = dx / dt<span>How position changes over time.</span>
+              </div>
+            </article>
+            <article className="physics-note">
+              <div className="note-top">
+                <span className="eyebrow">03 / Touch</span>
+                <span>↗</span>
+              </div>
+              <div className="physics-drawing" aria-hidden="true">
+                <svg viewBox="0 0 240 110">
+                  <circle cx="120" cy="58" r="27" />
+                  <path d="M81 58H36m45 0-9-7m9 7-9 7m87-7h45m-45 0 9-7m-9 7 9 7M120 20V3m0 90v16" />
+                  <path d="M98 18c8-5 35-5 44 0M98 98c9 5 35 5 44 0" strokeDasharray="3 4" />
+                </svg>
+                <span>Just enough. Never too much.</span>
+              </div>
+              <h3>A gentler kind of strength.</h3>
+              <p>
+                Force and tactile signals help a robot understand the difference between holding and
+                squeezing.
+              </p>
+              <div className="note-equation">
+                F = ma<span>Force, mass, and acceleration.</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <TeleopFeature />
+
+        <section id="faq" className="faq-section page-width section-space">
+          <div className="faq-heading">
+            <span className="eyebrow">05 / Glad you asked</span>
+            <h2>
+              Curiosity
+              <br />
+              <em>looks good on you.</em>
+            </h2>
+            <p>A few things you might be wondering.</p>
+            <a className="text-link" href="mailto:hello@cosmicbrainai.com">
+              Ask us something else <ArrowUpRight size={16} />
+            </a>
+          </div>
+          <div className="faq-list">
+            {faqs.map(([q, a], i) => (
+              <details key={q}>
+                <summary>
+                  <span className="faq-number">0{i + 1}</span>
+                  {q}
+                  <Plus className="faq-plus" size={17} />
+                </summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="home-contact">
+          <div className="page-width">
+            <div className="contact-equation" aria-hidden="true">
+              human curiosity
+              <br />
+              <span>×</span> thoughtful engineering
+              <br />
+              <i>= a world of possibility</i>
+            </div>
+            <div className="home-contact-copy">
+              <span className="eyebrow">Every good thing starts with a conversation</span>
+              <h2>
+                What could we
+                <br />
+                <em>build together?</em>
+              </h2>
+              <ContactDialog
+                title="Hello, fellow human."
+                description="Tell us what you're imagining. We'll work out the next step together."
+                trigger={
+                  <button className="button">
+                    Say hello <ArrowUpRight size={17} />
+                  </button>
+                }
+              />
+            </div>
+            <CosmicMark className="contact-star" />
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+      <Dialog open={reelOpen} onOpenChange={setReelOpen}>
+        <DialogContent
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            reelTriggerRef.current?.focus();
+          }}
+          className="reel-dialog sm:max-w-4xl"
+        >
+          <DialogTitle className="font-display text-3xl">Meet CosmicBrain</DialogTitle>
+          <DialogDescription>A closer look at our data and deployment approach.</DialogDescription>
+          {reelOpen && (
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/TipCCtr0OIg?rel=0"
+              title="CosmicBrain showreel"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
+          <a
+            className="text-link"
+            href="https://www.youtube.com/watch?v=TipCCtr0OIg"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch on YouTube <ArrowUpRight size={15} />
+          </a>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
 
-/* Showreel */
-
-function Showreel() {
+function LearningLoop() {
+  const [selected, setSelected] = useState(0);
+  const stage = stages[selected];
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="05.5" title="Showreel" meta="FIELD FOOTAGE" />
-      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">
-        <h2 className="md:col-span-7 font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-          See the brain<br />
-          <span className="italic text-primary">in motion.</span>
-        </h2>
-        <p className="md:col-span-5 text-muted-foreground">
-          A walk-through of the humanoid platform - capture, refine, deploy - from raw signal to a policy
-          running in the field.
-        </p>
-      </div>
-      <div className="mt-12 relative overflow-hidden rounded-2xl border border-border-strong glass">
-        <div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-full bg-background/70 px-3 py-1 backdrop-blur">
-          <span className="pulse-dot" />
-          <span className="font-mono text-[10px] tracking-widest text-foreground/80">REEL · 4K</span>
-        </div>
-        <div className="absolute right-3 top-3 z-10 rounded-md bg-background/70 px-2 py-1 font-mono text-[10px] tracking-widest text-foreground/70 backdrop-blur">
-          CB-REEL-001
-        </div>
-        <div className="aspect-video w-full">
-          <iframe
-            className="h-full w-full"
-            src="https://www.youtube.com/embed/TipCCtr0OIg?rel=0&modestbranding=1"
-            title="CosmicBrain showreel"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* CTA */
-
-function CTA() {
-  return (
-    <section id="contact" className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <div className="relative overflow-hidden rounded-3xl border border-border-strong bg-card/60 p-10 md:p-20">
-        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-primary/30 blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-[color:var(--signal)]/20 blur-3xl" />
-        <div className="relative">
-          <div className="tech-label">CB-001 · Request Access</div>
-          <h2 className="mt-6 max-w-3xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-            Deploy a humanoid<br />
-            <span className="italic text-primary">today.</span>
-          </h2>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Enterprise pilots, research access, and dataset partnerships.
+    <section id="stack" className="learning-section section-space">
+      <div className="page-width">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">02 / The CosmicBrain approach</span>
+            <h2>
+              Experience becomes learning.
+              <br />
+              Learning becomes <em>doing.</em>
+            </h2>
+          </div>
+          <p>
+            From a first demonstration to a useful robot in the field. Three connected layers, with
+            people in the loop.
           </p>
-          <ContactDialog
-            title="Talk to us"
-            description="Enterprise pilots, research access, and dataset partnerships."
-            trigger={
+        </div>
+        <div className="loop-workbench">
+          <div className="loop-tabs" role="tablist" aria-label="Explore the learning loop">
+            {stages.map((item, i) => (
               <button
                 type="button"
-                className="mt-10 inline-flex items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground glow-primary"
+                key={item.name}
+                role="tab"
+                aria-selected={selected === i}
+                aria-controls="learning-panel"
+                id={`learning-tab-${i}`}
+                tabIndex={selected === i ? 0 : -1}
+                onClick={() => setSelected(i)}
+                onKeyDown={(event) => {
+                  const next =
+                    event.key === "ArrowRight"
+                      ? (i + 1) % 3
+                      : event.key === "ArrowLeft"
+                        ? (i + 2) % 3
+                        : event.key === "Home"
+                          ? 0
+                          : event.key === "End"
+                            ? 2
+                            : null;
+                  if (next !== null) {
+                    event.preventDefault();
+                    setSelected(next);
+                    document.getElementById(`learning-tab-${next}`)?.focus();
+                  }
+                }}
               >
-                Talk to us <span aria-hidden>→</span>
+                <span className="eyebrow">{item.icon}</span>
+                <span>{item.name}</span>
+                <MoveUpRight size={17} />
               </button>
-            }
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* FAQ */
-
-function FAQ() {
-  return (
-    <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-40">
-      <SectionHead index="06" title="FAQ" meta={`${faqs.length} entries`} />
-      <h2 className="mt-10 max-w-3xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-        Frequently asked.
-      </h2>
-
-      <div className="mt-12 border-t border-border">
-        {faqs.map((f, i) => (
-          <details key={f.q} className="group border-b border-border">
-            <summary className="flex cursor-pointer items-start gap-6 py-7 list-none">
-              <span className="pt-1 font-mono text-xs text-primary">0{i + 1}</span>
-              <span className="flex-1 font-display text-2xl tracking-tight md:text-3xl">{f.q}</span>
-              <span className="font-mono text-2xl text-muted-foreground transition group-open:rotate-45">+</span>
-            </summary>
-            <p className="pb-8 pl-12 pr-10 text-muted-foreground md:pl-16">{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* Footer */
-
-function Footer() {
-  return (
-    <footer className="mx-auto max-w-[1400px] px-6 pb-12 pt-20 md:px-12">
-      <div className="grid gap-10 border-t border-border-strong pt-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-sm bg-primary" />
-            <span className="font-mono text-lg font-semibold">cosmicbrain</span>
+            ))}
           </div>
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            The data and deployment stack behind humanoids.
-          </p>
+          <div
+            className="loop-panel"
+            role="tabpanel"
+            id="learning-panel"
+            aria-labelledby={`learning-tab-${selected}`}
+            tabIndex={0}
+          >
+            <div className="loop-copy">
+              <h3>{stage.subtitle}</h3>
+              <p>{stage.body}</p>
+              <Link to="/sales" className="text-link">
+                Find your starting point <ArrowRight size={16} />
+              </Link>
+            </div>
+            <div className={`loop-diagram loop-diagram-${selected}`}>
+              <span className="eyebrow">A small field guide to {stage.name.toLowerCase()}</span>
+              <div className="diagram-flow">
+                {stage.labels.map((label, i) => (
+                  <div key={label} className="diagram-item">
+                    <div className="diagram-symbol">
+                      {i === 0 ? (
+                        <svg viewBox="0 0 54 54" aria-hidden="true">
+                          <circle cx="27" cy="13" r="8" />
+                          <path d="M27 21v19M12 29l15-4 15 4M27 40l-12 12m12-12 12 12" />
+                        </svg>
+                      ) : i === 1 ? (
+                        <CosmicMark />
+                      ) : (
+                        <svg viewBox="0 0 54 54" aria-hidden="true">
+                          <rect x="8" y="10" width="38" height="34" rx="9" />
+                          <path d="M18 23v7m18-7v7M20 36h14M27 3v7" />
+                        </svg>
+                      )}
+                    </div>
+                    <span>{label}</span>
+                    {i < 2 && <ArrowRight className="diagram-arrow" size={18} />}
+                  </div>
+                ))}
+              </div>
+              <div className="loop-equation">
+                {stage.equation}
+                <span>{stage.explanation}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <FootCol head="Product" links={[["Stack", "#stack"], ["Primitives", "#primitives"], ["Platform", "#platform"]]} />
-        <FootCol head="Company" links={[["Manifest", "#meet"], ["FAQ", "#"], ["Careers", "#"]]} />
-        <FootCol head="Contact" links={[["hello@cosmicbrainai.com", "mailto:hello@cosmicbrainai.com"], ["Request access", "#contact"]]} />
+        <p className="loop-footnote">
+          <span>↳</span> The most important part of the loop? What we learn together.
+        </p>
       </div>
-      <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:flex-row">
-        <span>© 2026 CosmicBrain AI · All systems nominal</span>
-        <span>CB-001 · Rev A · Sheet 1 of 1</span>
-      </div>
-    </footer>
-  );
-}
-
-function FootCol({ head, links }: { head: string; links: [string, string][] }) {
-  return (
-    <div>
-      <div className="tech-label">{head}</div>
-      <ul className="mt-4 space-y-2">
-        {links.map(([l, h]) => (
-          <li key={l}>
-            <a href={h} className="text-sm text-foreground/80 hover:text-primary">{l}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/* Section head */
-
-function SectionHead({ index, title, meta }: { index: string; title: string; meta?: string }) {
-  return (
-    <div className="flex flex-wrap items-center gap-4">
-      <span className="font-mono text-xs text-primary">[ {index} ]</span>
-      <span className="h-px w-12 bg-primary" />
-      <span className="tech-label !text-foreground">{title}</span>
-      {meta && <span className="tech-label">- {meta}</span>}
-    </div>
+    </section>
   );
 }
