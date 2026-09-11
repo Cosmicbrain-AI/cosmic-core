@@ -166,6 +166,42 @@ function Home() {
               <br />
               <em>a little more human.</em>
             </h2>
+            <figure className="manifest-diagram">
+              <div className="manifest-diagram-path">
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <circle cx="23" cy="10" r="6" />
+                    <path d="M12 37v-9a11 11 0 0 1 22 0v9M16 26l-5 5M30 26l8 5 8-8M18 37h10" />
+                    <path className="manifest-diagram-accent" d="m40 12 3 2 5-6" />
+                  </svg>
+                  <span>Human experience</span>
+                </div>
+                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <rect x="15" y="4" width="22" height="13" rx="5" />
+                    <path d="M20 10h12M26 17v4M17 23h18l-3 13H20ZM13 24l-3 11M39 24l3 11M20 40h12" />
+                    <circle className="manifest-diagram-accent" cx="26" cy="28" r="2" />
+                  </svg>
+                  <span>Robot learning</span>
+                </div>
+                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
+                <div className="manifest-diagram-step">
+                  <svg viewBox="0 0 52 44" aria-hidden="true">
+                    <path d="m7 31 9-5h11a4 4 0 0 1 0 8h-7M7 40l11-5 15 1 13-11a3 3 0 0 0-4-4l-9 7" />
+                    <path
+                      className="manifest-diagram-accent"
+                      d="M19 8h15v12H19ZM22 8V5h9v3M25 8v4h3V8"
+                    />
+                  </svg>
+                  <span>A helping hand</span>
+                </div>
+              </div>
+              <figcaption>
+                <span>observe → learn → help</span>
+                <span>People, in the loop.</span>
+              </figcaption>
+            </figure>
           </div>
           <div className="manifest-copy">
             <p>

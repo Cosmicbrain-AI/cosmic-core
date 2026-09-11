@@ -13,7 +13,7 @@ Branch: `codex/warm-robotics-redesign`. Initial redesign verified September 11, 
 - Desktop and 390px mobile browser review confirms the actual logo, rendered 3D model, carry/rest/wave controls, wireframe, rotation buttons, keyboard rotation/zoom/reset, turntable start/pause, and manual elbow slider through 135 degrees.
 - Gallery selection and full-image dialogs pass on desktop/mobile; Escape dismisses the dialog. Technical report renders, and Live Teleop navigates signed-out visitors to the existing login page.
 - Isolated local browser harness simulated actual WebGL context loss with Blueprint and Turntable active. The canvas was removed, photo fallback appeared, and controls disabled. Retry restored one canvas with carry/solid/stopped state and a 90-degree slider. Unmount/remount also restored exactly one canvas. The temporary harness was removed.
-- Removed the sparse manifesto side column after user review; heading and eyebrow now align to the left page edge, with body/signature alongside and a mobile stack.
+- Removed the sparse manifesto side column after user review; heading and eyebrow now align to the left page edge, with body/signature alongside and a mobile stack. Added a sage engineering diagram beneath the heading: human experience → robot learning → a helping hand.
 - Reduced-motion listener and resource rollback were source-reviewed; OS preference switching was not emulated.
 
 ## Initial redesign: build and source checks
