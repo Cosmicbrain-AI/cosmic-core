@@ -26,8 +26,8 @@ export function SiteFooter() {
         <div className="footer-column">
           <span className="eyebrow">Build with us</span>
           <Link to="/sales">Start a conversation</Link>
-          <Link to="/docs">Inside the engineering</Link>
-          <Link to="/app">Operator workspace</Link>
+          <Link to="/docs">Technical report</Link>
+          <Link to="/app">Live Teleop</Link>
           <a href="/#meet">Why we’re here</a>
           <a href="/#faq">A few good questions</a>
         </div>

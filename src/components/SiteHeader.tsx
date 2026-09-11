@@ -1,31 +1,27 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import "./CompanyLogo.css";
 
 export function CosmicMark({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path
-        d="M20 2v36M2 20h36M7.3 7.3l25.4 25.4M7.3 32.7 32.7 7.3"
-        stroke="currentColor"
-        strokeWidth="2.4"
-      />
-      <circle
-        cx="20"
-        cy="20"
-        r="10"
-        fill="var(--background)"
-        stroke="currentColor"
-        strokeWidth="2.2"
-      />
-      <path d="M15 17v5m10-5v5" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" />
-    </svg>
+    <img
+      className={`company-logo ${className}`}
+      src="/brand/cosmicbrain-logo.png"
+      width="40"
+      height="40"
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+    />
   );
 }
 const links = [
   ["Our approach", "/#stack"],
   ["The robots", "/catalog"],
-  ["In the real world", "/solutions"],
+  ["Solutions", "/solutions"],
+  ["Technical report", "/docs"],
+  ["Live Teleop", "/app"],
 ] as const;
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -53,7 +49,12 @@ export function SiteHeader() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, href]) => (
-            <a key={href} href={href} aria-current={pathname === href ? "page" : undefined}>
+            <a
+              key={href}
+              href={href}
+              className={href === "/app" ? "nav-teleop" : undefined}
+              aria-current={pathname === href ? "page" : undefined}
+            >
               {label}
             </a>
           ))}
@@ -86,14 +87,8 @@ export function SiteHeader() {
           <Link to="/brands">
             Meet the makers <ArrowUpRight size={18} />
           </Link>
-          <Link to="/docs">
-            Inside the engineering <ArrowUpRight size={18} />
-          </Link>
           <Link to="/sales">
             Start a conversation <ArrowUpRight size={18} />
-          </Link>
-          <Link to="/app">
-            Operator workspace <ArrowUpRight size={18} />
           </Link>
         </nav>
       )}

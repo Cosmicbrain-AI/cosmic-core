@@ -1,0 +1,38 @@
+.company-logo {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 22%;
+  background: #030611;
+}
+
+.wordmark .company-logo {
+  width: 34px;
+  height: 34px;
+}
+
+.site-header .desktop-nav {
+  gap: 24px;
+}
+
+.site-header .nav-teleop {
+  color: var(--foreground);
+  font-weight: 650;
+}
+
+@media (max-width: 1180px) {
+  .site-header .desktop-nav {
+    display: none;
+  }
+
+  .site-header .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 760px) {
+  .wordmark .company-logo {
+    width: 28px;
+    height: 28px;
+  }
+}

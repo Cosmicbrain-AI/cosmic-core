@@ -1,19 +1,33 @@
 # Redesign verification
 
-Verified September 11, 2026, on branch `codex/warm-robotics-redesign`.
+Branch: `codex/warm-robotics-redesign`. Initial redesign verified September 11, 2026. The second iteration adds the supplied company logo, deployment photographs, a Three.js robot reconstruction, and prominent technical-report/Live Teleop entry points. Historical results below are labeled separately from current verification.
 
-## Build and source checks
+## Second iteration: implementation and verification status
+
+- Supplied company logo reused through the shared brand mark and local asset.
+- Three supplied robot photos copied to `public/media/deployment/`; SHA-256 comparison verified that each matches its original bytes. Gallery offers one featured photo, two selectable alternatives, numbered selectors, descriptive captions, and an accessible full-image dialog.
+- The homepage robot is a client-lazy Three.js WebGL reconstruction from those photos. Proportions and movement are labeled illustrative. Implemented controls cover carry/rest/wave, manual elbow bend, drag orbit, zoom, turntable, blueprint, reset, and keyboard equivalents. A photograph and retry control handle WebGL failure.
+- Added `three` and `@types/three` at version `0.186.0`; package metadata and lockfile changes are part of this iteration.
+- Technical report and Live Teleop links appear in desktop/mobile navigation and a dedicated homepage feature. The existing authentication, approval, assignment, exclusive-session, and headset-handoff flow is preserved.
+- Integrated TypeScript, production build, and focused ESLint pass. Independent pre-deploy review found no introduced auth/session or credential regressions.
+- Desktop and 390px mobile browser review confirms the actual logo, rendered 3D model, carry/rest/wave controls, wireframe, rotation buttons, keyboard rotation/zoom/reset, turntable start/pause, and manual elbow slider through 135 degrees.
+- Gallery selection and full-image dialogs pass on desktop/mobile; Escape dismisses the dialog. Technical report renders, and Live Teleop navigates signed-out visitors to the existing login page.
+- Isolated local browser harness simulated actual WebGL context loss with Blueprint and Turntable active. The canvas was removed, photo fallback appeared, and controls disabled. Retry restored one canvas with carry/solid/stopped state and a 90-degree slider. Unmount/remount also restored exactly one canvas. The temporary harness was removed.
+- Removed the sparse manifesto side column after user review; heading and eyebrow now align to the left page edge, with body/signature alongside and a mobile stack.
+- Reduced-motion listener and resource rollback were source-reviewed; OS preference switching was not emulated.
+
+## Initial redesign: build and source checks
 
 - `npx tsc --noEmit`: passed.
 - `npm run build`: passed, producing the configured Vercel output.
 - ESLint on all changed TypeScript components/routes: zero errors; one pre-existing dependency warning in the operator heartbeat effect. The heartbeat and backend control logic were preserved.
-- No package dependencies or lockfile changes.
+- The initial redesign added no dependencies; this does not apply to the second iteration's Three.js dependencies.
 - Build retains existing TanStack server-function deprecation and bundle-size warnings.
 
-## Browser checks
+## Initial redesign: browser checks
 
 - Homepage: desktop and 390px mobile visual review; narrow 320px layout checks.
-- Robot: blueprint on/off, native range keyboard End key to 135°, hello wave/state announcements. Nine additional component-state assertions cover timer restoration, cancellation, repeat clicks, and accessibility state.
+- Original SVG robot: blueprint on/off, native range keyboard End key to 135°, hello wave/state announcements. Nine additional component-state assertions covered timer restoration, cancellation, repeat clicks, and accessibility state. These results do not validate the replacement Three.js viewer.
 - Learning tabs: pointer switching and ArrowRight keyboard selection update explanation, diagram labels, and formula.
 - FAQ: native disclosure opens the matching answer.
 - Video: existing showreel opens in a dialog and Escape closes it; keyboard focus returns to its trigger.

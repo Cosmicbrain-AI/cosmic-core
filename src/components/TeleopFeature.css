@@ -1,0 +1,194 @@
+.teleop-feature {
+  padding: 95px 0 0;
+  background: #e9ece2;
+  border-block: 1px solid #d4dbcb;
+}
+.teleop-feature-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 85px;
+  align-items: center;
+  padding-bottom: 75px;
+}
+.teleop-feature-copy > .eyebrow {
+  display: block;
+  color: #627158;
+  margin-bottom: 20px;
+}
+.teleop-feature-copy h2 {
+  margin: 0;
+}
+.teleop-feature-copy > p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #62695b;
+  max-width: 405px;
+  margin: 24px 0 30px;
+}
+.teleop-access {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 9px var(--font-mono);
+  color: #6c7568;
+  margin-top: 16px;
+}
+.teleop-notebook {
+  border: 1px solid #bfc9b8;
+  border-radius: 7px;
+  background: #fafbf4;
+  box-shadow: 6px 6px 0 #d8dfd0;
+  padding: 24px 30px 29px;
+}
+.teleop-notebook-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 19px;
+  color: #4d665b;
+  border-bottom: 1px solid #d6ddce;
+}
+.teleop-note-id {
+  margin-left: auto;
+  font: 8px var(--font-mono);
+  letter-spacing: 0.1em;
+  color: #7c8676;
+}
+.teleop-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #56786f;
+  padding: 26px 0;
+}
+.teleop-diagram > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+.teleop-diagram > div > svg {
+  height: 33px;
+  width: 33px;
+}
+.teleop-diagram > svg {
+  width: 18px;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.teleop-diagram span {
+  font: 8px/1.6 var(--font-mono);
+  color: #737e6e;
+  text-align: center;
+}
+.teleop-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #d6ddce;
+}
+.teleop-steps li {
+  padding-top: 19px;
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  font-size: 12px;
+}
+.teleop-steps li > span {
+  color: #87967c;
+  font: 9px var(--font-mono);
+  padding-top: 2px;
+}
+.teleop-steps small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #778070;
+  margin-top: 5px;
+}
+.technical-feature {
+  padding-block: 29px;
+  border-top: 1px solid #cdd4c4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.technical-feature > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #647b64;
+}
+.technical-feature strong {
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+  color: #3c4b3f;
+}
+.technical-feature small {
+  display: block;
+  color: #727c6c;
+  font-size: 10px;
+  margin-top: 6px;
+  line-height: 1.65;
+}
+.technical-feature > a {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  font-size: 12px;
+  color: #4e685b;
+  flex-shrink: 0;
+}
+.technical-feature > a:hover {
+  color: var(--primary);
+}
+@media (max-width: 1000px) {
+  .teleop-feature-inner {
+    gap: 42px;
+  }
+  .teleop-notebook {
+    padding: 23px;
+  }
+}
+@media (max-width: 760px) {
+  .teleop-feature {
+    padding-top: 60px;
+  }
+  .teleop-feature-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-bottom: 45px;
+  }
+  .teleop-notebook {
+    padding: 20px;
+    margin-right: 5px;
+  }
+  .teleop-note-id {
+    font-size: 7px;
+  }
+  .teleop-notebook-top .eyebrow {
+    font-size: 8px;
+  }
+  .teleop-diagram {
+    gap: 8px;
+  }
+  .teleop-diagram span {
+    font-size: 7px;
+  }
+  .teleop-steps li {
+    font-size: 12px;
+  }
+  .technical-feature {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-block: 28px;
+  }
+  .technical-feature > a {
+    margin-left: 38px;
+  }
+}

@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import { SiteHeader, CosmicMark } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { RobotPlayground } from "@/components/RobotPlayground";
+import { DeploymentRobot } from "@/components/DeploymentRobot";
+import { DeploymentGallery } from "@/components/DeploymentGallery";
+import { TeleopFeature } from "@/components/TeleopFeature";
 import { ContactDialog } from "@/components/ContactDialog";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import "@/components/home.css";
@@ -103,9 +105,8 @@ function Home() {
               <em>Human beginnings.</em>
             </h1>
             <p>
-              We’re teaching robots to find their place in our world.
-              <br className="wide-break" /> With real human experience, thoughtful engineering,
-              <br className="wide-break" /> and a little cosmic curiosity.
+              Meet the robot we’re putting to work. Built around real human experience, thoughtful
+              engineering, and the familiar places where a helping hand makes a difference.
             </p>
             <div className="hero-buttons">
               <Link to="/sales" className="button">
@@ -132,12 +133,12 @@ function Home() {
             </div>
           </div>
           <div className="hero-robot">
-            <RobotPlayground />
+            <DeploymentRobot />
           </div>
           <div className="hero-bottom">
             <span className="eyebrow">Built by curious people, for the real world.</span>
-            <a href="#meet" className="eyebrow">
-              A little exploration <ArrowDown size={13} />
+            <a href="#deployment" className="eyebrow">
+              See the deployment <ArrowDown size={13} />
             </a>
           </div>
         </section>
@@ -155,26 +156,18 @@ function Home() {
           </div>
         </div>
 
+        <DeploymentGallery />
+
         <section id="meet" className="manifest-section page-width section-space">
-          <div className="section-index">
+          <div className="manifest-heading">
             <span className="eyebrow">01 / A note from us</span>
-            <div className="orbit-sketch" aria-hidden="true">
-              <svg viewBox="0 0 150 120">
-                <ellipse cx="75" cy="60" rx="64" ry="23" transform="rotate(-30 75 60)" />
-                <ellipse cx="75" cy="60" rx="64" ry="23" transform="rotate(30 75 60)" />
-                <ellipse cx="75" cy="60" rx="64" ry="23" transform="rotate(90 75 60)" />
-                <circle cx="75" cy="60" r="5" />
-                <circle cx="127" cy="29" r="4" />
-              </svg>
-              <span>It all starts with curiosity.</span>
-            </div>
-          </div>
-          <div className="manifest-copy">
             <h2>
               The future should feel
               <br />
               <em>a little more human.</em>
             </h2>
+          </div>
+          <div className="manifest-copy">
             <p>
               Robotics begins with something beautifully ordinary: a person showing another way to
               do a thing.
@@ -281,63 +274,7 @@ function Home() {
           </div>
         </section>
 
-        <section id="platform" className="field-section">
-          <div className="page-width field-inner">
-            <div className="field-visual">
-              <div className="eyebrow">Field notes / The human connection</div>
-              <img
-                src="/media/HERO-hand-poster.jpg"
-                alt="Close-up of an articulated humanoid robot hand"
-                loading="lazy"
-                width="800"
-                height="450"
-              />
-              <span className="field-caption">
-                A hand is hardware.
-                <br />
-                <em>A helping hand is a whole system.</em>
-              </span>
-              <span className="field-image-label eyebrow">
-                CosmicBrain · Robotics concept study
-              </span>
-            </div>
-            <div className="field-copy">
-              <span className="eyebrow">04 / From the lab to everyday life</span>
-              <h2>
-                Good technology.
-                <br />
-                <em>Better together.</em>
-              </h2>
-              <p>
-                Robot makers build remarkable hardware. Researchers give it new abilities. Operators
-                bring human judgment. We connect them around a job worth doing.
-              </p>
-              <div className="audience-links">
-                <Link to="/solutions">
-                  <span>
-                    <b>For the people putting robots to work</b>
-                    <small>Explore workflows and supervised pilots</small>
-                  </span>
-                  <ArrowUpRight size={20} />
-                </Link>
-                <Link to="/sales">
-                  <span>
-                    <b>For the minds teaching them</b>
-                    <small>Build with task-specific real-world data</small>
-                  </span>
-                  <ArrowUpRight size={20} />
-                </Link>
-                <Link to="/catalog">
-                  <span>
-                    <b>For the makers moving us forward</b>
-                    <small>Find the hardware for your next idea</small>
-                  </span>
-                  <ArrowUpRight size={20} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        <TeleopFeature />
 
         <section id="faq" className="faq-section page-width section-space">
           <div className="faq-heading">
