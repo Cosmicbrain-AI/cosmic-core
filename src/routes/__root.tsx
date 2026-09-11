@@ -79,11 +79,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "CosmicBrain - Data & deployment stack for humanoids" },
-      { name: "description", content: "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field." },
+      {
+        name: "description",
+        content:
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
       { property: "og:title", content: "CosmicBrain - Data & deployment stack for humanoids" },
-      { property: "og:description", content: "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field." },
+      {
+        property: "og:description",
+        content:
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+      },
       { property: "og:site_name", content: "CosmicBrain" },
       { property: "og:image", content: "https://www.cosmicbrain.ai/og.jpg" },
       { property: "og:image:width", content: "1200" },
@@ -93,18 +101,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://www.cosmicbrain.ai/og.jpg" },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
       { name: "twitter:title", content: "CosmicBrain - Data & deployment stack for humanoids" },
-      { name: "twitter:description", content: "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field." },
-      { name: "keywords", content: "humanoid robotics, robot deployment, teleoperation, data pipeline, humanoid OS" },
+      {
+        name: "twitter:description",
+        content:
+          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+      },
+      {
+        name: "keywords",
+        content: "humanoid robotics, robot deployment, teleoperation, data pipeline, humanoid OS",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap",
       },
       { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://www.cosmicbrain.ai/" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
     ],
   }),
   shellComponent: RootShell,

@@ -1,62 +1,83 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { PageHero, SiteFooterCTA } from "@/components/explore/shared";
+import { PageHero, NotebookSketch, SiteFooterCTA } from "@/components/explore/shared";
 import { solutions } from "@/data/solutions";
 
 export const Route = createFileRoute("/solutions/")({
   head: () => ({
     meta: [
-      { title: "Solutions - CosmicBrain · Humanoids by industry" },
+      { title: "Robots in the real world · CosmicBrain Solutions" },
       {
         name: "description",
         content:
-          "Where humanoid robots actually earn their keep — manufacturing, logistics, healthcare, hospitality, research, and general-purpose deployment guides.",
+          "Explore thoughtful robotics deployment guides for manufacturing, logistics, healthcare, hospitality, research, and general-purpose work.",
       },
-      { rel: "canonical", href: "https://www.cosmicbrain.ai/solutions" },
     ],
+    links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/solutions" }],
   }),
   component: SolutionsPage,
 });
 
+const INTRO: Record<string, string> = {
+  manufacturing:
+    "A helping hand on the line. Explore assembly, inspection, and the everyday work that keeps a factory moving.",
+  "warehousing-logistics":
+    "From the first pick to the last pallet. Let’s find the right place for robots in your flow.",
+  healthcare:
+    "More time for the people who need it. Explore carefully scoped support for care teams.",
+  "hospitality-retail":
+    "A warm welcome, a well-stocked shelf. Useful robotics starts with a better experience for people.",
+  "research-education":
+    "For the questions that haven’t been answered yet. Find platforms to learn, experiment, and build on.",
+  "general-purpose":
+    "Have something else in mind? Start with a question, choose one task, and learn from the real world.",
+};
+
 function SolutionsPage() {
   return (
-    <main className="relative min-h-screen">
+    <main className="explore-page">
       <SiteHeader />
       <PageHero
-        kicker="CB · Solutions / Industries"
-        title="Humanoids,"
-        accent="by industry."
-        sub="Honest deployment guides for the six places humanoid labor is actually being evaluated today — use cases, pilot criteria, and the platforms that fit."
+        kicker="Field guide / 02 / In the real world"
+        title="Real places."
+        accent="Human possibilities."
+        sub="The best robotics starts with the people it helps. Explore practical guides to finding a useful first task, asking good questions, and building from there."
+        sketch="arm"
+        note="Good engineering begins with listening."
       />
-      <section className="px-6 pb-24 md:px-12">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-2">
-          {solutions.map((s) => (
-            <Link
-              key={s.slug}
-              to="/solutions/$slug"
-              params={{ slug: s.slug }}
-              className="group flex flex-col gap-4 rounded-2xl border border-border-strong/60 bg-card/60 p-8 transition-colors hover:border-primary/50"
-            >
-              <div className="flex items-baseline justify-between">
-                <span className="font-mono text-xs text-muted-foreground group-hover:text-primary">
-                  {s.code}
-                </span>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {s.useCases.length} use cases
-                </span>
-              </div>
-              <h2 className="font-display text-3xl tracking-tight group-hover:text-primary">
-                {s.name}
-              </h2>
-              <p className="text-sm text-foreground/70">{s.tagline}</p>
-              <div className="mt-auto border-t border-border/60 pt-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                {s.short}
-              </div>
-            </Link>
-          ))}
+      <section className="explore-content">
+        <div className="explore-wrap">
+          <div className="explore-results-bar">
+            <span>Six starting points. Plenty of possibility.</span>
+            <span>Choose your chapter ↓</span>
+          </div>
+          <div className="explore-chapter-list">
+            {solutions.map((s, i) => (
+              <Link
+                key={s.slug}
+                to="/solutions/$slug"
+                params={{ slug: s.slug }}
+                className="explore-chapter"
+              >
+                <span className="explore-chapter-number">0{i + 1}</span>
+                <div className="explore-chapter-figure">
+                  <NotebookSketch variant={i % 3 === 0 ? "arm" : i % 3 === 1 ? "robot" : "orbit"} />
+                </div>
+                <div>
+                  <h2>{s.name}</h2>
+                  <p>{INTRO[s.slug] ?? s.tagline}</p>
+                  <span className="explore-note-label">
+                    {s.useCases.length} use cases · {s.short}
+                  </span>
+                </div>
+                <ArrowUpRight className="explore-chapter-arrow" size={27} aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
-      <SiteFooterCTA context="humanoids in your industry" />
+      <SiteFooterCTA context="robots in your world" />
     </main>
   );
 }

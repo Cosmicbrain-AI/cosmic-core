@@ -1,326 +1,324 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowDown, ArrowRight, Check, Cpu, Database, MoveUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
+import "@/components/workspace.css";
 
 export const Route = createFileRoute("/sales")({
   head: () => ({
     meta: [
-      { title: "Sales - CosmicBrain · Deploy humanoids into your operations" },
+      { title: "Let’s build something useful — CosmicBrain" },
       {
         name: "description",
         content:
-          "CosmicBrain is the middleware infrastructure powering humanoid data, teleoperation, and enterprise deployment. Book a free pilot.",
+          "Talk with CosmicBrain about your robotics project. Explore deployment, robot learning data, and hardware integration with people who love building.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
-      { property: "og:title", content: "Sales - CosmicBrain · Deploy humanoids into your operations" },
+      { property: "og:title", content: "Let’s build something useful — CosmicBrain" },
       {
         property: "og:description",
-        content: "The operating system for the humanoid era. Free pilot. No commitment.",
+        content:
+          "A good robotics project begins with a conversation. Tell us what you’re working on.",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:url", content: "https://www.cosmicbrain.ai/sales" },
-      { name: "twitter:title", content: "Sales - CosmicBrain · Deploy humanoids into your operations" },
-      {
-        name: "twitter:description",
-        content: "The operating system for the humanoid era. Free pilot. No commitment.",
-      },
-      { name: "keywords", content: "humanoid robotics, robot sales, enterprise deployment, free pilot, warehouse automation" },
-      { rel: "canonical", href: "https://www.cosmicbrain.ai/sales" },
     ],
+    links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/sales" }],
   }),
   component: SalesPage,
 });
 
-function Section({
-  code,
-  kicker,
-  title,
-  children,
-}: {
-  code: string;
-  kicker?: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="border-t border-border-strong/60 px-6 py-20 md:px-12 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-10 flex items-end justify-between gap-6">
-          <div>
-            {kicker && <div className="tech-label mb-3">{kicker}</div>}
-            <h2 className="font-display text-4xl leading-[1.05] tracking-tight md:text-6xl">
-              {title}
-            </h2>
-          </div>
-          <div className="tech-label hidden md:block">{code}</div>
-        </div>
-        <div className="text-foreground/85">{children}</div>
-      </div>
-    </section>
-  );
-}
-
-function CTAButtons() {
-  return (
-    <div className="flex flex-wrap gap-3">
-      <ContactDialog
-        title="Book a Pilot"
-        description="Tell us about your fleet and timeline."
-        trigger={
-          <button
-            type="button"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
-          >
-            Book a Pilot
-          </button>
-        }
-      />
-      <ContactDialog
-        title="Talk to Sales"
-        description="We'll respond within one business day."
-        trigger={
-          <button
-            type="button"
-            className="rounded-full border border-border-strong px-6 py-3 text-sm font-medium text-foreground hover:bg-card"
-          >
-            Talk to Sales
-          </button>
-        }
-      />
-    </div>
-  );
-}
+const paths = [
+  {
+    id: "deployment",
+    number: "01",
+    label: "Put robots to work",
+    icon: MoveUpRight,
+    title: "Start with a task. Build from there.",
+    description:
+      "Show us a workflow your team knows well. Together, we’ll explore where robotics can help, what the environment requires, and how people stay in the loop.",
+    details: [
+      "The task and its real-world constraints",
+      "Hardware, supervision, and integration needs",
+      "A pilot with clear measures of progress",
+    ],
+    subject: "Let’s explore a robot deployment",
+    placeholder:
+      "What task would you like help with? Tell us about your workplace, current process, and what a useful first step would look like.",
+    formula: "progress = observe → test → learn",
+  },
+  {
+    id: "data",
+    number: "02",
+    label: "Teach robots something",
+    icon: Database,
+    title: "Better learning begins with the right experience.",
+    description:
+      "Working on a robot model? Let’s connect your research question to demonstrations and data that reflect the tasks you actually want a robot to learn.",
+    details: [
+      "The behaviors and tasks you’re training for",
+      "Your robot platform and data format",
+      "Collection scope and quality criteria",
+    ],
+    subject: "Let’s talk robot learning data",
+    placeholder:
+      "What are you teaching your robot? Tell us about your model, embodiment, target tasks, and the data you need.",
+    formula: "learning = experience + feedback",
+  },
+  {
+    id: "hardware",
+    number: "03",
+    label: "Connect your hardware",
+    icon: Cpu,
+    title: "You build the body. Let’s connect the pieces.",
+    description:
+      "Bring your robot, your technical questions, and your ambition. We’ll explore the software, teleoperation, and data workflows that fit your platform.",
+    details: [
+      "Your hardware and existing interfaces",
+      "Teleoperation and data collection workflows",
+      "An integration path we can test together",
+    ],
+    subject: "Let’s explore a hardware partnership",
+    placeholder:
+      "What are you building? Tell us about your hardware, available interfaces, and the software or teleoperation challenges you’re working through.",
+    formula: "possibility = hardware × connection",
+  },
+] as const;
 
 function SalesPage() {
+  const [selected, setSelected] = useState(0);
+  const path = paths[selected];
+
   return (
-    <main className="relative min-h-screen">
+    <div className="cb-sales" id="top">
       <SiteHeader />
-
-      {/* Hero */}
-      <section className="px-6 pt-40 pb-24 md:px-12 md:pt-48 md:pb-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="tech-label mb-6 flex items-center gap-3">
-            <span className="pulse-dot" />
-            <span>CB · Sales / Deployment</span>
+      <main>
+        <section className="cb-sales-hero">
+          <div>
+            <p className="cb-eyebrow">
+              <span className="cb-small-dot" /> A conversation, then a collaboration
+            </p>
+            <h1>
+              Let’s build
+              <br />
+              something <em>useful.</em>
+            </h1>
+            <p className="cb-sales-intro">
+              The best part of building robots? The people you build with. Tell us what’s on your
+              mind. We’ll help you find a thoughtful place to start.
+            </p>
+            <a className="cb-text-link" href="#your-project">
+              What are you working on? <ArrowDown size={17} />
+            </a>
           </div>
-          <h1 className="font-display text-5xl leading-[1.02] tracking-tight md:text-8xl">
-            The Operating System
-            <br />
-            for the <span className="text-primary">Humanoid Era.</span>
-          </h1>
-          <p className="mt-8 max-w-3xl text-lg text-foreground/75 md:text-xl">
-            CosmicBrain is the middleware infrastructure that connects humanoid hardware to the
-            real world - powering data collection, model training, teleoperation, and enterprise
-            deployment at scale.
-          </p>
-          <p className="mt-4 font-mono text-sm text-muted-foreground">
-            We don&apos;t make robots. We make robots work.
-          </p>
-          <div className="mt-10">
-            <CTAButtons />
-          </div>
-        </div>
-      </section>
-
-      {/* Who we work with */}
-      <Section code="01 / Audience" kicker="Who we work with" title="Two ends of the humanoid stack.">
-        <div className="grid gap-6 md:grid-cols-2">
-          {[
-            {
-              t: "Hardware Partners",
-              c: "We embed directly with humanoid manufacturers to provide the full software and data infrastructure their robots need to function, improve, and scale.",
-            },
-            {
-              t: "Enterprise Deployers",
-              c: "We work with warehouses, manufacturers, and logistics operators to deploy humanoids into live operations - one laborer replaced at a time, starting with a free pilot.",
-            },
-          ].map((x) => (
-            <div key={x.t} className="glass rounded-xl p-8">
-              <div className="font-display text-2xl">{x.t}</div>
-              <p className="mt-3 text-foreground/75">{x.c}</p>
+          <div className="cb-project-note">
+            <div className="cb-note-top">
+              <span>FROM THE WORKBENCH</span>
+              <span>fig. 01</span>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Manufacturers */}
-      <Section
-        code="02 / Manufacturers"
-        kicker="For humanoid manufacturers"
-        title="The full middleware stack. Out of the box."
-      >
-        <p className="mb-10 max-w-3xl text-foreground/75">
-          Building a humanoid is hard enough. CosmicBrain handles everything from the sensor to
-          the model.
-        </p>
-        <div className="grid gap-px overflow-hidden rounded-xl border border-border-strong bg-border-strong md:grid-cols-2">
-          {[
-            ["Video-to-Robot Pipeline", "We ingest raw video and sensor data directly from your hardware and structure it into clean, labeled training data - ready for model companies and robotics AI teams."],
-            ["Teleoperation with Full VR", "Our teleoperation stack lets human operators control your robots remotely in real time, through a fully immersive VR interface. Hardware agnostic - no proprietary lockout."],
-            ["Data Collection at the Source", "We collect directly from specific hardware configurations, producing high-fidelity datasets that model companies and robot makers actually need. Your hardware generates the data. We turn it into revenue."],
-            ["Built for Model Companies", "The data we collect is sold directly to teams training the next generation of foundation models and locomotion systems. Your hardware becomes part of the training loop."],
-          ].map(([t, c]) => (
-            <div key={t} className="bg-background p-8">
-              <div className="font-display text-xl">{t}</div>
-              <p className="mt-3 text-foreground/75">{c}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Enterprises */}
-      <Section
-        code="03 / Enterprise"
-        kicker="For enterprises"
-        title="Deploy humanoids into your operations. Start tomorrow."
-      >
-        <p className="max-w-3xl text-foreground/75">
-          No custom builds. No long integration cycles. No software training required.
-        </p>
-
-        <div className="mt-10 glass rounded-2xl p-8 md:p-12">
-          <div className="tech-label mb-3 text-primary">Free Pilot Program</div>
-          <div className="font-display text-3xl md:text-4xl">See it before you commit.</div>
-          <p className="mt-4 max-w-3xl text-foreground/80">
-            We deploy humanoids directly onto your floor - working side by side with your human
-            workforce. You compare output, reliability, and cost in real conditions, 24/7. No
-            obligation. No upfront investment.
-          </p>
-          <p className="mt-3 font-mono text-sm text-muted-foreground">
-            If the numbers don&apos;t work for you, you walk away. They always work.
-          </p>
-        </div>
-      </Section>
-
-      {/* ROI Table */}
-      <Section code="04 / ROI" kicker="The ROI case" title="The math is simple.">
-        <div className="overflow-x-auto rounded-xl border border-border-strong">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-card font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              <tr>
-                <th className="p-4">Dimension</th>
-                <th className="p-4">Traditional Automation</th>
-                <th className="p-4 text-primary">CosmicBrain Humanoids</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border-strong">
-              {[
-                ["Deployment time", "Months to years", "Days"],
-                ["Custom build required", "Yes", "No"],
-                ["Software training", "Extensive", "None"],
-                ["Overhead costs", "High", "Zero"],
-                ["Scalability", "Fixed capacity", "On-demand"],
-                ["Flexibility", "Single task", "Multi-task"],
-                ["Labor comparison", "Replaces process", "Replaces headcount"],
-              ].map((row) => (
-                <tr key={row[0]} className="bg-background/40">
-                  <td className="p-4 font-medium">{row[0]}</td>
-                  <td className="p-4 text-foreground/70">{row[1]}</td>
-                  <td className="p-4 text-foreground">{row[2]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-6 max-w-3xl text-foreground/75">
-          Humanoids have no benefits, no sick days, no turnover, no overtime liability. The
-          overhead gap versus human labor compounds every quarter.
-        </p>
-      </Section>
-
-      {/* How it works */}
-      <Section code="05 / Process" kicker="How it works" title="Four steps to a working floor.">
-        <div className="grid gap-6 md:grid-cols-2">
-          {[
-            ["01", "We assess your operation", "Our team maps your workflow and identifies the highest-value positions for humanoid replacement - typically repetitive, physically demanding, or high-turnover roles."],
-            ["02", "Free pilot deployment", "We bring the hardware. We run the deployment. Your team watches the robots work alongside your people in real conditions, on real tasks."],
-            ["03", "You compare the numbers", "Productivity, error rate, throughput, cost per unit - you see everything. We don't ask you to trust projections."],
-            ["04", "Scale on your terms", "Once the pilot proves out, we scale. One unit or one hundred - CosmicBrain handles the full deployment and ongoing operations stack."],
-          ].map(([n, t, c]) => (
-            <div key={n} className="rounded-xl border border-border-strong p-8">
-              <div className="font-mono text-xs text-primary">STEP {n}</div>
-              <div className="mt-2 font-display text-2xl">{t}</div>
-              <p className="mt-3 text-foreground/75">{c}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Why */}
-      <Section code="06 / Why" kicker="Why CosmicBrain" title="The operational edge.">
-        <div className="grid gap-px overflow-hidden rounded-xl border border-border-strong bg-border-strong md:grid-cols-3">
-          {[
-            ["Hardware Agnostic", "We don't sell robots. We work with the best available hardware for your use case - and as the market evolves, you're never locked into yesterday's model."],
-            ["Teleop by Overseas Operators", "When full autonomy isn't ready, skilled human operators run robots remotely at a fraction of local employee cost. Human judgment at machine economics."],
-            ["No Software Training. Ever.", "Your team doesn't touch the software. CosmicBrain manages the entire stack. Robots arrive ready to work."],
-            ["24/7 Operation", "Humanoids don't have shifts. They don't call in. Production continuity is the default, not a premium."],
-            ["Better Volume & Consistency", "Humanoids maintain output quality across a full 24-hour cycle. No fatigue, no variance at hour 10."],
-            ["Simple Installation", "No facility retrofit. No specialized infrastructure. Designed to integrate into existing environments."],
-          ].map(([t, c]) => (
-            <div key={t} className="bg-background p-8">
-              <div className="font-display text-xl">{t}</div>
-              <p className="mt-3 text-foreground/75">{c}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Industries */}
-      <Section code="07 / Industries" kicker="Industries we deploy in" title="Where humanoids work today.">
-        <div className="flex flex-wrap gap-3">
-          {[
-            "Warehousing & Fulfillment",
-            "Manufacturing & Assembly",
-            "Logistics & Sorting",
-            "Food Processing",
-            "Retail Backroom Operations",
-          ].map((x) => (
-            <span
-              key={x}
-              className="rounded-full border border-border-strong bg-card/60 px-5 py-2 font-mono text-sm"
+            <svg
+              className="cb-arm-study"
+              viewBox="0 0 380 260"
+              fill="none"
+              role="img"
+              aria-label="An engineering sketch of a robot arm reaching toward a small star"
             >
-              {x}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      {/* Bigger picture */}
-      <Section code="08 / Vision" kicker="The bigger picture" title="The infrastructure layer for an industry being born.">
-        <p className="max-w-3xl text-foreground/80">
-          We are at the beginning of the humanoid deployment curve. The companies that establish
-          the operational playbook now - the workflows, the data pipelines, the teleoperation
-          infrastructure - will define how this industry scales.
-        </p>
-        <p className="mt-4 max-w-3xl text-foreground/80">
-          CosmicBrain is building that infrastructure. For manufacturers who need the software
-          layer. For enterprises who need the deployment layer. For the model companies who need
-          the data layer.
-        </p>
-        <p className="mt-6 font-display text-3xl text-primary">The entire stack. One partner.</p>
-      </Section>
-
-      {/* Final CTA */}
-      <section className="border-t border-border-strong/60 px-6 py-28 md:px-12 md:py-36">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="tech-label mb-6">CB · Free pilot</div>
-          <h2 className="font-display text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            Ready to run a free pilot?
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/75">
-            No commitment. No custom builds. Just your floor, our robots, and real numbers.
-          </p>
-          <div className="mt-10 flex justify-center">
-            <CTAButtons />
+              <path
+                d="M49 224H333M81 42V224"
+                stroke="currentColor"
+                strokeOpacity=".2"
+                strokeDasharray="4 5"
+              />
+              <path
+                d="M110 208L163 119L250 145L287 92"
+                stroke="currentColor"
+                strokeWidth="16"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M110 208L163 119L250 145L287 92"
+                stroke="#f7f4ec"
+                strokeWidth="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M81 217H143L135 201H92Z"
+                fill="#d8d7bd"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+              <circle
+                cx="110"
+                cy="202"
+                r="12"
+                fill="#f7f4ec"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+              <circle
+                cx="163"
+                cy="119"
+                r="13"
+                fill="#d8d7bd"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+              <circle
+                cx="250"
+                cy="145"
+                r="10"
+                fill="#d8d7bd"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+              <path
+                d="M281 90L286 72L301 70M291 97L308 89L311 76"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <path d="M311 33L314 46L327 49L314 53L311 66L307 53L294 49L307 46Z" fill="#b94e32" />
+              <path
+                d="M175 202A63 63 0 0 0 143 149M171 68C226 58 267 64 282 79"
+                stroke="#b94e32"
+                strokeDasharray="4 5"
+              />
+              <text
+                x="163"
+                y="184"
+                fill="#b94e32"
+                fontSize="20"
+                fontFamily="serif"
+                fontStyle="italic"
+              >
+                θ
+              </text>
+              <text x="180" y="44" fill="currentColor" fontSize="13" fontFamily="monospace">
+                a little reach.
+              </text>
+            </svg>
+            <div className="cb-note-message">
+              Big ideas.
+              <br />
+              <em>Thoughtful first steps.</em>
+            </div>
+            <div className="cb-note-bottom">curiosity + care + a bit of engineering</div>
           </div>
-          <div className="mt-12 font-mono text-xs text-muted-foreground">
-            <Link to="/" className="hover:text-foreground">
-              ← back to cosmicbrain.home
-            </Link>
+        </section>
+
+        <section className="cb-project-section" id="your-project" aria-labelledby="project-title">
+          <div className="cb-section-intro">
+            <p className="cb-eyebrow">01 / Your starting point</p>
+            <h2 id="project-title">Every project starts somewhere.</h2>
+            <p>Pick the thought that’s closest to yours. We can figure out the rest together.</p>
           </div>
-        </div>
-      </section>
-    </main>
+          <div className="cb-path-options" aria-label="Choose your project focus">
+            {paths.map((option, index) => (
+              <button
+                key={option.id}
+                type="button"
+                className="cb-path-option"
+                aria-pressed={selected === index}
+                aria-controls="project-brief"
+                onClick={() => setSelected(index)}
+              >
+                <span className="cb-path-number">{option.number}</span>
+                <option.icon size={24} strokeWidth={1.4} />
+                <span>{option.label}</span>
+                <ArrowRight className="cb-path-arrow" size={19} />
+              </button>
+            ))}
+          </div>
+          <div className="cb-project-brief" id="project-brief" aria-live="polite">
+            <div>
+              <p className="cb-eyebrow">A few things we can explore</p>
+              <h3>{path.title}</h3>
+              <p>{path.description}</p>
+              <ContactDialog
+                title="Tell us what you’re building."
+                description="A rough idea is a perfectly good place to start."
+                subject={path.subject}
+                messagePlaceholder={path.placeholder}
+                trigger={
+                  <button className="cb-warm-button" type="button">
+                    Let’s talk about it <ArrowRight size={18} />
+                  </button>
+                }
+              />
+            </div>
+            <div className="cb-brief-aside">
+              <span className="cb-eyebrow">Bring your questions</span>
+              <ul>
+                {path.details.map((detail) => (
+                  <li key={detail}>
+                    <Check size={17} />
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+              <div className="cb-brief-formula">{path.formula}</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="cb-conversation-section">
+          <div>
+            <p className="cb-eyebrow">02 / How we work together</p>
+            <h2>
+              More listening.
+              <br />
+              <em>Less guessing.</em>
+            </h2>
+            <p>
+              Robotics works best when we get close to the real problem. That starts with
+              understanding your world.
+            </p>
+          </div>
+          <ol className="cb-conversation-steps">
+            {[
+              [
+                "Share the messy version.",
+                "The idea, the challenge, the thing you’re not sure is possible yet. You don’t need a finished brief.",
+              ],
+              [
+                "Find the right first experiment.",
+                "We’ll discuss the task, the constraints, and what we should learn before going further.",
+              ],
+              [
+                "Build with a clear view of progress.",
+                "Agree on the scope, the role of human supervision, and how we’ll evaluate the work together.",
+              ],
+            ].map(([title, description], index) => (
+              <li key={title}>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section className="cb-sales-closing">
+          <span className="cb-eyebrow">Still connecting the dots?</span>
+          <h2>That’s our favorite part.</h2>
+          <ContactDialog
+            trigger={
+              <button className="cb-warm-button" type="button">
+                Say hello <ArrowRight size={18} />
+              </button>
+            }
+          />
+          <Link to="/solutions" className="cb-text-link">
+            Explore what we’re building <ArrowRight size={17} />
+          </Link>
+        </section>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }

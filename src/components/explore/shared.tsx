@@ -1,34 +1,99 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { SiteFooter } from "@/components/SiteFooter";
 import type { Robot } from "@/data/catalog";
+import "./explore.css";
+
+/** A drawing from the notebook, never a representation of a catalog product. */
+export function NotebookSketch({ variant = "robot" }: { variant?: "robot" | "arm" | "orbit" }) {
+  return (
+    <svg viewBox="0 0 280 220" fill="none" aria-hidden="true" className="explore-sketch">
+      <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M25 189H255M42 23V198" opacity=".25" />
+        <path d="M38 28l4-5 4 5M250 185l5 4-5 4" opacity=".4" />
+        {variant === "robot" ? (
+          <>
+            <path d="M109 83V66a30 30 0 0 1 60 0v17M139 35V21m-5 0h10" />
+            <rect x="104" y="65" width="72" height="45" rx="17" />
+            <path d="M115 110l-9 60h68l-9-60M111 119l-26 35 14 12m70-47 26 35-14 12M120 170v18h-14m54-18v18h14" />
+            <circle cx="125" cy="85" r="4" fill="currentColor" />
+            <circle cx="155" cy="85" r="4" fill="currentColor" />
+            <path d="M133 97q7 7 14 0M126 138h28M139 125v26" />
+            <circle cx="139" cy="138" r="18" strokeDasharray="2 5" />
+            <path d="M181 74h42m-31 89h31M78 119H59" opacity=".5" strokeDasharray="3 4" />
+            <path d="M203 38q22 3 18 22m-2-6 2 6 6-2" />
+          </>
+        ) : variant === "arm" ? (
+          <>
+            <path d="M92 183h72l-12-15h-48l-12 15ZM119 164l-11-68 12-5 25 70M119 88l60-38 10 11-63 42M189 56l25 30m-9-1 15-4 10 13m-16-8 2 17 15 3" />
+            <circle cx="119" cy="96" r="13" />
+            <circle cx="185" cy="55" r="10" />
+            <circle cx="133" cy="164" r="9" />
+            <path
+              d="M120 96h62v-41M145 93q1-15-9-22M66 151a88 88 0 0 1 161-88"
+              strokeDasharray="3 5"
+              opacity=".5"
+            />
+            <path d="M219 63h8v-8" opacity=".5" />
+          </>
+        ) : (
+          <>
+            <ellipse cx="145" cy="106" rx="87" ry="32" transform="rotate(-28 145 106)" />
+            <ellipse cx="145" cy="106" rx="87" ry="32" transform="rotate(35 145 106)" />
+            <ellipse cx="145" cy="106" rx="87" ry="32" transform="rotate(95 145 106)" />
+            <circle cx="145" cy="106" r="13" />
+            <circle cx="213" cy="63" r="6" fill="currentColor" />
+            <circle cx="92" cy="59" r="5" fill="currentColor" />
+            <circle cx="137" cy="180" r="5" fill="currentColor" />
+            <path d="M145 106l52 30m-10-2 10 2-6-8" strokeDasharray="3 4" />
+          </>
+        )}
+      </g>
+    </svg>
+  );
+}
 
 export function PageHero({
   kicker,
   title,
   accent,
   sub,
+  sketch = "robot",
+  note = "A little curiosity goes a long way.",
 }: {
   kicker: string;
   title: string;
   accent?: string;
   sub: string;
+  sketch?: "robot" | "arm" | "orbit";
+  note?: string;
 }) {
   return (
-    <section className="px-6 pt-40 pb-14 md:px-12 md:pt-48 md:pb-20">
-      <div className="mx-auto max-w-6xl">
-        <div className="tech-label mb-6 flex items-center gap-3">
-          <span className="pulse-dot" />
-          <span>{kicker}</span>
+    <section className="explore-hero">
+      <div className="explore-wrap explore-hero-grid">
+        <div>
+          <div className="explore-eyebrow">
+            <span className="explore-small-star">✳</span>
+            {kicker}
+          </div>
+          <h1>
+            {title}
+            {accent && (
+              <>
+                {" "}
+                <em>{accent}</em>
+              </>
+            )}
+          </h1>
+          <p className="explore-intro">{sub}</p>
         </div>
-        <h1 className="font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-          {title}
-          {accent && (
-            <>
-              {" "}
-              <span className="text-primary">{accent}</span>
-            </>
-          )}
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg text-foreground/75 md:text-xl">{sub}</p>
+        <aside className="explore-hero-note">
+          <span className="explore-note-label">From our engineering notebook</span>
+          <NotebookSketch variant={sketch} />
+          <p>{note}</p>
+          <span className="explore-note-formula">curiosity + engineering → possibility</span>
+        </aside>
       </div>
     </section>
   );
@@ -47,11 +112,8 @@ export function FilterPill({
     <button
       type="button"
       onClick={onClick}
-      className={
-        active
-          ? "rounded-full bg-primary px-3.5 py-1.5 text-sm font-medium text-primary-foreground"
-          : "rounded-full border border-border-strong px-3.5 py-1.5 text-sm text-foreground/70 hover:bg-card hover:text-foreground"
-      }
+      aria-pressed={active}
+      className={`explore-filter-pill${active ? " is-active" : ""}`}
     >
       {children}
     </button>
@@ -61,71 +123,74 @@ export function FilterPill({
 function Spec({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-        {label}
-      </div>
-      <div className="text-sm text-foreground/90">{value}</div>
+      <dt>{label}</dt>
+      <dd>{value}</dd>
     </div>
   );
 }
 
 export function AvailabilityBadge({ value }: { value: Robot["availability"] }) {
   if (!value) return null;
-  const tone =
-    value === "In Stock"
-      ? "text-primary border-primary/40 bg-primary/10"
-      : "text-foreground/70 border-border-strong bg-card";
   return (
-    <span className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${tone}`}>
+    <span className={`explore-availability${value === "In Stock" ? " is-stock" : ""}`}>
+      <span />
       {value}
     </span>
+  );
+}
+
+export function RobotImage({ robot, eager = false }: { robot: Robot; eager?: boolean }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="explore-robot-image">
+      {robot.image && !failed ? (
+        <img
+          src={robot.image}
+          alt={robot.name}
+          loading={eager ? "eager" : "lazy"}
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <div className="explore-image-placeholder">
+          <NotebookSketch />
+          <span>Product photograph coming soon</span>
+        </div>
+      )}
+      <span className="explore-image-cross cross-top" aria-hidden="true">
+        +
+      </span>
+      <span className="explore-image-cross cross-bottom" aria-hidden="true">
+        +
+      </span>
+    </div>
   );
 }
 
 export function RobotCard({ robot }: { robot: Robot }) {
   const s = robot.specs;
   return (
-    <Link
-      to="/catalog/$slug"
-      params={{ slug: robot.slug }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-border-strong/60 bg-card/60 transition-colors hover:border-primary/50"
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-background">
-        {robot.image ? (
-          <img
-            src={robot.image}
-            alt={robot.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center font-mono text-xs text-muted-foreground">
-            NO IMAGE
-          </div>
-        )}
-        <div className="absolute top-3 right-3">
+    <Link to="/catalog/$slug" params={{ slug: robot.slug }} className="explore-robot-card">
+      <div className="explore-card-photo">
+        <RobotImage robot={robot} />
+        <div className="explore-card-badge">
           <AvailabilityBadge value={robot.availability} />
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div>
-          <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            {robot.manufacturer ?? "—"}
-          </div>
-          <div className="mt-0.5 text-lg font-medium tracking-tight group-hover:text-primary">
-            {robot.name}
-          </div>
+      <div className="explore-card-body">
+        <span className="explore-note-label">
+          {robot.manufacturer ?? "Manufacturer not listed"}
+        </span>
+        <div className="explore-card-title">
+          <h3>{robot.name}</h3>
+          <ArrowUpRight size={21} aria-hidden="true" />
         </div>
-        <p className="line-clamp-2 text-sm text-foreground/65">{robot.summary}</p>
-        <div className="mt-auto grid grid-cols-4 gap-2 border-t border-border/60 pt-3">
-          <Spec label="DoF" value={s.dof != null ? String(s.dof) : "—"} />
-          <Spec label="Height" value={s.heightCm != null ? `${s.heightCm} cm` : "—"} />
-          <Spec label="Weight" value={s.weightKg != null ? `${s.weightKg} kg` : "—"} />
-          <Spec label="Payload" value={s.payloadKg != null ? `${s.payloadKg} kg` : "—"} />
-        </div>
+        <p>{robot.summary}</p>
+        <dl className="explore-spec-strip">
+          <Spec label="DoF" value={s.dof != null ? String(s.dof) : "N/A"} />
+          <Spec label="Height" value={s.heightCm != null ? `${s.heightCm} cm` : "N/A"} />
+          <Spec label="Weight" value={s.weightKg != null ? `${s.weightKg} kg` : "N/A"} />
+          <Spec label="Payload" value={s.payloadKg != null ? `${s.payloadKg} kg` : "N/A"} />
+        </dl>
       </div>
     </Link>
   );
@@ -133,30 +198,34 @@ export function RobotCard({ robot }: { robot: Robot }) {
 
 export function SiteFooterCTA({ context }: { context: string }) {
   return (
-    <section className="border-t border-border-strong/60 px-6 py-20 md:px-12">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="font-display text-3xl tracking-tight md:text-5xl">
-          Ready to put {context} to work?
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-foreground/70">
-          CosmicBrain is the teleoperation, data, and deployment layer for every platform on this
-          page. We don&apos;t make robots — we make robots work.
-        </p>
-        <div className="mt-8 flex justify-center gap-3">
-          <Link
-            to="/sales"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
-          >
-            Book a Pilot
-          </Link>
-          <Link
-            to="/app"
-            className="rounded-full border border-border-strong px-6 py-3 text-sm font-medium text-foreground hover:bg-card"
-          >
-            See Live Teleop
-          </Link>
+    <>
+      <section className="explore-cta">
+        <div className="explore-wrap explore-cta-grid">
+          <div>
+            <div className="explore-eyebrow">The next page is yours</div>
+            <h2>
+              Big ideas start with
+              <br />
+              <em>a conversation.</em>
+            </h2>
+          </div>
+          <div>
+            <p>
+              Thinking about putting {context} to work? Tell us what you have in mind. We can help
+              connect the hardware, data, and people to take the next step.
+            </p>
+            <div className="explore-actions">
+              <Link to="/sales" className="explore-primary-link">
+                Let’s talk <ArrowUpRight size={17} />
+              </Link>
+              <Link to="/app" className="explore-text-link">
+                Explore live teleop <ArrowRight size={17} />
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <SiteFooter />
+    </>
   );
 }

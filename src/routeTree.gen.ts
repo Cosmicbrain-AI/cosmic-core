@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -18,9 +20,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
-import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SalesRoute = SalesRouteImport.update({
   id: '/sales',
   path: '/sales',
@@ -29,6 +35,11 @@ const SalesRoute = SalesRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -66,11 +77,6 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   path: '/solutions/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap/xml',
-  path: '/sitemap/xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CatalogSlugRoute = CatalogSlugRouteImport.update({
   id: '/catalog/$slug',
   path: '/catalog/$slug',
@@ -82,10 +88,11 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/brands': typeof BrandsRoute
+  '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -95,10 +102,11 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/brands': typeof BrandsRoute
+  '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog': typeof CatalogIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -109,10 +117,11 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/brands': typeof BrandsRoute
+  '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
   '/sales': typeof SalesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -124,10 +133,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/brands'
+    | '/docs'
     | '/login'
     | '/sales'
+    | '/sitemap.xml'
     | '/catalog/$slug'
-    | '/sitemap/xml'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -137,10 +147,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/brands'
+    | '/docs'
     | '/login'
     | '/sales'
+    | '/sitemap.xml'
     | '/catalog/$slug'
-    | '/sitemap/xml'
     | '/solutions/$slug'
     | '/catalog'
     | '/solutions'
@@ -150,10 +161,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/brands'
+    | '/docs'
     | '/login'
     | '/sales'
+    | '/sitemap.xml'
     | '/catalog/$slug'
-    | '/sitemap/xml'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -164,10 +176,11 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AppRoute: typeof AppRoute
   BrandsRoute: typeof BrandsRoute
+  DocsRoute: typeof DocsRoute
   LoginRoute: typeof LoginRoute
   SalesRoute: typeof SalesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CatalogSlugRoute: typeof CatalogSlugRoute
-  SitemapXmlRoute: typeof SitemapXmlRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
   CatalogIndexRoute: typeof CatalogIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
@@ -175,6 +188,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sales': {
       id: '/sales'
       path: '/sales'
@@ -187,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -238,13 +265,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap/xml': {
-      id: '/sitemap/xml'
-      path: '/sitemap/xml'
-      fullPath: '/sitemap/xml'
-      preLoaderRoute: typeof SitemapXmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/catalog/$slug': {
       id: '/catalog/$slug'
       path: '/catalog/$slug'
@@ -260,10 +280,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AppRoute: AppRoute,
   BrandsRoute: BrandsRoute,
+  DocsRoute: DocsRoute,
   LoginRoute: LoginRoute,
   SalesRoute: SalesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   CatalogSlugRoute: CatalogSlugRoute,
-  SitemapXmlRoute: SitemapXmlRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
   CatalogIndexRoute: CatalogIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
