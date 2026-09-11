@@ -20,6 +20,7 @@ const links = [
   ["Our approach", "/#stack"],
   ["The robots", "/catalog"],
   ["Solutions", "/solutions"],
+  ["Sales", "/sales"],
   ["Technical report", "/docs"],
   ["Live Teleop", "/app"],
 ] as const;
@@ -79,16 +80,18 @@ export function SiteHeader() {
       {open && (
         <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">
           {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
+            <a
+              key={href}
+              href={href}
+              aria-current={pathname === href ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
               {label}
               <ArrowUpRight size={18} />
             </a>
           ))}
           <Link to="/brands">
             Meet the makers <ArrowUpRight size={18} />
-          </Link>
-          <Link to="/sales">
-            Start a conversation <ArrowUpRight size={18} />
           </Link>
         </nav>
       )}
