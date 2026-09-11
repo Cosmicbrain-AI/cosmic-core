@@ -28,6 +28,10 @@
   .site-header .menu-toggle {
     display: inline-flex;
   }
+
+  .site-header .mobile-nav {
+    display: block;
+  }
 }
 
 @media (max-width: 760px) {
