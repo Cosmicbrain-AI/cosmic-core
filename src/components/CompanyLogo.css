@@ -12,7 +12,23 @@
 }
 
 .site-header .desktop-nav {
-  gap: 24px;
+  gap: 18px;
+  font-size: 12px;
+}
+
+.site-header {
+  position: fixed;
+  background: #f7f4eced;
+  backdrop-filter: blur(12px);
+}
+
+.site-header .site-header-inner {
+  height: 84px;
+}
+
+.site-header .mobile-nav {
+  max-height: calc(100svh - 84px);
+  overflow-y: auto;
 }
 
 .site-header .nav-teleop {

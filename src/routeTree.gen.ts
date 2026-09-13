@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SalesRouteImport } from './routes/sales'
+import { Route as NewsroomRouteImport } from './routes/newsroom'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as BrandsRouteImport } from './routes/brands'
@@ -30,6 +31,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SalesRoute = SalesRouteImport.update({
   id: '/sales',
   path: '/sales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsroomRoute = NewsroomRouteImport.update({
+  id: '/newsroom',
+  path: '/newsroom',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/brands': typeof BrandsRoute
   '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
+  '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/brands': typeof BrandsRoute
   '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
+  '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/brands': typeof BrandsRoute
   '/docs': typeof DocsRoute
   '/login': typeof LoginRoute
+  '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/brands'
     | '/docs'
     | '/login'
+    | '/newsroom'
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/brands'
     | '/docs'
     | '/login'
+    | '/newsroom'
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/brands'
     | '/docs'
     | '/login'
+    | '/newsroom'
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   BrandsRoute: typeof BrandsRoute
   DocsRoute: typeof DocsRoute
   LoginRoute: typeof LoginRoute
+  NewsroomRoute: typeof NewsroomRoute
   SalesRoute: typeof SalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CatalogSlugRoute: typeof CatalogSlugRoute
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/sales'
       fullPath: '/sales'
       preLoaderRoute: typeof SalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newsroom': {
+      id: '/newsroom'
+      path: '/newsroom'
+      fullPath: '/newsroom'
+      preLoaderRoute: typeof NewsroomRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrandsRoute: BrandsRoute,
   DocsRoute: DocsRoute,
   LoginRoute: LoginRoute,
+  NewsroomRoute: NewsroomRoute,
   SalesRoute: SalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CatalogSlugRoute: CatalogSlugRoute,

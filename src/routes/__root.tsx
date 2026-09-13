@@ -78,33 +78,49 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosmicBrain - Data & deployment stack for humanoids" },
+      { title: "CosmicBrain · A human touch to a robotic world" },
       {
         name: "description",
         content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
-      { property: "og:title", content: "CosmicBrain - Data & deployment stack for humanoids" },
+      { property: "og:title", content: "CosmicBrain · A human touch to a robotic world" },
       {
         property: "og:description",
         content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
       },
       { property: "og:site_name", content: "CosmicBrain" },
-      { property: "og:image", content: "https://www.cosmicbrain.ai/og.jpg" },
+      {
+        property: "og:image",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v4.png",
+      },
+      { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "The brain behind the humanoid - CosmicBrain" },
+      {
+        property: "og:image:alt",
+        content:
+          "CosmicBrain — A human touch to a robotic world. A black humanoid robot carries a woven basket in a warm hallway.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://www.cosmicbrain.ai/og.jpg" },
+      {
+        name: "twitter:image",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v4.png",
+      },
+      {
+        name: "twitter:image:alt",
+        content:
+          "CosmicBrain — A human touch to a robotic world. A black humanoid robot carries a woven basket in a warm hallway.",
+      },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
-      { name: "twitter:title", content: "CosmicBrain - Data & deployment stack for humanoids" },
+      { name: "twitter:title", content: "CosmicBrain · A human touch to a robotic world" },
       {
         name: "twitter:description",
         content:
-          "CosmicBrain powers the data and deployment stack behind humanoids - from first capture to live operation in the field.",
+          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
       },
       {
         name: "keywords",

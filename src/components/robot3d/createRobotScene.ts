@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { createProductStudio } from "./createProductStudio";
 import { createDeploymentRobot } from "./createDeploymentRobot";
 
 export type RobotPose = "carry" | "rest" | "wave";
@@ -68,7 +68,7 @@ export function createRobotScene(
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 0.95;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     canvas.setAttribute("aria-hidden", "true");
@@ -99,18 +99,18 @@ export function createRobotScene(
     controls.update();
     controls.saveState();
 
-    const studio = new RoomEnvironment();
+    const studio = createProductStudio();
     const disposeStudio = releaseOnDispose(() => studio.dispose());
     const pmrem = new THREE.PMREMGenerator(renderer);
     const disposePmrem = releaseOnDispose(() => pmrem.dispose());
-    const environment = pmrem.fromScene(studio, 0.04);
+    const environment = pmrem.fromScene(studio.scene, 0.055);
     releaseOnDispose(() => environment.dispose());
     scene.environment = environment.texture;
-    scene.environmentIntensity = 0.6;
+    scene.environmentIntensity = 0.82;
     disposeStudio();
     disposePmrem();
-    scene.add(new THREE.HemisphereLight(0xfaf5e6, 0xa0a6a8, 2.6));
-    const key = new THREE.DirectionalLight(0xfff3df, 4.1);
+    scene.add(new THREE.HemisphereLight(0xfaf5e6, 0xa0a6a8, 0.6));
+    const key = new THREE.DirectionalLight(0xfff3df, 2.2);
     releaseOnDispose(() => key.shadow.dispose());
     key.position.set(-3, 5, 4);
     key.castShadow = true;
@@ -119,20 +119,32 @@ export function createRobotScene(
     key.shadow.camera.right = 2;
     key.shadow.camera.top = 3;
     key.shadow.camera.bottom = -2;
-    key.shadow.normalBias = 0.015;
+    key.shadow.normalBias = 0.004;
     key.shadow.bias = -0.0001;
     key.shadow.radius = 4;
     scene.add(key);
-    const rim = new THREE.DirectionalLight(0xd3e9fa, 3.2);
+    const rim = new THREE.DirectionalLight(0xd3e9fa, 1.6);
     rim.position.set(3, 3, -3);
     scene.add(rim);
-    const fill = new THREE.DirectionalLight(0xffffff, 1.2);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.45);
     fill.position.set(0, 1.8, 5);
     scene.add(fill);
 
     const robot = createDeploymentRobot();
     releaseOnDispose(() => robot.dispose());
     robot.setPose("carry");
+    // Explicit maps let dark display/glass materials retain their own reflection
+    // intensity; Three.js otherwise applies the global environment intensity.
+    robot.group.traverse((part) => {
+      if (!(part instanceof THREE.Mesh)) return;
+      const surfaces = Array.isArray(part.material) ? part.material : [part.material];
+      for (const surface of surfaces) {
+        if (surface instanceof THREE.MeshStandardMaterial && surface.envMapIntensity !== 1) {
+          surface.envMap = environment.texture;
+          surface.needsUpdate = true;
+        }
+      }
+    });
     scene.add(robot.group);
     const floorGeometry = new THREE.CircleGeometry(1.38, 96);
     releaseOnDispose(() => floorGeometry.dispose());
