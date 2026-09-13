@@ -184,7 +184,9 @@ export function RobotAtmosphere() {
         <div className="robot-atmosphere-halo" />
         <div className="robot-atmosphere-grid" />
         <div ref={hostRef} className="robot-atmosphere-host" />
-        {status !== "ready" && (
+        {/* Keep the loading frame on the paper background; the photograph is
+            only a recovery view when 3D initialization or rendering fails. */}
+        {status === "fallback" && (
           <div className="robot-atmosphere-fallback">
             <img src="/media/deployment/hallway-delivery.png" alt="" />
           </div>
