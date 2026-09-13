@@ -22,6 +22,7 @@ export function SiteFooter() {
           <Link to="/catalog">The robots</Link>
           <Link to="/brands">The makers</Link>
           <Link to="/solutions">Real-world uses</Link>
+          <Link to="/newsroom">Newsroom</Link>
         </div>
         <div className="footer-column">
           <span className="eyebrow">Build with us</span>

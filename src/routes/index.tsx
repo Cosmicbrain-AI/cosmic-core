@@ -1,33 +1,35 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  MoveUpRight,
-  Play,
   Plus,
-  Sparkles,
+  Heart,
+  Radio,
+  Glasses,
+  Bot,
 } from "lucide-react";
 import { SiteHeader, CosmicMark } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { DeploymentRobot } from "@/components/DeploymentRobot";
-import { DeploymentGallery } from "@/components/DeploymentGallery";
-import { TeleopFeature } from "@/components/TeleopFeature";
+import { RobotAtmosphere } from "@/components/RobotAtmosphere";
+import { DeploymentPhotoRail } from "@/components/DeploymentPhotoRail";
+import { PhysicsWorkbench } from "@/components/PhysicsWorkbench";
+import { ArticleCard } from "@/components/newsroom/ArticleCard";
+import { newsArticles } from "@/components/newsroom/articles";
 import { ContactDialog } from "@/components/ContactDialog";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import "@/components/home.css";
+import "@/components/newsroom/newsroom.css";
+import "@/components/immersive-home.css";
 
 const description =
   "Robots learn from people. CosmicBrain brings human demonstrations, training data, teleoperation, and real-world robot deployment into one thoughtful loop.";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CosmicBrain · A human touch for a robotic world" },
+      { title: "CosmicBrain · A human touch to a robotic world" },
       { name: "description", content: description },
-      { property: "og:title", content: "CosmicBrain · A human touch for a robotic world" },
+      { property: "og:title", content: "CosmicBrain · A human touch to a robotic world" },
       { property: "og:description", content: description },
-      { name: "twitter:title", content: "CosmicBrain · A human touch for a robotic world" },
+      { name: "twitter:title", content: "CosmicBrain · A human touch to a robotic world" },
       { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/" }],
@@ -88,317 +90,335 @@ const faqs = [
 ];
 
 function Home() {
-  const [reelOpen, setReelOpen] = useState(false);
-  const reelTriggerRef = useRef<HTMLButtonElement>(null);
   return (
-    <div id="top" className="home-page">
+    <div id="top" className="home-page immersive-home">
       <SiteHeader />
-      <main>
-        <section className="home-hero page-width">
-          <div className="hero-copy">
-            <div className="eyebrow hero-kicker">
-              <span className="little-star">✳</span> A human touch for a robotic world
-            </div>
-            <h1>
-              Big possibilities.
+      <RobotAtmosphere />
+      <main className="immersive-content">
+        <section className="scrolly-chapter scrolly-hero" aria-labelledby="hero-heading">
+          <div className="story-rail rail-left hero-title">
+            <h1 id="hero-heading">
+              A human touch
               <br />
-              <em>Human beginnings.</em>
+              <em>to a robotic world</em>
             </h1>
-            <p>
-              Meet the robot we’re putting to work. Built around real human experience, thoughtful
-              engineering, and the familiar places where a helping hand makes a difference.
-            </p>
-            <div className="hero-buttons">
-              <Link to="/sales" className="button">
-                Let’s build together <ArrowUpRight size={17} />
-              </Link>
-              <button
-                ref={reelTriggerRef}
-                className="reel-trigger"
-                onClick={() => setReelOpen(true)}
-              >
-                <span>
-                  <Play size={12} fill="currentColor" />
-                </span>{" "}
-                Meet CosmicBrain
-              </button>
-            </div>
-            <div className="hero-note">
-              <span className="note-rule" />
+            <a className="story-scroll" href="#motion">
               <span>
-                Data. Teleoperation. Deployment.
-                <br />
-                The brain behind a helping hand.
-              </span>
-            </div>
-          </div>
-          <div className="hero-robot">
-            <DeploymentRobot />
-          </div>
-          <div className="hero-bottom">
-            <span className="eyebrow">Built by curious people, for the real world.</span>
-            <a href="#deployment" className="eyebrow">
-              See the deployment <ArrowDown size={13} />
+                <ArrowDown size={17} />
+              </span>{" "}
+              Scroll to discover
             </a>
+          </div>
+          <div className="story-rail rail-right hero-introduction">
+            <p className="story-lead">Intelligence, with a little warmth.</p>
+            <p>
+              We bring robots into everyday life. Taught by people. Built around the things that
+              matter.
+            </p>
+            <Link to="/sales" className="button">
+              Let’s build together <ArrowUpRight size={16} />
+            </Link>
           </div>
         </section>
 
-        <div className="principle-strip">
-          <div className="page-width">
-            <span>Human experience</span>
-            <Plus size={13} />
-            <span>Physical intelligence</span>
-            <span className="strip-equals">=</span>
-            <span className="strip-result">
-              More possibility for everyone <Sparkles size={17} />
-            </span>
-            <span className="strip-formula">∑ small steps → big things</span>
-          </div>
-        </div>
-
-        <DeploymentGallery />
-
-        <section id="meet" className="manifest-section page-width section-space">
-          <div className="manifest-heading">
-            <span className="eyebrow">01 / A note from us</span>
-            <h2>
-              The future should feel
-              <br />
-              <em>a little more human.</em>
+        <section id="motion" className="scrolly-chapter" aria-labelledby="human-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">01 / Built around people</span>
+            <h2 id="human-heading">
+              A future that feels <em>more human.</em>
             </h2>
-            <figure className="manifest-diagram">
-              <div className="manifest-diagram-path">
-                <div className="manifest-diagram-step">
-                  <svg viewBox="0 0 52 44" aria-hidden="true">
-                    <circle cx="23" cy="10" r="6" />
-                    <path d="M12 37v-9a11 11 0 0 1 22 0v9M16 26l-5 5M30 26l8 5 8-8M18 37h10" />
-                    <path className="manifest-diagram-accent" d="m40 12 3 2 5-6" />
-                  </svg>
-                  <span>Human experience</span>
-                </div>
-                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
-                <div className="manifest-diagram-step">
-                  <svg viewBox="0 0 52 44" aria-hidden="true">
-                    <rect x="15" y="4" width="22" height="13" rx="5" />
-                    <path d="M20 10h12M26 17v4M17 23h18l-3 13H20ZM13 24l-3 11M39 24l3 11M20 40h12" />
-                    <circle className="manifest-diagram-accent" cx="26" cy="28" r="2" />
-                  </svg>
-                  <span>Robot learning</span>
-                </div>
-                <ArrowRight className="manifest-diagram-arrow" aria-hidden="true" />
-                <div className="manifest-diagram-step">
-                  <svg viewBox="0 0 52 44" aria-hidden="true">
-                    <path d="m7 31 9-5h11a4 4 0 0 1 0 8h-7M7 40l11-5 15 1 13-11a3 3 0 0 0-4-4l-9 7" />
-                    <path
-                      className="manifest-diagram-accent"
-                      d="M19 8h15v12H19ZM22 8V5h9v3M25 8v4h3V8"
-                    />
-                  </svg>
-                  <span>A helping hand</span>
-                </div>
-              </div>
-              <figcaption>
-                <span>observe → learn → help</span>
-                <span>People, in the loop.</span>
-              </figcaption>
-            </figure>
-          </div>
-          <div className="manifest-copy">
-            <p>
+            <p id="meet">
               Robotics begins with something beautifully ordinary: a person showing another way to
               do a thing.
             </p>
             <p>
               We’re here for the space between a clever machine and a useful one. The careful
-              engineering. The shared learning. The people who make it all work. CosmicBrain brings
-              those pieces together, so robots can lend a hand in the places that need one.
+              engineering. The shared learning. The people who make it all work.
             </p>
-            <div className="signature">
-              <span className="signature-line">With curiosity,</span>
-              <span>The CosmicBrain team</span>
-              <span className="eyebrow">San Francisco · Planet Earth</span>
+            <div className="story-signature">
+              <span>With curiosity,</span>The CosmicBrain team
+              <small>San Francisco · Planet Earth</small>
             </div>
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <HumanDiagram />
+            <a href="#deployment" className="text-link">
+              See it in the world <ArrowUpRight size={15} />
+            </a>
           </div>
         </section>
 
-        <LearningLoop />
-
-        <section id="primitives" className="senses-section page-width section-space">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">03 / A feeling for the physical world</span>
-              <h2>
-                There’s a little physics
-                <br />
-                in every <em>helping hand.</em>
-              </h2>
-            </div>
+        <section id="stack" className="scrolly-chapter" aria-labelledby="learning-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">02 / The CosmicBrain approach</span>
+            <h2 id="learning-heading">
+              From experience <em>to intelligence.</em>
+            </h2>
             <p>
-              A useful robot needs more than instructions. It needs ways to understand what’s around
-              it, how it’s moving, and when to be gentle.
+              From a first demonstration to a useful robot in the field. Three connected layers,
+              with people in the loop.
             </p>
+            <div className="rail-formula">
+              human experience
+              <br />
+              <span>+ physical intelligence</span>
+              <hr />
+              <em>a world of possibility</em>
+            </div>
           </div>
-          <div className="physics-notes">
-            <article className="physics-note">
-              <div className="note-top">
-                <span className="eyebrow">01 / Perception</span>
-                <span>↗</span>
-              </div>
-              <div className="physics-drawing depth-drawing" aria-hidden="true">
-                <svg viewBox="0 0 240 110">
-                  <path d="M35 80 100 45l100 35-68 27ZM100 45V8l100 33v39M132 107V65L35 30v50M35 30l65-22M132 65l68-24" />
-                  <path d="m15 90 7-4m187-8 16-9M110 20l8 3m4 2 8 3" strokeDasharray="4 4" />
-                  <circle cx="132" cy="65" r="4" />
-                </svg>
-                <span>x, y, z</span>
-              </div>
-              <h3>See the possibilities.</h3>
-              <p>
-                Pixels, depth, and geometry turn a scene into something a robot can reason about.
-              </p>
-              <div className="note-equation">
-                p = (x, y, z)<span>A place in three-dimensional space.</span>
-              </div>
-            </article>
-            <article className="physics-note">
-              <div className="note-top">
-                <span className="eyebrow">02 / Motion</span>
-                <span>↗</span>
-              </div>
-              <div className="physics-drawing" aria-hidden="true">
-                <svg viewBox="0 0 240 110">
-                  <path d="M24 85h191M35 98V10" />
-                  <path
-                    d="M35 83c30 0 25-57 56-57s28 60 58 60 25-59 65-59"
-                    className="motion-curve"
-                  />
-                  <path d="m208 18 9 7-7 9" />
-                  <circle cx="92" cy="26" r="4" />
-                </svg>
-                <span>One small movement.</span>
-              </div>
-              <h3>Make every move count.</h3>
-              <p>
-                Joint positions and motion signals connect intent to a coordinated physical action.
-              </p>
-              <div className="note-equation">
-                v = dx / dt<span>How position changes over time.</span>
-              </div>
-            </article>
-            <article className="physics-note">
-              <div className="note-top">
-                <span className="eyebrow">03 / Touch</span>
-                <span>↗</span>
-              </div>
-              <div className="physics-drawing" aria-hidden="true">
-                <svg viewBox="0 0 240 110">
-                  <circle cx="120" cy="58" r="27" />
-                  <path d="M81 58H36m45 0-9-7m9 7-9 7m87-7h45m-45 0 9-7m-9 7 9 7M120 20V3m0 90v16" />
-                  <path d="M98 18c8-5 35-5 44 0M98 98c9 5 35 5 44 0" strokeDasharray="3 4" />
-                </svg>
-                <span>Just enough. Never too much.</span>
-              </div>
-              <h3>A gentler kind of strength.</h3>
-              <p>
-                Force and tactile signals help a robot understand the difference between holding and
-                squeezing.
-              </p>
-              <div className="note-equation">
-                F = ma<span>Force, mass, and acceleration.</span>
-              </div>
-            </article>
+          <div className="story-rail rail-right rail-offset">
+            <LearningLoop />
           </div>
         </section>
 
-        <TeleopFeature />
+        <section id="deployment" className="scrolly-chapter" aria-labelledby="deployment-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">03 / From our world to yours</span>
+            <h2 id="deployment-heading">
+              A helping hand. <em>In the real world.</em>
+            </h2>
+            <p>
+              A laundry basket. A hallway. A small moment at the door. Take a closer look at the
+              robot in the spaces it’s designed to help.
+            </p>
+            <p className="rail-handwritten">
+              Real spaces.
+              <br />A very human purpose.
+            </p>
+            <Link className="text-link" to="/solutions">
+              Explore the possibilities <ArrowUpRight size={15} />
+            </Link>
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <DeploymentPhotoRail />
+          </div>
+        </section>
 
-        <section id="faq" className="faq-section page-width section-space">
-          <div className="faq-heading">
-            <span className="eyebrow">05 / Glad you asked</span>
-            <h2>
-              Curiosity
+        <section
+          id="primitives"
+          className="scrolly-chapter scrolly-physics"
+          aria-labelledby="physics-heading"
+        >
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">04 / The physics of helping</span>
+            <h2 id="physics-heading">
+              A little physics in every <em>helping hand.</em>
+            </h2>
+            <p>
+              A useful robot needs ways to understand what’s around it, how it’s moving, and when to
+              be gentle.
+            </p>
+            <div className="rail-formula">
+              p = (x, y, z)<small>A place in the world.</small>
+              <br />F = ma<small>Force, mass, and acceleration.</small>
+            </div>
+            <p className="small-rail-note">
+              A little experiment for your curiosity. Choose a sense and move the slider.
+            </p>
+          </div>
+          <div className="story-rail rail-right">
+            <PhysicsWorkbench />
+          </div>
+        </section>
+
+        <section id="platform" className="scrolly-chapter" aria-labelledby="teleop-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">05 / People in the loop</span>
+            <h2 id="teleop-heading">
+              Your hands.
               <br />
-              <em>looks good on you.</em>
+              <em>A little more reach.</em>
+            </h2>
+            <p>
+              Human judgment, wherever the robot is. Our operator workspace brings approved people,
+              assigned robots, and headset access together.
+            </p>
+            <Link to="/app" className="button">
+              Open Live Teleop <ArrowUpRight size={16} />
+            </Link>
+            <p className="small-rail-note">Sign in with your approved operator account.</p>
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <div
+              className="connection-diagram"
+              role="img"
+              aria-label="An approved operator connects through a private session to an assigned robot"
+            >
+              <div>
+                <Glasses size={25} />
+                <span>You + your headset</span>
+              </div>
+              <span className="connection-line" />
+              <div>
+                <Radio size={25} />
+                <span>One operator session</span>
+              </div>
+              <span className="connection-line" />
+              <div>
+                <Bot size={25} />
+                <span>Your assigned robot</span>
+              </div>
+            </div>
+            <div className="report-note">
+              <span className="story-index">FROM THE NOTEBOOK</span>
+              <h3>Curious about what makes it work?</h3>
+              <p>
+                Cosmic 0.5 · Human-to-humanoid skill transfer, capture, retargeting, and evaluation.
+              </p>
+              <Link to="/docs" className="text-link">
+                Read the technical report <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="newsroom"
+          className="scrolly-chapter scrolly-news"
+          aria-labelledby="news-heading"
+        >
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">06 / Out in the world</span>
+            <h2 id="news-heading">
+              Part of a bigger <em>conversation.</em>
+            </h2>
+            <p>
+              A few perspectives on the work, the people, and the questions moving robotics forward.
+            </p>
+            <Link to="/newsroom" className="text-link">
+              Visit the newsroom <ArrowUpRight size={15} />
+            </Link>
+            <ArticleCard article={newsArticles[0]} compact />
+          </div>
+          <div className="story-rail rail-right rail-offset news-rail">
+            <ArticleCard article={newsArticles[1]} compact />
+            <ArticleCard article={newsArticles[2]} compact />
+          </div>
+        </section>
+
+        <section id="faq" className="scrolly-chapter" aria-labelledby="faq-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">07 / Glad you asked</span>
+            <h2 id="faq-heading">
+              Curiosity <em>looks good on you.</em>
             </h2>
             <p>A few things you might be wondering.</p>
             <a className="text-link" href="mailto:hello@cosmicbrainai.com">
-              Ask us something else <ArrowUpRight size={16} />
+              Ask us something else <ArrowUpRight size={15} />
             </a>
           </div>
-          <div className="faq-list">
-            {faqs.map(([q, a], i) => (
-              <details key={q}>
+          <div className="story-rail rail-right rail-faq">
+            {faqs.map(([question, answer], index) => (
+              <details key={question}>
                 <summary>
-                  <span className="faq-number">0{i + 1}</span>
-                  {q}
-                  <Plus className="faq-plus" size={17} />
+                  <span>0{index + 1}</span>
+                  {question}
+                  <Plus size={15} />
                 </summary>
-                <p>{a}</p>
+                <p>{answer}</p>
               </details>
             ))}
           </div>
         </section>
 
-        <section id="contact" className="home-contact">
-          <div className="page-width">
-            <div className="contact-equation" aria-hidden="true">
+        <section
+          id="contact"
+          className="scrolly-chapter scrolly-contact"
+          aria-labelledby="contact-heading"
+        >
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">08 / Your next chapter</span>
+            <h2 id="contact-heading">
+              What could we <em>build together?</em>
+            </h2>
+            <p>
+              Tell us about the task you’re imagining, the people around it, and what a useful next
+              step would look like.
+            </p>
+            <ContactDialog
+              title="Hello, fellow human."
+              description="Tell us what you're imagining. We'll work out the next step together."
+              trigger={
+                <button className="button">
+                  Say hello <ArrowUpRight size={16} />
+                </button>
+              }
+            />
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <div className="rail-formula">
               human curiosity
               <br />
-              <span>×</span> thoughtful engineering
+              <span>× thoughtful engineering</span>
+              <hr />
+              <em>a world of possibility</em>
+            </div>
+            <p className="rail-handwritten">
+              People at the heart.
               <br />
-              <i>= a world of possibility</i>
-            </div>
-            <div className="home-contact-copy">
-              <span className="eyebrow">Every good thing starts with a conversation</span>
-              <h2>
-                What could we
-                <br />
-                <em>build together?</em>
-              </h2>
-              <ContactDialog
-                title="Hello, fellow human."
-                description="Tell us what you're imagining. We'll work out the next step together."
-                trigger={
-                  <button className="button">
-                    Say hello <ArrowUpRight size={17} />
-                  </button>
-                }
-              />
-            </div>
-            <CosmicMark className="contact-star" />
+              Robots in the loop.
+            </p>
           </div>
         </section>
       </main>
-      <SiteFooter />
-      <Dialog open={reelOpen} onOpenChange={setReelOpen}>
-        <DialogContent
-          onCloseAutoFocus={(event) => {
-            event.preventDefault();
-            reelTriggerRef.current?.focus();
-          }}
-          className="reel-dialog sm:max-w-4xl"
-        >
-          <DialogTitle className="font-display text-3xl">Meet CosmicBrain</DialogTitle>
-          <DialogDescription>A closer look at our data and deployment approach.</DialogDescription>
-          {reelOpen && (
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/TipCCtr0OIg?rel=0"
-              title="CosmicBrain showreel"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          )}
-          <a
-            className="text-link"
-            href="https://www.youtube.com/watch?v=TipCCtr0OIg"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Watch on YouTube <ArrowUpRight size={15} />
+      <footer className="scrolly-chapter immersive-footer">
+        <div className="story-rail rail-left">
+          <Link to="/" className="wordmark">
+            <CosmicMark />
+            <span>cosmicbrain.</span>
+          </Link>
+          <p>
+            A little curiosity.
+            <br />A lot of possibility.
+          </p>
+          <a className="text-link" href="mailto:hello@cosmicbrainai.com">
+            hello@cosmicbrainai.com <ArrowUpRight size={14} />
           </a>
-        </DialogContent>
-      </Dialog>
+          <small>© {new Date().getFullYear()} CosmicBrain AI</small>
+        </div>
+        <div className="story-rail rail-right">
+          <div className="immersive-footer-links">
+            <Link to="/sales">Sales</Link>
+            <Link to="/catalog">The robots</Link>
+            <Link to="/solutions">Solutions</Link>
+            <Link to="/newsroom">Newsroom</Link>
+            <Link to="/docs">Technical report</Link>
+            <Link to="/app">Live Teleop</Link>
+          </div>
+          <p className="small-rail-note">
+            <Heart size={12} /> Built with care in San Francisco.
+          </p>
+          <a href="#top" className="text-link">
+            Back to the beginning <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </footer>
     </div>
+  );
+}
+
+function HumanDiagram() {
+  return (
+    <figure className="human-learning-diagram">
+      <svg
+        viewBox="0 0 280 100"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      >
+        <circle cx="35" cy="25" r="8" />
+        <path d="M19 63V48a16 16 0 0 1 32 0v15m-9-17 17 11M85 46h25m-6-5 6 5-6 5" />
+        <rect x="125" y="15" width="38" height="24" rx="8" />
+        <path d="M135 27h18m-9 12v8m-16 1h32l-6 27h-20ZM186 46h25m-6-5 6 5-6 5M230 59l11-6h17a5 5 0 0 1 0 10h-15m-13 11 13-8 19 1 11-12M237 18h25v23h-25zm7 0v-6h11v6" />
+      </svg>
+      <figcaption>
+        <span>Human experience</span>
+        <span>Robot learning</span>
+        <span>A helping hand</span>
+      </figcaption>
+      <p>observe → learn → help</p>
+    </figure>
   );
 }
 
@@ -406,108 +426,61 @@ function LearningLoop() {
   const [selected, setSelected] = useState(0);
   const stage = stages[selected];
   return (
-    <section id="stack" className="learning-section section-space">
-      <div className="page-width">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">02 / The CosmicBrain approach</span>
-            <h2>
-              Experience becomes learning.
-              <br />
-              Learning becomes <em>doing.</em>
-            </h2>
-          </div>
-          <p>
-            From a first demonstration to a useful robot in the field. Three connected layers, with
-            people in the loop.
-          </p>
-        </div>
-        <div className="loop-workbench">
-          <div className="loop-tabs" role="tablist" aria-label="Explore the learning loop">
-            {stages.map((item, i) => (
-              <button
-                type="button"
-                key={item.name}
-                role="tab"
-                aria-selected={selected === i}
-                aria-controls="learning-panel"
-                id={`learning-tab-${i}`}
-                tabIndex={selected === i ? 0 : -1}
-                onClick={() => setSelected(i)}
-                onKeyDown={(event) => {
-                  const next =
-                    event.key === "ArrowRight"
-                      ? (i + 1) % 3
-                      : event.key === "ArrowLeft"
-                        ? (i + 2) % 3
-                        : event.key === "Home"
-                          ? 0
-                          : event.key === "End"
-                            ? 2
-                            : null;
-                  if (next !== null) {
-                    event.preventDefault();
-                    setSelected(next);
-                    document.getElementById(`learning-tab-${next}`)?.focus();
-                  }
-                }}
-              >
-                <span className="eyebrow">{item.icon}</span>
-                <span>{item.name}</span>
-                <MoveUpRight size={17} />
-              </button>
-            ))}
-          </div>
-          <div
-            className="loop-panel"
-            role="tabpanel"
-            id="learning-panel"
-            aria-labelledby={`learning-tab-${selected}`}
-            tabIndex={0}
+    <div className="rail-learning">
+      <div className="rail-learning-tabs" role="tablist" aria-label="Explore the learning loop">
+        {stages.map((item, index) => (
+          <button
+            key={item.name}
+            type="button"
+            role="tab"
+            id={`learning-tab-${index}`}
+            aria-selected={selected === index}
+            aria-controls="learning-panel"
+            tabIndex={selected === index ? 0 : -1}
+            onClick={() => setSelected(index)}
+            onKeyDown={(event) => {
+              const next =
+                event.key === "ArrowRight"
+                  ? (index + 1) % 3
+                  : event.key === "ArrowLeft"
+                    ? (index + 2) % 3
+                    : event.key === "Home"
+                      ? 0
+                      : event.key === "End"
+                        ? 2
+                        : null;
+              if (next !== null) {
+                event.preventDefault();
+                setSelected(next);
+                document.getElementById(`learning-tab-${next}`)?.focus();
+              }
+            }}
           >
-            <div className="loop-copy">
-              <h3>{stage.subtitle}</h3>
-              <p>{stage.body}</p>
-              <Link to="/sales" className="text-link">
-                Find your starting point <ArrowRight size={16} />
-              </Link>
-            </div>
-            <div className={`loop-diagram loop-diagram-${selected}`}>
-              <span className="eyebrow">A small field guide to {stage.name.toLowerCase()}</span>
-              <div className="diagram-flow">
-                {stage.labels.map((label, i) => (
-                  <div key={label} className="diagram-item">
-                    <div className="diagram-symbol">
-                      {i === 0 ? (
-                        <svg viewBox="0 0 54 54" aria-hidden="true">
-                          <circle cx="27" cy="13" r="8" />
-                          <path d="M27 21v19M12 29l15-4 15 4M27 40l-12 12m12-12 12 12" />
-                        </svg>
-                      ) : i === 1 ? (
-                        <CosmicMark />
-                      ) : (
-                        <svg viewBox="0 0 54 54" aria-hidden="true">
-                          <rect x="8" y="10" width="38" height="34" rx="9" />
-                          <path d="M18 23v7m18-7v7M20 36h14M27 3v7" />
-                        </svg>
-                      )}
-                    </div>
-                    <span>{label}</span>
-                    {i < 2 && <ArrowRight className="diagram-arrow" size={18} />}
-                  </div>
-                ))}
-              </div>
-              <div className="loop-equation">
-                {stage.equation}
-                <span>{stage.explanation}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p className="loop-footnote">
-          <span>↳</span> The most important part of the loop? What we learn together.
-        </p>
+            <span>0{index + 1}</span>
+            {item.name}
+          </button>
+        ))}
       </div>
-    </section>
+      <div id="learning-panel" role="tabpanel" aria-labelledby={`learning-tab-${selected}`}>
+        <h3>{stage.subtitle}</h3>
+        <p>{stage.body}</p>
+        <div className="learning-path">
+          {stage.labels.map((label, index) => (
+            <div key={label}>
+              <span>0{index + 1}</span>
+              {label}
+              {index < 2 && <ArrowDown size={13} />}
+            </div>
+          ))}
+        </div>
+        <div className="rail-formula">
+          {stage.equation}
+          <small>{stage.explanation}</small>
+        </div>
+        <Link className="text-link" to="/sales">
+          Find your starting point <ArrowRight size={15} />
+        </Link>
+      </div>
+    </div>
   );
 }

@@ -17,11 +17,12 @@ export function CosmicMark({ className = "" }: { className?: string }) {
   );
 }
 const links = [
-  ["Our approach", "/#stack"],
-  ["The robots", "/catalog"],
+  ["Approach", "/#stack"],
+  ["Robots", "/catalog"],
   ["Solutions", "/solutions"],
   ["Sales", "/sales"],
-  ["Technical report", "/docs"],
+  ["Newsroom", "/newsroom"],
+  ["Docs", "/docs"],
   ["Live Teleop", "/app"],
 ] as const;
 export function SiteHeader() {

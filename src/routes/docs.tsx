@@ -13,6 +13,26 @@ export const Route = createFileRoute("/docs")({
         content:
           "Read Cosmic 0.5, CosmicBrain’s technical report on human-to-humanoid skill transfer, capture, motion, retargeting, and evaluation.",
       },
+      {
+        property: "og:title",
+        content: "Inside the engineering · CosmicBrain Technical Report",
+      },
+      { property: "og:url", content: "https://www.cosmicbrain.ai/docs" },
+      {
+        property: "og:description",
+        content:
+          "Read Cosmic 0.5, CosmicBrain’s technical report on human-to-humanoid skill transfer, capture, motion, retargeting, and evaluation.",
+      },
+      {
+        name: "twitter:title",
+        content: "Inside the engineering · CosmicBrain Technical Report",
+      },
+      { name: "twitter:url", content: "https://www.cosmicbrain.ai/docs" },
+      {
+        name: "twitter:description",
+        content:
+          "Read Cosmic 0.5, CosmicBrain’s technical report on human-to-humanoid skill transfer, capture, motion, retargeting, and evaluation.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/docs" }],
   }),
