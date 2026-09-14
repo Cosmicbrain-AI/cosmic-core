@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, Eye, Layers3, Pause, Play, RotateCcw, Plus, X } from "lucide-react";
+import type { RobotService } from "./robot3d/createServiceProps";
 import type { AtmosphereScene } from "./robot3d/createAtmosphereScene";
 import "./RobotAtmosphere.css";
 
@@ -19,12 +20,23 @@ const compositions = [
   { x: 54, zoom: 1.23, elevation: 1.25 },
   { x: 74, zoom: 1, elevation: 1.07 },
   { x: 25, zoom: 1.13, elevation: 1.13 },
-  { x: 74, zoom: 1.22, elevation: 1.13 },
+  { x: 74, zoom: 1.04, elevation: 1.07 },
   { x: 25, zoom: 1.15, elevation: 1.1 },
-  { x: 74, zoom: 1.08, elevation: 1.07 },
+  { x: 74, zoom: 1.04, elevation: 1.07 },
   { x: 25, zoom: 1.12, elevation: 1.12 },
-  { x: 74, zoom: 1.08, elevation: 1.07 },
+  { x: 74, zoom: 1.04, elevation: 1.07 },
   { x: 25, zoom: 1.2, elevation: 1.15 },
+];
+const services: RobotService[] = [
+  "laundry",
+  "cooking",
+  "cleaning",
+  "cleaning",
+  "cooking",
+  "cleaning",
+  "laundry",
+  "cleaning",
+  "laundry",
 ];
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
@@ -34,6 +46,9 @@ export function RobotAtmosphere() {
   const hostRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<AtmosphereScene | null>(null);
   const pausedRef = useRef(false);
+  const manualServiceRef = useRef<RobotService | null>(null);
+  const serviceChapterRef = useRef(0);
+  const [selectedService, setSelectedService] = useState<RobotService>("laundry");
   const reducedRef = useRef(false);
   const scheduleRef = useRef<() => void>(() => {});
   const [exploring, setExploring] = useState(false);
@@ -66,6 +81,13 @@ export function RobotAtmosphere() {
       layer.dataset.chapter = String(current);
       layer.dataset.reduced = String(reducedRef.current);
       if (!pausedRef.current) {
+        if (!reducedRef.current && current !== serviceChapterRef.current)
+          manualServiceRef.current = null;
+        serviceChapterRef.current = current;
+        const service =
+          manualServiceRef.current ?? (reducedRef.current ? "laundry" : services[current]);
+        sceneRef.current?.setService(service);
+        setSelectedService(service);
         const mobile = window.innerWidth <= 760;
         const destination = compositions[current];
         const previous = compositions[Math.max(0, current - 1)];
@@ -74,27 +96,37 @@ export function RobotAtmosphere() {
         const blend = t * t * (3 - 2 * t);
         const x = reducedRef.current
           ? mobile
-            ? 82
+            ? 45
             : 74
           : mobile
             ? current === 0
               ? 55
-              : 82
+              : 45
             : previous.x + (destination.x - previous.x) * blend;
         layer.style.setProperty("--scene-x", `${x}%`);
         sceneRef.current?.setFraming({
-          zoom: reducedRef.current
-            ? 1.05
-            : mobile
-              ? current === 0
-                ? 1.1
-                : 1.05
-              : previous.zoom + (destination.zoom - previous.zoom) * blend,
-          elevation: reducedRef.current
-            ? 1.07
-            : mobile
-              ? 1.15
-              : previous.elevation + (destination.elevation - previous.elevation) * blend,
+          zoom:
+            service === "cleaning"
+              ? mobile
+                ? 0.8
+                : 1.0
+              : reducedRef.current
+                ? mobile
+                  ? 0.8
+                  : 1.05
+                : mobile
+                  ? current === 0
+                    ? 1.1
+                    : 0.8
+                  : previous.zoom + (destination.zoom - previous.zoom) * blend,
+          elevation:
+            service === "cleaning"
+              ? 1.05
+              : reducedRef.current
+                ? 1.07
+                : mobile
+                  ? 1.15
+                  : previous.elevation + (destination.elevation - previous.elevation) * blend,
         });
         if (!reducedRef.current) sceneRef.current?.setProgress(progress);
       }
@@ -181,7 +213,6 @@ export function RobotAtmosphere() {
     <>
       <div ref={layerRef} className="robot-atmosphere" aria-hidden="true">
         <div className="robot-atmosphere-paper" />
-        <div className="robot-atmosphere-halo" />
         <div className="robot-atmosphere-grid" />
         <div ref={hostRef} className="robot-atmosphere-host" />
         {/* Keep the loading frame on the paper background; the photograph is
@@ -191,6 +222,30 @@ export function RobotAtmosphere() {
             <img src="/media/deployment/hallway-delivery.png" alt="" />
           </div>
         )}
+      </div>
+      <div className="robot-service-picker" role="group" aria-label="Choose the robot’s task">
+        {(
+          [
+            ["laundry", "Laundry"],
+            ["cooking", "Kitchen"],
+            ["cleaning", "Cleaning"],
+          ] as const
+        ).map(([service, label]) => (
+          <button
+            key={service}
+            type="button"
+            disabled={status !== "ready"}
+            aria-pressed={selectedService === service}
+            onClick={() => {
+              manualServiceRef.current = service;
+              setSelectedService(service);
+              sceneRef.current?.setService(service);
+              scheduleRef.current();
+            }}
+          >
+            {label}
+          </button>
+        ))}
       </div>
       <div className="robot-scene-caption">
         <span>

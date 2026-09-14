@@ -21,7 +21,7 @@ import "@/components/newsroom/newsroom.css";
 import "@/components/immersive-home.css";
 
 const description =
-  "Robots learn from people. CosmicBrain brings human demonstrations, training data, teleoperation, and real-world robot deployment into one thoughtful loop.";
+  "CosmicBrain delivers Robots as a Service (RaaS) for hotels and service businesses, and AI infrastructure for robot companies: data, learning, teleoperation, and deployment.";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -69,7 +69,7 @@ const stages = [
 const faqs = [
   [
     "So, what does CosmicBrain actually do?",
-    "We build the data and deployment layer for humanoid robotics: capture real-world demonstrations and signals, refine them into useful training data, and connect hardware, policies, and human operators in the field.",
+    "We have two offerings: Robots as a Service (RaaS) for end customers such as hotels, and AI infrastructure for robot companies. We connect useful robot deployments with the data, learning tools, and human operations behind them.",
   ],
   [
     "Do you build the robots, too?",
@@ -77,7 +77,7 @@ const faqs = [
   ],
   [
     "Who do you work with?",
-    "Robotics teams collecting task-specific data, model builders learning from the physical world, and organizations exploring a supervised robot pilot. We start with the task and the people around it.",
+    "Hotels and service businesses that want robots deployed and supported as a service, plus robot manufacturers and robotics teams that need AI infrastructure. We start with your task, your environment, and your team.",
   ],
   [
     "Are the robots fully autonomous?",
@@ -110,10 +110,10 @@ function Home() {
             </a>
           </div>
           <div className="story-rail rail-right hero-introduction">
-            <p className="story-lead">Intelligence, with a little warmth.</p>
+            <p className="story-lead">Useful robots. Thoughtfully delivered.</p>
             <p>
-              We bring robots into everyday life. Taught by people. Built around the things that
-              matter.
+              Robots as a Service for hotels and service businesses. AI infrastructure for the
+              companies building robots.
             </p>
             <Link to="/sales" className="button">
               Let’s build together <ArrowUpRight size={16} />
@@ -123,17 +123,17 @@ function Home() {
 
         <section id="motion" className="scrolly-chapter" aria-labelledby="human-heading">
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">01 / Built around people</span>
+            <span className="eyebrow chapter-kicker">01 / Two ways we help</span>
             <h2 id="human-heading">
               A future that feels <em>more human.</em>
             </h2>
             <p id="meet">
-              Robotics begins with something beautifully ordinary: a person showing another way to
-              do a thing.
+              For hotels and service businesses, we deploy robots as a service — bringing hardware,
+              integration, and human support together around the work you need done.
             </p>
             <p>
-              We’re here for the space between a clever machine and a useful one. The careful
-              engineering. The shared learning. The people who make it all work.
+              For robot companies, we provide the AI infrastructure behind useful machines:
+              demonstration data, training workflows, teleoperation, and deployment tools.
             </p>
             <div className="story-signature">
               <span>With curiosity,</span>The CosmicBrain team
@@ -141,6 +141,20 @@ function Home() {
             </div>
           </div>
           <div className="story-rail rail-right rail-offset">
+            <div className="offering-paths">
+              <a href="#deployment">
+                <span>For end customers</span>
+                <strong>Robots as a Service</strong>
+                <p>Robots, integrated into your everyday operations.</p>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="#stack">
+                <span>For robot companies</span>
+                <strong>AI infrastructure</strong>
+                <p>The data and software behind capable robots.</p>
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
             <HumanDiagram />
             <a href="#deployment" className="text-link">
               See it in the world <ArrowUpRight size={15} />
@@ -150,13 +164,16 @@ function Home() {
 
         <section id="stack" className="scrolly-chapter" aria-labelledby="learning-heading">
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">02 / The CosmicBrain approach</span>
+            <span className="eyebrow chapter-kicker">
+              02 / AI infrastructure for robot companies
+            </span>
             <h2 id="learning-heading">
               From experience <em>to intelligence.</em>
             </h2>
             <p>
-              From a first demonstration to a useful robot in the field. Three connected layers,
-              with people in the loop.
+              You build the robot. We provide the AI infrastructure to help it learn and operate:
+              capture demonstrations, refine training data, and connect policies with human
+              supervision.
             </p>
             <div className="rail-formula">
               human experience
@@ -173,13 +190,14 @@ function Home() {
 
         <section id="deployment" className="scrolly-chapter" aria-labelledby="deployment-heading">
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">03 / From our world to yours</span>
+            <span className="eyebrow chapter-kicker">03 / Robots as a Service · RaaS</span>
             <h2 id="deployment-heading">
               A helping hand. <em>In the real world.</em>
             </h2>
             <p>
-              A laundry basket. A hallway. A small moment at the door. Take a closer look at the
-              robot in the spaces it’s designed to help.
+              A helping hand for your hotel or service business. We work with you to choose a
+              practical workflow, integrate the robot into your space, and support its operation as
+              a service.
             </p>
             <p className="rail-handwritten">
               Real spaces.

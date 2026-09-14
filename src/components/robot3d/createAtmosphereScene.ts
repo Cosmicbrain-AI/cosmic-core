@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import type { RobotService } from "./createServiceProps";
 import { createDeploymentRobot } from "./createDeploymentRobot";
 import { createProductStudio } from "./createProductStudio";
 
@@ -12,6 +13,7 @@ export interface AtmosphereFraming {
 }
 
 export interface AtmosphereScene {
+  setService: (service: RobotService) => void;
   setProgress: (progress: number) => void;
   setPointer: (x: number, y: number) => void;
   setFraming: (framing: AtmosphereFraming) => void;
@@ -23,8 +25,8 @@ export interface AtmosphereScene {
 }
 
 /**
- * A large, reference-inspired mobile humanoid with its laundry basket.
- * The carry pose stays fixed while scrolling changes the viewing angle and
+ * A reference-inspired mobile humanoid with interchangeable service props.
+ * Each prop has a solved grip pose while scrolling changes the viewing angle and
  * pointer movement gently turns the sensor head. This is an illustrative
  * reconstruction, not an engineering CAD model or teleoperation connection.
  * Initialization failures reject. Later rendering/context failures release the
@@ -207,22 +209,6 @@ export async function createAtmosphereScene(host: HTMLElement): Promise<Atmosphe
     geometries.add(grid.geometry);
     scene.add(grid);
 
-    const ringMaterial = new THREE.LineBasicMaterial({
-      color: 0x8a8d82,
-      transparent: true,
-      opacity: 0.12,
-    });
-    materials.add(ringMaterial);
-    for (const radius of [0.78, 0.9]) {
-      const points = Array.from({ length: 97 }, (_, index) => {
-        const angle = (index / 96) * Math.PI * 2;
-        return new THREE.Vector3(Math.cos(angle) * radius, -0.009, Math.sin(angle) * radius);
-      });
-      const ringGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      geometries.add(ringGeometry);
-      scene.add(new THREE.Line(ringGeometry, ringMaterial));
-    }
-
     let progress = 0;
     let targetProgress = 0;
     let pointerX = 0;
@@ -247,8 +233,7 @@ export async function createAtmosphereScene(host: HTMLElement): Promise<Atmosphe
     }
 
     function updatePose() {
-      // The model remains in its carry pose throughout: no animation changes
-      // either arm or detaches the basket. The acknowledgment moves only its head.
+      // Service props retain their solved grip poses; acknowledgment moves only the head.
       const phase = gesture ? gesture.elapsed / gesture.duration : 0;
       const envelope = gesture ? Math.sin(Math.PI * phase) ** 2 : 0;
       const acknowledgment = gesture ? Math.sin(phase * Math.PI * 2) * envelope : 0;
@@ -371,7 +356,16 @@ export async function createAtmosphereScene(host: HTMLElement): Promise<Atmosphe
       renderer.render(scene, camera);
     }
 
+    let currentService: RobotService = "laundry";
+    host.dataset.service = currentService;
     return {
+      setService(next) {
+        if (disposed || next === currentService) return;
+        currentService = next;
+        robot.setService(next);
+        host.dataset.service = next;
+        requestFrame();
+      },
       setProgress(next) {
         if (disposed || !Number.isFinite(next)) return;
         targetProgress = THREE.MathUtils.clamp(next, 0, 1);
@@ -385,7 +379,7 @@ export async function createAtmosphereScene(host: HTMLElement): Promise<Atmosphe
       },
       setFraming(next) {
         if (disposed || !Number.isFinite(next.zoom) || !Number.isFinite(next.elevation)) return;
-        const nextZoom = THREE.MathUtils.clamp(next.zoom, 1, 1.45);
+        const nextZoom = THREE.MathUtils.clamp(next.zoom, 0.8, 1.45);
         const nextElevation = THREE.MathUtils.clamp(next.elevation, 0.85, 1.45);
         if (receivedFraming && targetZoom === nextZoom && targetFramingElevation === nextElevation)
           return;
@@ -422,7 +416,7 @@ export async function createAtmosphereScene(host: HTMLElement): Promise<Atmosphe
         gridMaterials.forEach((material) => {
           material.opacity = blueprint ? 0.2 : 0.035;
         });
-        ringMaterial.opacity = blueprint ? 0.38 : 0.12;
+
         floorMaterial.opacity = blueprint ? 0.08 : 0.16;
         requestFrame();
       },

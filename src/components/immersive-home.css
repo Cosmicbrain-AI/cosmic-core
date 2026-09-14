@@ -2,10 +2,10 @@
   --foreground: #292b25;
   --muted-foreground: #6c6d61;
   --primary: #b94e32;
-  --border: #d9d7cb;
-  --border-strong: #b6b7a7;
-  --card: #fffdf7;
-  --background: #f7f4ec;
+  --border: #dce2da;
+  --border-strong: #b9c3b5;
+  --card: #ffffff;
+  --background: #fafbf9;
   position: relative;
   isolation: isolate;
   overflow-x: clip;
@@ -13,7 +13,7 @@
   background: var(--background);
 }
 html:has(.immersive-home) {
-  background: #f7f4ec;
+  background: #fafbf9;
   scroll-padding-top: 105px;
 }
 .immersive-home::before {
@@ -32,7 +32,7 @@ html:has(.immersive-home) {
   border-right: 1px solid #687b620b;
 }
 .immersive-home .site-header {
-  background: linear-gradient(#f7f4ecf5 45%, #f7f4ecd0 75%, #f7f4ec00);
+  background: linear-gradient(#fafbf9f5 45%, #fafbf9d0 75%, #fafbf900);
   border: 0;
   backdrop-filter: none;
   color: var(--foreground);
@@ -63,14 +63,14 @@ html:has(.immersive-home) {
 }
 .immersive-home .site-header .header-actions > .button {
   white-space: nowrap;
-  border: 1px solid #b6b7a7;
+  border: 1px solid #b9c3b5;
   background: transparent;
   color: #292b25;
   border-radius: 0;
 }
 .immersive-home .mobile-nav {
-  background: #f7f4ec;
-  border-color: #d9d7cb;
+  background: #fafbf9;
+  border-color: #dce2da;
 }
 .immersive-home .mobile-nav a {
   color: #292b25;
@@ -126,7 +126,7 @@ html:has(.immersive-home) {
   inset: 0 -10vw;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(transparent 52%, #f7f4ec10 60%, #f7f4ecaa 82%, #f7f4ecef 100%);
+  background: linear-gradient(transparent 52%, #fafbf910 60%, #fafbf9aa 82%, #fafbf9ef 100%);
 }
 .scrolly-hero .hero-title {
   position: absolute;
@@ -165,7 +165,7 @@ html:has(.immersive-home) {
 .immersive-home h1 {
   font-size: clamp(80px, 7.3vw, 132px);
   margin: 0;
-  text-shadow: 0 2px 24px #f7f4ec80;
+  text-shadow: 0 2px 24px #fafbf980;
 }
 .immersive-home h1 em {
   color: #5b7054;
@@ -249,7 +249,7 @@ html:has(.immersive-home) {
   height: 33px;
   display: grid;
   place-items: center;
-  border: 1px solid #b6b7a7;
+  border: 1px solid #b9c3b5;
   border-radius: 50%;
   transition: transform 0.3s;
 }
@@ -276,7 +276,7 @@ html:has(.immersive-home) {
   margin: 0;
   max-width: 380px;
   padding: 15px 0 25px;
-  border-block: 1px solid #d9d7cb;
+  border-block: 1px solid #dce2da;
   color: #6b7e60;
 }
 .human-learning-diagram svg {
@@ -313,7 +313,7 @@ html:has(.immersive-home) {
 .rail-formula hr {
   height: 1px;
   border: 0;
-  background: #b6b7a7;
+  background: #b9c3b5;
   margin-block: 14px;
 }
 .story-rail .rail-handwritten {
@@ -325,7 +325,7 @@ html:has(.immersive-home) {
   display: flex;
   gap: 35px;
   margin-bottom: 32px;
-  border-bottom: 1px solid #d9d7cb;
+  border-bottom: 1px solid #dce2da;
 }
 .rail-learning-tabs button {
   display: flex;
@@ -385,7 +385,7 @@ html:has(.immersive-home) {
   align-items: center;
   gap: 8px;
   padding-block: 30px;
-  border-block: 1px solid #d9d7cb;
+  border-block: 1px solid #dce2da;
   color: #5b7054;
 }
 .connection-diagram > div {
@@ -398,7 +398,7 @@ html:has(.immersive-home) {
 .connection-line {
   width: 30px;
   flex: 1;
-  border-top: 1px dashed #b6b7a7;
+  border-top: 1px dashed #b9c3b5;
 }
 .report-note {
   margin-top: 40px;
@@ -425,7 +425,7 @@ html:has(.immersive-home) {
 .immersive-home .newsroom-card {
   border: 0;
   border-radius: 0;
-  border-top: 1px solid #d9d7cb;
+  border-top: 1px solid #dce2da;
   background: transparent;
   overflow: visible;
 }
@@ -439,7 +439,7 @@ html:has(.immersive-home) {
   min-height: 0;
   aspect-ratio: 4 / 3;
   align-self: start;
-  border: 1px solid #d9d7cb;
+  border: 1px solid #dce2da;
   background: #eeeee2;
   color: #5b7054;
 }
@@ -488,11 +488,11 @@ html:has(.immersive-home) {
   color: #b94e32;
 }
 .rail-faq details {
-  border-top: 1px solid #d9d7cb;
+  border-top: 1px solid #dce2da;
   padding-block: 24px;
 }
 .rail-faq details:last-child {
-  border-bottom: 1px solid #d9d7cb;
+  border-bottom: 1px solid #dce2da;
 }
 .rail-faq summary {
   display: flex;
@@ -540,7 +540,7 @@ html:has(.immersive-home) {
 }
 .immersive-footer .story-rail {
   margin-left: auto;
-  border-top: 1px solid #d9d7cb;
+  border-top: 1px solid #dce2da;
   padding-top: 35px;
 }
 .immersive-footer .rail-right {
@@ -630,7 +630,7 @@ html:has(.immersive-home) {
     pointer-events: none;
     inset: 0 -25px;
     z-index: -1;
-    background: linear-gradient(90deg, #f7f4ecf5, #f7f4ecd9 76%, #f7f4ec35 100%);
+    background: linear-gradient(90deg, #fafbf9f5, #fafbf9d9 76%, #fafbf935 100%);
   }
   .scrolly-hero {
     height: 100svh;
@@ -770,7 +770,7 @@ html:has(.immersive-home) {
     inset: 0 -25px;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(transparent 43%, #f7f4ec55 58%, #f7f4ece8 80%, #f7f4ec 100%);
+    background: linear-gradient(transparent 43%, #fafbf955 58%, #fafbf9e8 80%, #fafbf9 100%);
   }
   .hero-title .chapter-kicker {
     display: none;
@@ -787,4 +787,39 @@ html:has(.immersive-home) {
   .hero-introduction > p {
     color: #555b4d;
   }
+}
+
+.offering-paths {
+  display: grid;
+  margin-bottom: 40px;
+}
+.offering-paths a {
+  position: relative;
+  padding: 22px 32px 22px 0;
+  border-top: 1px solid var(--border);
+}
+.offering-paths a > span {
+  display: block;
+  font: 9px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--signal);
+  margin-bottom: 12px;
+}
+.offering-paths strong {
+  font: 30px var(--font-serif);
+  font-weight: 400;
+}
+.offering-paths a p {
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.offering-paths svg {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  transition: transform 0.2s;
+}
+.offering-paths a:hover svg {
+  transform: translate(3px, -3px);
 }

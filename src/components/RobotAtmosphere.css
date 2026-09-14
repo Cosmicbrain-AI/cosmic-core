@@ -9,26 +9,12 @@
 .robot-atmosphere-paper {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at var(--scene-x) 45%, #d2d8c750, transparent 52%);
-}
-.robot-atmosphere-halo {
-  position: absolute;
-  left: var(--scene-x);
-  top: 48%;
-  width: min(48vw, 70vh);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border: clamp(6px, 1vw, 15px) solid #c4ccb8;
-  border-radius: 50%;
-  box-shadow:
-    0 0 40px #c7cfb72b,
-    inset 0 0 35px #e8eadc77;
-  opacity: 0.9;
+  background: none;
 }
 .robot-atmosphere-grid {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, transparent 40%, #e8e3d31f 95%);
+  background: none;
 }
 .robot-atmosphere-host {
   position: absolute;
@@ -99,7 +85,7 @@
 .scene-controls-bar button:last-child {
   width: 34px;
   justify-content: center;
-  border: 1px solid #b6b7a7;
+  border: 1px solid #b9c3b5;
   border-radius: 50%;
 }
 .scene-controls-bar button:hover {
@@ -115,8 +101,8 @@
   gap: 8px;
   padding: 18px;
   width: 290px;
-  border: 1px solid #d9d7cb;
-  background: #fffdf7f5;
+  border: 1px solid #dce2da;
+  background: #fffffff5;
   backdrop-filter: blur(16px);
   box-shadow: 0 12px 45px #454b3014;
 }
@@ -138,7 +124,7 @@
   padding: 11px 10px;
   min-height: 38px;
   font-size: 11px;
-  border: 1px solid #d9d7cb;
+  border: 1px solid #dce2da;
 }
 .scene-toolbar button:hover:not(:disabled),
 .scene-toolbar button[aria-pressed="true"] {
@@ -194,8 +180,8 @@
   pointer-events: none;
   opacity: 0;
   padding: 8px 11px;
-  background: #fffdf7f5;
-  border: 1px solid #d9d7cb;
+  background: #fffffff5;
+  border: 1px solid #dce2da;
   font: 9px var(--font-mono);
   white-space: nowrap;
   color: #5b7054;
@@ -215,13 +201,8 @@
     height: 88svh;
     top: 7svh;
   }
-  .robot-atmosphere-halo {
-    width: 92vw;
-    top: 36%;
-    border-width: 7px;
-  }
   .robot-atmosphere-paper {
-    background: radial-gradient(ellipse at var(--scene-x) 42%, #d2d8c740, transparent 70%);
+    background: none;
   }
   .robot-atmosphere-fallback {
     width: 90vw;
@@ -265,8 +246,59 @@
   height: 55px;
   z-index: 5;
   pointer-events: none;
-  background: linear-gradient(transparent, #f7f4eced);
+  background: linear-gradient(transparent, #fafbf9ed);
 }
 .robot-scene-caption {
   z-index: 6;
+}
+
+.robot-service-picker {
+  position: fixed;
+  z-index: 26;
+  left: 8.5%;
+  bottom: 23px;
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid #dce2da;
+  border-radius: 6px;
+  background: #fafbf9f5;
+  backdrop-filter: blur(12px);
+}
+.robot-service-picker button {
+  min-height: 34px;
+  padding: 0 14px;
+  font: 10px var(--font-mono);
+  color: #5b7054;
+  border-radius: 3px;
+}
+.robot-service-picker button[aria-pressed="true"] {
+  background: #5b7054;
+  color: white;
+}
+.robot-service-picker button:hover:not([aria-pressed="true"]) {
+  background: #e9eee7;
+}
+.robot-service-picker button:disabled {
+  opacity: 0.4;
+}
+.robot-scene-caption {
+  bottom: 78px;
+}
+@media (max-width: 760px) {
+  .robot-service-picker {
+    left: 22px;
+    bottom: 14px;
+  }
+  .robot-service-picker button {
+    padding: 0 9px;
+    font-size: 9px;
+    min-height: 29px;
+  }
+  .scene-controls {
+    bottom: 62px;
+  }
+  .scene-toolbar {
+    bottom: 44px;
+  }
 }
