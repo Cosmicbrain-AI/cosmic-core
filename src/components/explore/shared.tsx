@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ContactDialog } from "@/components/ContactDialog";
 import { SiteFooter } from "@/components/SiteFooter";
 import type { Robot } from "@/data/catalog";
 import "./explore.css";
@@ -215,9 +216,15 @@ export function SiteFooterCTA({ context }: { context: string }) {
               connect the hardware, data, and people to take the next step.
             </p>
             <div className="explore-actions">
-              <Link to="/sales" className="explore-primary-link">
-                Let’s talk <ArrowUpRight size={17} />
-              </Link>
+              <ContactDialog
+                title="Let’s talk."
+                subject={`A CosmicBrain inquiry about ${context}`}
+                trigger={
+                  <button type="button" className="explore-primary-link">
+                    Let’s talk <ArrowUpRight size={17} />
+                  </button>
+                }
+              />
               <Link to="/app" className="explore-text-link">
                 Explore live teleop <ArrowRight size={17} />
               </Link>

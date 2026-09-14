@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ContactDialog } from "./ContactDialog";
 import "./CompanyLogo.css";
 
 export function CosmicMark({ className = "" }: { className?: string }) {
@@ -83,9 +84,15 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link to="/sales" className="button button-small">
-            Let’s talk <ArrowUpRight size={16} />
-          </Link>
+          <ContactDialog
+            title="Let’s talk."
+            subject="A project inquiry from the CosmicBrain website"
+            trigger={
+              <button type="button" className="button button-small">
+                Let’s talk <ArrowUpRight size={16} />
+              </button>
+            }
+          />
           <button
             ref={menuRef}
             className="menu-toggle"

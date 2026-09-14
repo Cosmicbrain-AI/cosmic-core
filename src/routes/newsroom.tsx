@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowUpRight, Newspaper } from "lucide-react";
+import { ContactDialog } from "@/components/ContactDialog";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ArticleCard } from "@/components/newsroom/ArticleCard";
@@ -108,9 +109,15 @@ function NewsroomPage() {
             <h2 id="newsroom-contact-heading">Working on a story?</h2>
             <p>For press questions, interviews, or a closer look at CosmicBrain, say hello.</p>
           </div>
-          <a className="text-link" href="mailto:hello@cosmicbrainai.com">
-            Get in touch <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
+          <ContactDialog
+            title="Tell us about your story."
+            subject="A press inquiry from the CosmicBrain newsroom"
+            trigger={
+              <button type="button" className="text-link">
+                Get in touch <ArrowUpRight size={17} aria-hidden="true" />
+              </button>
+            }
+          />
         </section>
       </main>
       <SiteFooter />
