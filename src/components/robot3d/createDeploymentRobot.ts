@@ -1,12 +1,15 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
+import { createServiceProps, type RobotService } from "./createServiceProps";
+import { createLaundryBasket } from "./createLaundryBasket";
 import { createFriendlyHead } from "./createFriendlyHead";
 
 export type DeploymentRobotPose = "rest" | "carry" | "wave";
 
 export interface DeploymentRobotModel {
   group: THREE.Group;
+  setService: (service: RobotService) => void;
   setPose: (pose: DeploymentRobotPose, phase?: number) => void;
   /** Elbow flexion: 0 degrees hangs down; 90 degrees reaches forward. */
   setArmAngle: (degrees: number) => void;
@@ -27,6 +30,7 @@ export function createDeploymentRobot(): DeploymentRobotModel {
   group.name = "Reference deployment humanoid";
   const geometries = new Set<THREE.BufferGeometry>();
   const materials = new Set<THREE.MeshStandardMaterial>();
+  const textures = new Set<THREE.Texture>();
   const originalColors = new Map<THREE.MeshStandardMaterial, THREE.Color>();
   const geometryCache = new Map<string, THREE.BufferGeometry>();
 
@@ -56,17 +60,34 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     emissive: "#ad6d27",
     emissiveIntensity: 0.3,
   });
-  const wicker = [
-    material("#684024", 0.95, 0),
-    material("#805331", 0.96, 0),
-    material("#93613a", 0.94, 0),
-    material("#56351f", 0.98, 0),
-  ];
-  const basketInterior = material("#3f2a1b", 0.99, 0, { side: THREE.DoubleSide });
-  const linen = material("#eeeae1", 1, 0, { side: THREE.DoubleSide });
-  const linenShadow = material("#c5ceca", 1, 0);
-  const linenCream = material("#dfdbc9", 1, 0);
-  const linenSeam = material("#c8c5b8", 1, 0);
+  // A fine repeating weave catches studio light without looking like tiled fabric.
+  const clothPixels = new Uint8Array(64 * 64 * 4);
+  for (let y = 0; y < 64; y++)
+    for (let x = 0; x < 64; x++) {
+      const offset = (y * 64 + x) * 4;
+      const value =
+        128 + Math.round(26 * Math.sin((x * Math.PI) / 2) * Math.cos((y * Math.PI) / 2));
+      clothPixels.set([value, value, value, 255], offset);
+    }
+  const clothTexture = new THREE.DataTexture(clothPixels, 64, 64, THREE.RGBAFormat);
+  clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+  clothTexture.repeat.set(9, 9);
+  clothTexture.magFilter = THREE.LinearFilter;
+  clothTexture.minFilter = THREE.LinearMipmapLinearFilter;
+  clothTexture.generateMipmaps = true;
+  clothTexture.needsUpdate = true;
+  textures.add(clothTexture);
+  const clothFinish = {
+    bumpMap: clothTexture,
+    bumpScale: 0.00065,
+    sheen: 0.8,
+    sheenRoughness: 0.85,
+    side: THREE.DoubleSide,
+  };
+  const linen = material("#f5f6f1", 0.92, 0, clothFinish);
+  const linenShadow = material("#c4cfc5", 0.95, 0, clothFinish);
+  const linenCream = material("#e3e8df", 0.93, 0, clothFinish);
+  const linenSeam = material("#d5dbd1", 0.95, 0);
 
   function geometry(key: string, create: () => THREE.BufferGeometry) {
     let result = geometryCache.get(key);
@@ -1065,151 +1086,36 @@ export function createDeploymentRobot(): DeploymentRobotModel {
   basket.position.set(0, 1.089, 0.457);
   group.add(basket);
 
-  function roundedRectangle(width: number, depth: number, y: number, radius: number): Point[] {
-    const points: Point[] = [];
-    const corners = [
-      [width / 2 - radius, depth / 2 - radius, 0],
-      [-width / 2 + radius, depth / 2 - radius, Math.PI / 2],
-      [-width / 2 + radius, -depth / 2 + radius, Math.PI],
-      [width / 2 - radius, -depth / 2 + radius, Math.PI * 1.5],
-    ];
-    for (const [x, z, start] of corners) {
-      for (let step = 0; step <= 4; step += 1) {
-        const angle = start + (step * Math.PI) / 8;
-        points.push([x + Math.cos(angle) * radius, y, z + Math.sin(angle) * radius]);
-      }
-    }
-    return points;
-  }
-
-  box(basket, [0.48, 0.015, 0.285], [0, -0.137, 0], basketInterior, "Basket floor", 0.035);
-  const bottomCurve = new THREE.CatmullRomCurve3(
-    roundedRectangle(0.491, 0.29, -0.138, 0.04).map((point) => new THREE.Vector3(...point)),
-    true,
-  );
-  const topCurve = new THREE.CatmullRomCurve3(
-    roundedRectangle(0.629, 0.395, 0.142, 0.044).map((point) => new THREE.Vector3(...point)),
-    true,
-  );
-  // A recessed open lining keeps the tightly woven body opaque, while the
-  // raised reeds supply its texture. There is deliberately no lid or top cap.
-  const wallVertices: number[] = [];
-  const wallIndices: number[] = [];
-  for (let i = 0; i <= 80; i += 1) {
-    for (const curve of [bottomCurve, topCurve]) {
-      const point = curve.getPointAt(i / 80);
-      wallVertices.push(point.x * 0.99, point.y, point.z * 0.99);
-    }
-    if (i < 80) {
-      const first = i * 2;
-      wallIndices.push(first, first + 1, first + 2, first + 1, first + 3, first + 2);
-    }
-  }
-  const wallGeometry = new THREE.BufferGeometry();
-  wallGeometry.setAttribute("position", new THREE.Float32BufferAttribute(wallVertices, 3));
-  wallGeometry.setIndex(wallIndices);
-  wallGeometry.computeVertexNormals();
-  mesh(basket, wallGeometry, basketInterior, "Recessed woven basket lining");
-
-  // Merge the fine weave into four surfaces, rather than adding a draw call
-  // for each reed. The tiny alternating offsets create an over-under pattern.
-  const weaveGeometry: THREE.BufferGeometry[][] = wicker.map(() => []);
-  const stakeCount = 64;
-  for (let row = 0; row < 30; row += 1) {
-    const t = row / 29;
-    const points = Array.from({ length: 128 }, (_, index) => {
-      const u = index / 128;
-      const point = bottomCurve.getPointAt(u).lerp(topCurve.getPointAt(u), t);
-      const offset = Math.cos(u * stakeCount * Math.PI * 2 + row * Math.PI) * 0.0022;
-      const outward = new THREE.Vector3(point.x, 0, point.z).normalize();
-      return point.addScaledVector(outward, offset);
-    });
-    weaveGeometry[row % wicker.length].push(
-      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points, true), 128, 0.0052, 4, true),
-    );
-  }
-  for (let stake = 0; stake < stakeCount; stake += 1) {
-    const lower = bottomCurve.getPointAt(stake / stakeCount);
-    const upper = topCurve.getPointAt(stake / stakeCount);
-    const points = Array.from({ length: 17 }, (_, index) => {
-      const t = index / 16;
-      const point = lower.clone().lerp(upper, t);
-      const outward = new THREE.Vector3(point.x, 0, point.z).normalize();
-      return point.addScaledVector(outward, Math.sin(t * Math.PI * 29 + stake * Math.PI) * 0.002);
-    });
-    weaveGeometry[(stake + 1) % wicker.length].push(
-      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 16, 0.0034, 4),
-    );
-  }
-  weaveGeometry.forEach((parts, index) => {
-    const combined = mergeGeometries(parts, false);
-    parts.forEach((part) => part.dispose());
-    if (combined) mesh(basket, combined, wicker[index], "Dense interlaced wicker reeds");
+  createLaundryBasket(basket, {
+    material,
+    geometry,
+    mesh,
+    box,
+    cylinder,
+    sphere,
+    cable,
+    housing,
+    oval,
   });
-  cable(
-    basket,
-    roundedRectangle(0.632, 0.397, 0.151, 0.044),
-    "Basket reinforced upper rim",
-    0.014,
-    wicker[0],
-    64,
-    true,
-  );
-  for (const side of [-1, 1]) {
-    cable(
-      basket,
-      [
-        [side * 0.306, 0.13, -0.102],
-        [side * 0.32, 0.208, -0.099],
-        [side * 0.32, 0.246, -0.077],
-      ],
-      "Basket rear handle arch",
-      handleRadius,
-      wicker[0],
-      16,
-    );
-    const gripBar = cylinder(
-      basket,
-      handleRadius,
-      handleRadius,
-      0.128,
-      [side * 0.32, 0.246, -0.013],
-      wicker[0],
-      `${side > 0 ? "Left" : "Right"} basket grip bar`,
-      "z",
-      24,
-    );
-    gripBar.userData.handleSide = side;
-    gripBar.userData.gripRadius = handleRadius;
-    cable(
-      basket,
-      [
-        [side * 0.32, 0.246, 0.051],
-        [side * 0.321, 0.209, 0.08],
-        [side * 0.31, 0.145, 0.092],
-      ],
-      "Basket front handle arch",
-      handleRadius,
-      wicker[0],
-      16,
-    );
-  }
+
   function foldedTowel(
     size: Point,
     position: Point,
     surface: THREE.MeshStandardMaterial,
     turn: number,
   ) {
-    const shape = new RoundedBoxGeometry(...size, 4, size[1] * 0.44);
+    const shape = new RoundedBoxGeometry(...size, 6, size[1] * 0.44);
     const vertices = shape.getAttribute("position");
     for (let i = 0; i < vertices.count; i += 1) {
       const x = vertices.getX(i);
       const y = vertices.getY(i);
       const z = vertices.getZ(i);
-      vertices.setXYZ(i, x, y + Math.sin(x * 23 + z * 16) * 0.0035 + Math.cos(x * 39) * 0.0018, z);
+      vertices.setXYZ(i, x, y + Math.sin(x * 23 + z * 16) * 0.0016 + Math.cos(x * 39) * 0.0007, z);
     }
-    shape.computeVertexNormals();
-    const towel = mesh(basket, shape, surface, "Soft folded laundry towel", position);
+    const smoothShape = mergeVertices(shape);
+    shape.dispose();
+    smoothShape.computeVertexNormals();
+    const towel = mesh(basket, smoothShape, surface, "Soft folded laundry towel", position);
     towel.rotation.y = turn;
     // The visible doubled edge reads as a fold rather than a solid white tile.
     const foldPoints: Point[] = Array.from({ length: 11 }, (_, index) => {
@@ -1219,6 +1125,8 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     cable(towel, foldPoints, "Towel folded edge", 0.0012, linenSeam, 12);
     return towel;
   }
+  foldedTowel([0.4, 0.1, 0.25], [0, -0.073, 0], linenShadow, 0);
+  foldedTowel([0.41, 0.1, 0.27], [0, 0.025, 0], linen, 0.025);
   foldedTowel([0.345, 0.082, 0.223], [-0.033, 0.137, -0.017], linenShadow, -0.13);
   foldedTowel([0.269, 0.057, 0.182], [-0.068, 0.197, -0.015], linen, -0.19);
   foldedTowel([0.229, 0.048, 0.158], [-0.079, 0.247, -0.026], linenCream, -0.1);
@@ -1229,9 +1137,10 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     new THREE.Vector3(0, 0.211, -0.062),
     new THREE.Vector3(0, 0.229, 0.025),
     new THREE.Vector3(0, 0.21, 0.108),
-    new THREE.Vector3(0, 0.163, 0.192),
-    new THREE.Vector3(0, 0.066, 0.215),
-    new THREE.Vector3(0, 0.011, 0.211),
+    new THREE.Vector3(0, 0.185, 0.202),
+    new THREE.Vector3(0, 0.135, 0.229),
+    new THREE.Vector3(0, 0.065, 0.231),
+    new THREE.Vector3(0, 0.011, 0.226),
   ]);
   const drapedPoint = (x: number, t: number): Point => {
     const point = drapeCurve.getPoint(t);
@@ -1254,6 +1163,19 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     linenSeam,
     20,
   );
+
+  const serviceProps = createServiceProps(group, {
+    material,
+    geometry,
+    mesh,
+    box,
+    cylinder,
+    sphere,
+    cable,
+    housing,
+    oval,
+  });
+  let service: RobotService = "laundry";
 
   function curlFingers(arm: RobotArm, amount: number) {
     arm.fingers.forEach((finger, i) => {
@@ -1313,15 +1235,11 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     });
   }
 
-  function carryArm(arm: RobotArm) {
+  function carryArm(arm: RobotArm, gripCenter: Point) {
     const handOrientation = new THREE.Quaternion().setFromEuler(
       new THREE.Euler(-Math.PI / 2, 0, (arm.side * Math.PI) / 2),
     );
-    const handleCenter = new THREE.Vector3(
-      arm.side * 0.32,
-      basket.position.y + 0.246,
-      basket.position.z - 0.013,
-    );
+    const handleCenter = new THREE.Vector3(...gripCenter);
     const target = handleCenter.sub(handleInPalm.clone().applyQuaternion(handOrientation));
     const start = arm.shoulder.position.clone();
     const difference = target.clone().sub(start);
@@ -1367,12 +1285,20 @@ export function createDeploymentRobot(): DeploymentRobotModel {
   }
 
   function setPose(pose: DeploymentRobotPose, phase = 0) {
-    basket.visible = pose === "carry";
+    basket.visible = pose === "carry" && service === "laundry";
+    serviceProps.pan.visible = pose === "carry" && service === "cooking";
+    serviceProps.vacuum.visible = pose === "carry" && service === "cleaning";
     head.rotation.set(0.035, 0, 0);
     for (const arm of arms) {
       resetArm(arm);
-      if (pose === "carry") {
-        carryArm(arm);
+      if (pose === "carry" && !(service === "cleaning" && arm.side < 0)) {
+        const gripCenter: Point =
+          service === "cooking"
+            ? [arm.side * 0.3, 1.29, 0.46]
+            : service === "cleaning"
+              ? [0.28, 1.34, 0.4]
+              : [arm.side * 0.32, 1.335, 0.444];
+        carryArm(arm, gripCenter);
       } else {
         arm.shoulder.rotation.x = -0.04;
         arm.elbow.rotation.x = -0.12;
@@ -1390,9 +1316,16 @@ export function createDeploymentRobot(): DeploymentRobotModel {
     }
   }
 
+  function setService(next: RobotService) {
+    service = next;
+    setPose("carry");
+  }
+
   function setArmAngle(degrees: number) {
     const radians = THREE.MathUtils.degToRad(THREE.MathUtils.clamp(degrees, 0, 135));
     basket.visible = false;
+    serviceProps.pan.visible = false;
+    serviceProps.vacuum.visible = false;
     head.rotation.set(0.035, 0, 0);
     arms.forEach((arm) => {
       resetArm(arm);
@@ -1415,6 +1348,8 @@ export function createDeploymentRobot(): DeploymentRobotModel {
   function dispose() {
     geometries.forEach((shape) => shape.dispose());
     materials.forEach((surface) => surface.dispose());
+    textures.forEach((texture) => texture.dispose());
+    textures.clear();
     geometries.clear();
     materials.clear();
     originalColors.clear();
@@ -1423,5 +1358,5 @@ export function createDeploymentRobot(): DeploymentRobotModel {
   }
 
   setPose("carry");
-  return { group, setPose, setArmAngle, setWireframe, dispose };
+  return { group, setService, setPose, setArmAngle, setWireframe, dispose };
 }
