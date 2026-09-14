@@ -2,8 +2,9 @@
   display: block;
   flex-shrink: 0;
   object-fit: contain;
-  border-radius: 22%;
-  background: #030611;
+  border-radius: 0;
+  background: transparent;
+  color: #5b7054;
 }
 
 .wordmark .company-logo {
@@ -18,7 +19,7 @@
 
 .site-header {
   position: fixed;
-  background: #f7f4eced;
+  background: #fafbf9ed;
   backdrop-filter: blur(12px);
 }
 

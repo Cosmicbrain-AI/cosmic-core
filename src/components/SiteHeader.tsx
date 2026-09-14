@@ -1,21 +1,42 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import "./CompanyLogo.css";
 
 export function CosmicMark({ className = "" }: { className?: string }) {
+  const filterId = `cosmic-mark-${useId().replace(/:/g, "")}`;
   return (
-    <img
+    <svg
       className={`company-logo ${className}`}
-      src="/brand/cosmicbrain-logo.png"
       width="40"
       height="40"
-      alt=""
+      viewBox="0 0 1146 1130"
       aria-hidden="true"
-      decoding="async"
-    />
+      focusable="false"
+    >
+      <defs>
+        <filter id={filterId} colorInterpolationFilters="sRGB">
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .2126 .7152 .0722 0 0"
+          />
+          <feComponentTransfer result="silhouette">
+            <feFuncA type="linear" slope="2.4" intercept="-0.14" />
+          </feComponentTransfer>
+          <feFlood floodColor="currentColor" />
+          <feComposite operator="in" in2="silhouette" />
+        </filter>
+      </defs>
+      <image
+        href="/brand/cosmicbrain-logo.png"
+        width="1146"
+        height="1130"
+        filter={`url(#${filterId})`}
+      />
+    </svg>
   );
 }
+
 const links = [
   ["Approach", "/#stack"],
   ["Robots", "/catalog"],
