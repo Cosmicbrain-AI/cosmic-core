@@ -321,9 +321,15 @@ function Home() {
               Curiosity <em>looks good on you.</em>
             </h2>
             <p>A few things you might be wondering.</p>
-            <a className="text-link" href="mailto:hello@cosmicbrainai.com">
-              Ask us something else <ArrowUpRight size={15} />
-            </a>
+            <ContactDialog
+              title="What would you like to know?"
+              subject="A question from the CosmicBrain website"
+              trigger={
+                <button type="button" className="text-link">
+                  Ask us something else <ArrowUpRight size={15} />
+                </button>
+              }
+            />
           </div>
           <div className="story-rail rail-right rail-faq">
             {faqs.map(([question, answer], index) => (
@@ -389,9 +395,13 @@ function Home() {
             A little curiosity.
             <br />A lot of possibility.
           </p>
-          <a className="text-link" href="mailto:hello@cosmicbrainai.com">
-            hello@cosmicbrainai.com <ArrowUpRight size={14} />
-          </a>
+          <ContactDialog
+            trigger={
+              <button type="button" className="text-link">
+                Get in touch <ArrowUpRight size={14} />
+              </button>
+            }
+          />
           <small>© {new Date().getFullYear()} CosmicBrain AI</small>
         </div>
         <div className="story-rail rail-right">

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Heart } from "lucide-react";
+import { ContactDialog } from "./ContactDialog";
 import { CosmicMark } from "./SiteHeader";
 export function SiteFooter() {
   return (
@@ -34,9 +35,13 @@ export function SiteFooter() {
         </div>
         <div className="footer-column">
           <span className="eyebrow">Say hello</span>
-          <a className="footer-email" href="mailto:hello@cosmicbrainai.com">
-            hello@cosmicbrainai.com <ArrowUpRight size={16} />
-          </a>
+          <ContactDialog
+            trigger={
+              <button type="button" className="footer-email">
+                Get in touch <ArrowUpRight size={16} />
+              </button>
+            }
+          />
           <span className="footer-location">
             Built with care in
             <br />
