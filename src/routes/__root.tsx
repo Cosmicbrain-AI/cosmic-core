@@ -78,19 +78,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosmicBrain · A human touch to a robotic world" },
+      { title: "CosmicBrain · The operating system for real-world robots" },
       {
         name: "description",
         content:
-          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
+          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
-      { property: "og:title", content: "CosmicBrain · A human touch to a robotic world" },
+      { property: "og:title", content: "CosmicBrain · The operating system for real-world robots" },
       {
         property: "og:description",
         content:
-          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
+          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
       },
       { property: "og:site_name", content: "CosmicBrain" },
       {
@@ -116,11 +116,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "CosmicBrain — A human touch to a robotic world. A black humanoid robot carries a woven basket in a warm hallway.",
       },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
-      { name: "twitter:title", content: "CosmicBrain · A human touch to a robotic world" },
+      { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },
       {
         name: "twitter:description",
         content:
-          "Robots learn from people. CosmicBrain connects human demonstrations, training data, teleoperation, and real-world robot deployment.",
+          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
       },
       {
         name: "keywords",

@@ -20,6 +20,8 @@ export const Route = createFileRoute("/solutions/")({
 });
 
 const INTRO: Record<string, string> = {
+  "data-centers": "Deploying into data centers. Scope hardware, site integration, human operations, and a measured physical workflow.",
+  "cloud-kitchens": "Under exploration. Define a practical kitchen workflow and assess the hardware and support needed for a pilot.",
   manufacturing:
     "A helping hand on the line. Explore assembly, inspection, and the everyday work that keeps a factory moving.",
   "warehousing-logistics":
@@ -41,15 +43,15 @@ function SolutionsPage() {
       <PageHero
         kicker="Field guide / 02 / In the real world"
         title="Real places."
-        accent="Human possibilities."
-        sub="The best robotics starts with the people it helps. Explore practical guides to finding a useful first task, asking good questions, and building from there."
+        accent="Robot operations."
+        sub="Our deployment work spans hospitality and data centers, with cloud kitchens under exploration. Explore those environments and the existing field guides to other robotics workflows."
         sketch="arm"
         note="Good engineering begins with listening."
       />
       <section className="explore-content">
         <div className="explore-wrap">
           <div className="explore-results-bar">
-            <span>Six starting points. Plenty of possibility.</span>
+            <span>{solutions.length} field guides. Start with your environment.</span>
             <span>Choose your chapter ↓</span>
           </div>
           <div className="explore-chapter-list">

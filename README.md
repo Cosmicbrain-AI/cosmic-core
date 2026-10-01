@@ -1,6 +1,6 @@
 # CosmicBrain website
 
-TanStack Start, React 19, TypeScript, Vite, Tailwind, and Three.js. The current local preview work is on `codex/interactive-newsroom-preview`.
+TanStack Start, React 19, TypeScript, Vite, Tailwind, and Three.js.
 
 ## Develop
 
@@ -36,7 +36,9 @@ The 3D model alternates sides and adjusts its framing alongside the editorial ch
 
 `DeploymentPhotoRail` displays all three supplied photographs, with numbered selectors and an accessible full-image dialog. The originals are preserved in `public/media/deployment/` as `hallway-delivery.png`, `doorstep-handoff.jpeg`, and `laundry-room.jpeg`. The supplied company mark is in `public/brand/cosmicbrain-logo.png`; the shared header and footer apply an SVG silhouette filter to fit the site palette.
 
-The homepage distinguishes Robots as a Service (RaaS) for hotels and service businesses from AI infrastructure for robot companies. The basket uses tapered inner walls, flat interlaced rattan strips, attached leather handles, and folded linen. Kitchen and cleaning props share the articulated hand solver and disposal owner.
+The homepage presents CosmicBrain as the operating system for multi-brand robot deployment, with Robot as a Service (RaaS) as the primary offering. It includes deployment operations, live-site evaluations and benchmarks for physical AI models, real deployment datasets, teleoperation data licensing, and hardware partnerships. Hospitality and data centers are deployment verticals; cloud kitchens are explicitly exploratory. Partnership claims use more than 15 robotics brands, separately from the catalog's broader hardware coverage. Sales offers four inquiry paths for operators, model teams, data customers, and hardware partners.
+
+The original gallery theme, 3D model and task controls, deployment photo rail, physics workbench, catalog, maker directory, newsroom, technical report, and authenticated operator/admin pages remain. Evals and Datasets join the existing top navigation. The basket uses tapered inner walls, flat interlaced rattan strips, attached leather handles, and folded linen. Kitchen and cleaning props share the articulated hand solver and disposal owner.
 
 The technical report (`/docs`) and Live Teleop (`/app`) have prominent desktop/mobile navigation links and a dedicated homepage feature. Live Teleop continues through the existing authenticated operator workspace, including approval, robot assignments, exclusive sessions, and headset handoff. The public 3D viewer has no connection to those control APIs.
 

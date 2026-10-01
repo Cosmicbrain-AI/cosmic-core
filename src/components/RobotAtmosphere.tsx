@@ -6,11 +6,14 @@ import "./RobotAtmosphere.css";
 
 const chapters = [
   ["top", "Welcome"],
-  ["motion", "The humanoid"],
+  ["motion", "Deployment OS"],
   ["stack", "Our approach"],
   ["deployment", "In the world"],
   ["primitives", "The physics"],
   ["platform", "Human connection"],
+  ["evaluations", "Evals & benchmarks"],
+  ["datasets", "Datasets"],
+  ["hardware-partners", "Hardware partners"],
   ["newsroom", "In the news"],
   ["faq", "Questions"],
   ["contact", "Say hello"],
@@ -25,19 +28,12 @@ const compositions = [
   { x: 74, zoom: 1.04, elevation: 1.07 },
   { x: 25, zoom: 1.12, elevation: 1.12 },
   { x: 74, zoom: 1.04, elevation: 1.07 },
-  { x: 25, zoom: 1.2, elevation: 1.15 },
+  { x: 25, zoom: 1.12, elevation: 1.12 },
+  { x: 74, zoom: 1.04, elevation: 1.07 },
+  { x: 25, zoom: 1.12, elevation: 1.12 },
+  { x: 74, zoom: 1.2, elevation: 1.15 },
 ];
-const services: RobotService[] = [
-  "laundry",
-  "cooking",
-  "cleaning",
-  "cleaning",
-  "cooking",
-  "cleaning",
-  "laundry",
-  "cleaning",
-  "laundry",
-];
+const services: RobotService[] = ["laundry", "cooking", "cleaning", "cleaning", "cooking", "cleaning", "laundry", "cleaning", "laundry", "cleaning", "cooking", "laundry"];
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 /** A persistent gallery scene, composed around each scrolling chapter. */
@@ -249,7 +245,7 @@ export function RobotAtmosphere() {
       </div>
       <div className="robot-scene-caption">
         <span>
-          0{chapter + 1} / {chapters[chapter][1]}
+          {String(chapter + 1).padStart(2, "0")} / {chapters[chapter][1]}
         </span>
       </div>
       <nav className="scene-chapter-nav" aria-label="Explore this page">

@@ -225,9 +225,9 @@ export function SiteFooterCTA({ context }: { context: string }) {
                   </button>
                 }
               />
-              <Link to="/app" className="explore-text-link">
+              <a href="/app" className="explore-text-link">
                 Explore live teleop <ArrowRight size={17} />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

@@ -34,11 +34,11 @@ const paths = [
   {
     id: "deployment",
     number: "01",
-    label: "Put robots to work",
+    label: "Deploy robots as a service",
     icon: MoveUpRight,
     title: "Start with a task. Build from there.",
     description:
-      "Show us a workflow your team knows well. Together, we’ll explore where robotics can help, what the environment requires, and how people stay in the loop.",
+      "Deploy into hotels or data centers with hardware selection, site integration, and human operations brought together. Cloud kitchens and other verticals are under exploration. Start with your workflow and environment.",
     details: [
       "The task and its real-world constraints",
       "Hardware, supervision, and integration needs",
@@ -50,13 +50,25 @@ const paths = [
     formula: "progress = observe → test → learn",
   },
   {
-    id: "data",
+    id: "evaluation",
     number: "02",
-    label: "Teach robots something",
+    label: "Evaluate a model",
+    icon: Cpu,
+    title: "Test physical AI in the field.",
+    description: "Run model evaluations and benchmarks on live deployment sites. Define the task, robot, and trial conditions, then review performance and human interventions against an agreed protocol.",
+    details: ["Your model, hardware, and target workflow", "Trial conditions and operating limits", "Task success, interventions, and failure modes"],
+    subject: "Physical AI model evaluation and benchmark inquiry",
+    placeholder: "Tell us about your model, robot platform, tasks, deployment environment, and evaluation goals.",
+    formula: "field evidence = model × robot × environment",
+  },
+  {
+    id: "data",
+    number: "03",
+    label: "License robotics datasets",
     icon: Database,
     title: "Better learning begins with the right experience.",
     description:
-      "Working on a robot model? Let’s connect your research question to demonstrations and data that reflect the tasks you actually want a robot to learn.",
+      "Access real deployment data and hundreds of thousands of hours of teleoperation data. Discuss the available inventory, task coverage, formats, and licensing around the models you’re building.",
     details: [
       "The behaviors and tasks you’re training for",
       "Your robot platform and data format",
@@ -69,12 +81,12 @@ const paths = [
   },
   {
     id: "hardware",
-    number: "03",
+    number: "04",
     label: "Connect your hardware",
     icon: Cpu,
     title: "You build the body. Let’s connect the pieces.",
     description:
-      "Bring your robot, your technical questions, and your ambition. We’ll explore the software, teleoperation, and data workflows that fit your platform.",
+      "Join our network of more than 15 robotics brand partners. Bring your hardware and interfaces; we’ll discuss integration, operating environments, human support, and a practical deployment path.",
     details: [
       "Your hardware and existing interfaces",
       "Teleoperation and data collection workflows",
@@ -106,8 +118,8 @@ function SalesPage() {
               something <em>useful.</em>
             </h1>
             <p className="cb-sales-intro">
-              The best part of building robots? The people you build with. Tell us what’s on your
-              mind. We’ll help you find a thoughtful place to start.
+              A deployment, a model evaluation, a dataset, or a hardware partnership. Tell us what
+              you’re building. We’ll connect your goals with a practical next step.
             </p>
             <a className="cb-text-link" href="#your-project">
               What are you working on? <ArrowDown size={17} />

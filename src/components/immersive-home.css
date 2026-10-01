@@ -823,3 +823,12 @@ html:has(.immersive-home) {
 .offering-paths a:hover svg {
   transform: translate(3px, -3px);
 }
+
+/* New technical content uses the original notebook surfaces and typography. */
+.field-measures { margin: 24px 0; }
+.field-measures > div { padding: 15px 0; border-top: 1px solid #dce2da; }
+.field-measures dt { font: 500 15px/1.5 var(--font-sans); color: #3e4636; }
+.field-measures dd { margin: 5px 0 0; font: 14px/1.7 var(--font-sans); color: #6c6d61; }
+.field-record .small-rail-note { font-size: 12px; line-height: 1.7; }
+.rail-datasets .rail-learning-tabs { flex-wrap: wrap; }
+.rail-datasets .rail-learning-tabs button { font-size: 14px; }
