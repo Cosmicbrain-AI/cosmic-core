@@ -864,3 +864,6 @@ textarea.cb-form-input {
     transform: none;
   }
 }
+
+/* Four inquiry paths, using the original sales-page components. */
+@media (min-width: 851px) { .cb-path-options { grid-template-columns: repeat(4, 1fr); } }

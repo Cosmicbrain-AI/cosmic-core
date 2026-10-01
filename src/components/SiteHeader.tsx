@@ -43,6 +43,8 @@ const links = [
   ["Robots", "/catalog"],
   ["Solutions", "/solutions"],
   ["Sales", "/sales"],
+  ["Evals", "/#evaluations"],
+  ["Datasets", "/#datasets"],
   ["Newsroom", "/newsroom"],
   ["Docs", "/docs"],
   ["Live Teleop", "/app"],
@@ -76,7 +78,7 @@ export function SiteHeader() {
             <a
               key={href}
               href={href}
-              className={href === "/app" ? "nav-teleop" : undefined}
+              className={label === "Live Teleop" ? "nav-teleop" : undefined}
               aria-current={pathname === href ? "page" : undefined}
             >
               {label}

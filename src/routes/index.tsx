@@ -21,15 +21,15 @@ import "@/components/newsroom/newsroom.css";
 import "@/components/immersive-home.css";
 
 const description =
-  "CosmicBrain delivers Robots as a Service (RaaS) for hotels and service businesses, and AI infrastructure for robot companies: data, learning, teleoperation, and deployment.";
+  "CosmicBrain is the operating system for multi-brand robot deployment: Robots as a Service, live physical AI evaluations and benchmarks, deployment data, and teleoperation datasets.";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CosmicBrain · A human touch to a robotic world" },
+      { title: "CosmicBrain · The operating system for real-world robots" },
       { name: "description", content: description },
-      { property: "og:title", content: "CosmicBrain · A human touch to a robotic world" },
+      { property: "og:title", content: "CosmicBrain · The operating system for real-world robots" },
       { property: "og:description", content: description },
-      { name: "twitter:title", content: "CosmicBrain · A human touch to a robotic world" },
+      { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },
       { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/" }],
@@ -39,37 +39,40 @@ export const Route = createFileRoute("/")({
 
 const stages = [
   {
-    name: "Capture",
-    subtitle: "It starts with you.",
-    body: "A hand reaching for a cup. A careful lift. The little adjustments we make without thinking. We capture human demonstrations and robot sensor data so those moments can become something a robot can learn from.",
-    equation: "D = { (sₜ, aₜ) }",
-    explanation: "A dataset of observations and actions, one moment at a time.",
-    labels: ["Human demonstration", "Synchronized signals", "A shared experience"],
+    name: "Deploy",
+    subtitle: "From a defined task to an operated robot.",
+    body: "Select hardware from our robotics brand partners, integrate it into the site, and support the workflow with human supervision and teleoperation. Robot as a Service brings those pieces into one operating relationship.",
+    equation: "hardware + operations + human judgment",
+    explanation: "An operating layer around the robot, the task, and the site.",
+    labels: ["Match the hardware", "Integrate the site", "Operate the workflow"],
     icon: "01",
   },
   {
-    name: "Refine",
-    subtitle: "Give experience meaning.",
-    body: "Real life is wonderfully messy. We organize, annotate, and evaluate the raw signals, turning movements and interactions into task-specific datasets for robotics teams.",
-    equation: "θ* = arg min L(θ; D)",
-    explanation: "Learning looks for the parameters that reduce error on the data.",
-    labels: ["Raw observations", "Label + evaluate", "Training-ready data"],
+    name: "Evaluate",
+    subtitle: "Test physical AI where robots actually work.",
+    body: "Run model evaluations and benchmarks on live deployment sites. Define the task, robot platform, and operating conditions, then examine performance and human interventions against an agreed protocol.",
+    equation: "model × robot × environment",
+    explanation: "Field behavior depends on all three. Evaluation makes the context explicit.",
+    labels: ["Define the protocol", "Run field trials", "Review the evidence"],
     icon: "02",
   },
   {
-    name: "Deploy",
-    subtitle: "Bring learning into the world.",
-    body: "Connect hardware, policies, and human operators around a real task. Evaluate what works, learn from what doesn't, and bring those experiences back into the next round of training.",
-    equation: "aₜ = πθ(sₜ)",
-    explanation: "A policy maps what a robot observes to the action it takes.",
-    labels: ["Robot + policy", "Human supervision", "Experience feeds back"],
+    name: "Learn",
+    subtitle: "Turn physical experience into learning data.",
+    body: "Access real deployment data and hundreds of thousands of hours of teleoperation data. Discuss the inventory, task coverage, available formats, and licensing around the models you’re building.",
+    equation: "D = { (sₜ, aₜ) }",
+    explanation: "Observations and actions connect learning to experience in the world.",
+    labels: ["Deployment experience", "Human-guided operation", "Data for model teams"],
     icon: "03",
   },
 ];
 const faqs = [
+  ["Can model companies run evaluations and benchmarks with you?", "Yes. We work with physical AI model teams to run evaluations and benchmarks on live deployment sites. Hardware, tasks, conditions, and reporting criteria are scoped for each engagement."],
+  ["What robotics data do you offer?", "We offer real deployment data and hundreds of thousands of hours of teleoperation data. Contact us to discuss available inventory, task coverage, formats, samples, and licensing."],
+  ["Are cloud kitchen deployments established today?", "Cloud kitchens and a few other verticals are under exploration. We’re currently serving hospitality environments and deploying into data centers. New workflows begin with feasibility and pilot scoping."],
   [
     "So, what does CosmicBrain actually do?",
-    "We have two offerings: Robots as a Service (RaaS) for end customers such as hotels, and AI infrastructure for robot companies. We connect useful robot deployments with the data, learning tools, and human operations behind them.",
+    "CosmicBrain is an operating system for deploying and operating robots across brands and sites. Our core business is Robots as a Service. We also work with physical AI model companies on live-site evaluations, benchmarks, and datasets.",
   ],
   [
     "Do you build the robots, too?",
@@ -77,7 +80,7 @@ const faqs = [
   ],
   [
     "Who do you work with?",
-    "Hotels and service businesses that want robots deployed and supported as a service, plus robot manufacturers and robotics teams that need AI infrastructure. We start with your task, your environment, and your team.",
+    "Site operators including hotels and data centers; physical AI model companies needing evaluations, benchmarks, and data; and robot manufacturers looking for a deployment partner. Cloud kitchens and other verticals are under exploration.",
   ],
   [
     "Are the robots fully autonomous?",
@@ -98,9 +101,9 @@ function Home() {
         <section className="scrolly-chapter scrolly-hero" aria-labelledby="hero-heading">
           <div className="story-rail rail-left hero-title">
             <h1 id="hero-heading">
-              A human touch
+              Robots in the world.
               <br />
-              <em>to a robotic world</em>
+              <em>One operating system.</em>
             </h1>
             <a className="story-scroll" href="#motion">
               <span>
@@ -110,30 +113,32 @@ function Home() {
             </a>
           </div>
           <div className="story-rail rail-right hero-introduction">
-            <p className="story-lead">Useful robots. Thoughtfully delivered.</p>
+            <p className="story-lead">Physical AI. Put to work.</p>
             <p>
-              Robots as a Service for hotels and service businesses. AI infrastructure for the
-              companies building robots.
+              Multi-brand Robots as a Service. Live model evaluations and benchmarks.
+              Real deployment and teleoperation data.
             </p>
             <Link to="/sales" className="button">
-              Let’s build together <ArrowUpRight size={16} />
+              Plan a deployment <ArrowUpRight size={16} />
             </Link>
           </div>
         </section>
 
         <section id="motion" className="scrolly-chapter" aria-labelledby="human-heading">
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">01 / Two ways we help</span>
+            <span className="eyebrow chapter-kicker">01 / One operating layer. Three ways to build.</span>
             <h2 id="human-heading">
-              A future that feels <em>more human.</em>
+              Deploy. Operate. <em>Learn from the world.</em>
             </h2>
             <p id="meet">
-              For hotels and service businesses, we deploy robots as a service — bringing hardware,
-              integration, and human support together around the work you need done.
+              We partner with more than 15 robotics brands to deploy and operate robots.
+              Today, we’re serving hospitality and deploying into data centers, with cloud
+              kitchens and other verticals under exploration.
             </p>
             <p>
-              For robot companies, we provide the AI infrastructure behind useful machines:
-              demonstration data, training workflows, teleoperation, and deployment tools.
+              For physical AI model teams, the same deployment network becomes a place to run
+              live evaluations and benchmarks, and a source of real deployment data and
+              hundreds of thousands of hours of teleoperation data.
             </p>
             <div className="story-signature">
               <span>With curiosity,</span>The CosmicBrain team
@@ -148,10 +153,16 @@ function Home() {
                 <p>Robots, integrated into your everyday operations.</p>
                 <ArrowUpRight size={18} />
               </a>
-              <a href="#stack">
-                <span>For robot companies</span>
-                <strong>AI infrastructure</strong>
-                <p>The data and software behind capable robots.</p>
+              <a href="#evaluations">
+                <span>For model teams</span>
+                <strong>Evals, benchmarks & data</strong>
+                <p>Test your models in the field. Learn from real operations.</p>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="#hardware-partners">
+                <span>For robot manufacturers</span>
+                <strong>Hardware partnerships</strong>
+                <p>You build the robot. We bring it into operation.</p>
                 <ArrowUpRight size={18} />
               </a>
             </div>
@@ -165,15 +176,15 @@ function Home() {
         <section id="stack" className="scrolly-chapter" aria-labelledby="learning-heading">
           <div className="story-rail rail-left">
             <span className="eyebrow chapter-kicker">
-              02 / AI infrastructure for robot companies
+              02 / The robot deployment operating system
             </span>
             <h2 id="learning-heading">
               From experience <em>to intelligence.</em>
             </h2>
             <p>
-              You build the robot. We provide the AI infrastructure to help it learn and operate:
-              capture demonstrations, refine training data, and connect policies with human
-              supervision.
+              One operating layer across hardware brands, sites, and models. CosmicBrain connects
+              robot selection, site integration, human operations, live evaluation, and data
+              into a continuous deployment loop.
             </p>
             <div className="rail-formula">
               human experience
@@ -192,16 +203,16 @@ function Home() {
           <div className="story-rail rail-left">
             <span className="eyebrow chapter-kicker">03 / Robots as a Service · RaaS</span>
             <h2 id="deployment-heading">
-              A helping hand. <em>In the real world.</em>
+              Robots as a Service. <em>Beyond one vertical.</em>
             </h2>
             <p>
-              A helping hand for your hotel or service business. We work with you to choose a
-              practical workflow, integrate the robot into your space, and support its operation as
-              a service.
+              Hotels and data centers have different workflows. We start with yours: choose the
+              right hardware, integrate it into your site, and support its operation as a service.
+              Cloud kitchens and other verticals are the next environments we’re exploring.
             </p>
             <p className="rail-handwritten">
-              Real spaces.
-              <br />A very human purpose.
+              Different sites.
+              <br />A shared operating layer.
             </p>
             <Link className="text-link" to="/solutions">
               Explore the possibilities <ArrowUpRight size={15} />
@@ -251,9 +262,9 @@ function Home() {
               Human judgment, wherever the robot is. Our operator workspace brings approved people,
               assigned robots, and headset access together.
             </p>
-            <Link to="/app" className="button">
+            <a href="/app" className="button">
               Open Live Teleop <ArrowUpRight size={16} />
-            </Link>
+            </a>
             <p className="small-rail-note">Sign in with your approved operator account.</p>
           </div>
           <div className="story-rail rail-right rail-offset">
@@ -290,13 +301,61 @@ function Home() {
           </div>
         </section>
 
+        <section id="evaluations" className="scrolly-chapter" aria-labelledby="evaluations-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">06 / Physical AI models · evals &amp; benchmarks</span>
+            <h2 id="evaluations-heading">From model capability <em>to field evidence.</em></h2>
+            <p>Work with us to run evaluations and benchmarks on live deployment sites. See how your model behaves on a real robot, in a real environment, under the conditions that matter to the workflow.</p>
+            <p>Define the task, hardware, trial conditions, and operating limits together. Review outcomes, human interventions, and failure modes before expanding the deployment.</p>
+            <ContactDialog title="Let’s scope a field evaluation." description="Tell us about your model, the robot platform, and what you want to measure." subject="Physical AI model evaluation and benchmark inquiry" messagePlaceholder="Your model, target tasks, hardware, evaluation protocol, and desired deployment environment…" trigger={<button className="button" type="button">Evaluate your model <ArrowUpRight size={16} /></button>} />
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <div className="report-note field-record">
+              <span className="story-index">FIELD EVALUATION / PROTOCOL DESIGN</span>
+              <h3>Measure what deployment demands.</h3>
+              <dl className="field-measures">
+                <div><dt>Task success</dt><dd>Completion against agreed task criteria.</dd></div>
+                <div><dt>Human interventions</dt><dd>When and why an operator needs to step in.</dd></div>
+                <div><dt>Cycle time</dt><dd>Time to complete the physical workflow.</dd></div>
+                <div><dt>Recovery behavior</dt><dd>How the model responds when a task breaks down.</dd></div>
+              </dl>
+              <p className="small-rail-note">Example measures. Each benchmark protocol is scoped with the model team.</p>
+              <Link to="/docs" className="text-link">Read the technical report <ArrowUpRight size={15} /></Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="datasets" className="scrolly-chapter" aria-labelledby="datasets-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">07 / Deployment &amp; teleoperation datasets</span>
+            <h2 id="datasets-heading">Data from experience. <em>For physical intelligence.</em></h2>
+            <p>We collect real robot deployment data and have hundreds of thousands of hours of teleoperation data available for model teams.</p>
+            <p>Find data around the tasks, platforms, and intended use that matter to your research. Discuss coverage, sample availability, formats, and licensing with our team.</p>
+            <ContactDialog title="Find the right robotics data." description="Tell us your target tasks, robot platforms, and how you plan to use the data." subject="Robotics dataset inventory and licensing inquiry" messagePlaceholder="Deployment or teleoperation data, target tasks, modalities, robot platforms, intended use, and approximate scope…" trigger={<button className="button" type="button">Request dataset inventory <ArrowUpRight size={16} /></button>} />
+          </div>
+          <div className="story-rail rail-right rail-offset"><DatasetExplorer /></div>
+        </section>
+
+        <section id="hardware-partners" className="scrolly-chapter" aria-labelledby="partners-heading">
+          <div className="story-rail rail-left">
+            <span className="eyebrow chapter-kicker">08 / For robotics hardware companies</span>
+            <h2 id="partners-heading">You build the robot. <em>We bring it to work.</em></h2>
+            <p>Join a network of more than 15 robotics brand partners. We connect hardware with site operators, deployment operations, and teams developing physical AI models.</p>
+            <p>Bring your platform and its interfaces. We’ll discuss hardware fit, integration, human support, and a practical path into real operating environments.</p>
+            <ContactDialog title="Bring your hardware into the world." description="Tell us about your robot platform and the deployments you want to support." subject="Robotics hardware partnership inquiry" messagePlaceholder="Your brand, robot platform, interfaces, deployment readiness, and partnership goals…" trigger={<button className="button" type="button">Become a hardware partner <ArrowUpRight size={16} /></button>} />
+          </div>
+          <div className="story-rail rail-right rail-offset">
+            <div className="report-note field-record"><span className="story-index">ONE NETWORK / MULTIPLE BRANDS</span><h3>Built to scale across brands and sites.</h3><dl className="field-measures"><div><dt>15+ robotics brand partners</dt><dd>A deployment network built around hardware diversity.</dd></div><div><dt>Real operating environments</dt><dd>Hotels and data centers; cloud kitchens under exploration.</dd></div><div><dt>Deployment + learning</dt><dd>Operations, human support, evaluation, and data.</dd></div></dl><Link to="/brands" className="text-link">Meet the robot makers <ArrowUpRight size={15} /></Link><p className="small-rail-note">Our catalog is a reference guide. Listed platforms are not a count of partnerships or confirmed integrations.</p></div>
+          </div>
+        </section>
+
         <section
           id="newsroom"
           className="scrolly-chapter scrolly-news"
           aria-labelledby="news-heading"
         >
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">06 / Out in the world</span>
+            <span className="eyebrow chapter-kicker">09 / Out in the world</span>
             <h2 id="news-heading">
               Part of a bigger <em>conversation.</em>
             </h2>
@@ -316,7 +375,7 @@ function Home() {
 
         <section id="faq" className="scrolly-chapter" aria-labelledby="faq-heading">
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">07 / Glad you asked</span>
+            <span className="eyebrow chapter-kicker">10 / Glad you asked</span>
             <h2 id="faq-heading">
               Curiosity <em>looks good on you.</em>
             </h2>
@@ -351,13 +410,13 @@ function Home() {
           aria-labelledby="contact-heading"
         >
           <div className="story-rail rail-left">
-            <span className="eyebrow chapter-kicker">08 / Your next chapter</span>
+            <span className="eyebrow chapter-kicker">11 / Your next chapter</span>
             <h2 id="contact-heading">
               What could we <em>build together?</em>
             </h2>
             <p>
-              Tell us about the task you’re imagining, the people around it, and what a useful next
-              step would look like.
+              A robot deployment, a model evaluation, a dataset, or a hardware partnership.
+              Tell us what you’re building and what a useful next step would look like.
             </p>
             <ContactDialog
               title="Hello, fellow human."
@@ -410,8 +469,10 @@ function Home() {
             <Link to="/catalog">The robots</Link>
             <Link to="/solutions">Solutions</Link>
             <Link to="/newsroom">Newsroom</Link>
+            <a href="#evaluations">Evals &amp; benchmarks</a>
+            <a href="#datasets">Datasets</a>
             <Link to="/docs">Technical report</Link>
-            <Link to="/app">Live Teleop</Link>
+            <a href="/app">Live Teleop</a>
           </div>
           <p className="small-rail-note">
             <Heart size={12} /> Built with care in San Francisco.
@@ -511,4 +572,27 @@ function LearningLoop() {
       </div>
     </div>
   );
+}
+
+const datasetTypes = [
+  { name: "Deployment data", title: "Experience from real operations.", body: "Data collected from robots operating in real environments, with the context of actual tasks, sites, and human involvement.", source: "Real deployment sites", scope: "Available tasks, platforms, and signals", use: "Model training, evaluation, and research" },
+  { name: "Teleoperation data", title: "Hundreds of thousands of hours.", body: "Human-guided robot experience for teams building more capable physical AI. Explore our teleoperation data inventory with your target tasks and models in view.", source: "Human teleoperation", scope: "Task coverage, available formats, and licensing", use: "Learning from human-guided operation" },
+];
+function DatasetExplorer() {
+  const [selected, setSelected] = useState(0);
+  const dataset = datasetTypes[selected];
+  return <div className="rail-learning rail-datasets">
+    <div className="rail-learning-tabs" role="tablist" aria-label="Explore robotics datasets">
+      {datasetTypes.map((item, index) => <button key={item.name} type="button" role="tab" id={"dataset-tab-" + index} aria-selected={selected === index} aria-controls="dataset-panel" tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={(event) => {
+        const next = event.key === "ArrowRight" || event.key === "ArrowLeft" ? 1 - index : event.key === "Home" ? 0 : event.key === "End" ? 1 : null;
+        if (next !== null) { event.preventDefault(); setSelected(next); document.getElementById("dataset-tab-" + next)?.focus(); }
+      }}><span>0{index + 1}</span>{item.name}</button>)}
+    </div>
+    <div id="dataset-panel" role="tabpanel" aria-labelledby={"dataset-tab-" + selected}>
+      <h3>{dataset.title}</h3><p>{dataset.body}</p>
+      <dl className="field-measures"><div><dt>Source</dt><dd>{dataset.source}</dd></div><div><dt>Discuss</dt><dd>{dataset.scope}</dd></div><div><dt>For model teams</dt><dd>{dataset.use}</dd></div></dl>
+      <p className="small-rail-note">Request the inventory to discuss data fit and licensing.</p>
+      <Link to="/sales" className="text-link">Discuss your data requirements <ArrowUpRight size={15} /></Link>
+    </div>
+  </div>;
 }

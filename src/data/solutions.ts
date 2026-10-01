@@ -20,6 +20,134 @@ export type Solution = {
 };
 
 export const solutions: Solution[] = [
+{
+  "slug": "data-centers",
+  "code": "S-07",
+  "name": "Data centers",
+  "short": "Deploying · physical infrastructure operations",
+  "tagline": "Robot operations for the environments that power computing.",
+  "intro": "CosmicBrain is deploying into data centers. Robots as a Service brings hardware selection, site integration, human supervision, and teleoperation together around a defined physical workflow. The topics below help scope a deployment; they are planning examples, not a list of established capabilities at every site.",
+  "useCases": [
+    {
+      "code": "W",
+      "name": "Workflow assessment",
+      "desc": "Identify one repeatable physical job and define what successful operation looks like at your facility.",
+      "points": [
+        "Document the current task and its constraints",
+        "Confirm the operating zone and access requirements",
+        "Agree on completion criteria with the site team"
+      ]
+    },
+    {
+      "code": "I",
+      "name": "Site integration",
+      "desc": "Match the robot platform and support model to the environment where it will operate.",
+      "points": [
+        "Check routes, workspace, interfaces, and human interaction",
+        "Review task limits and supervision requirements",
+        "Define a practical trial before expanding scope"
+      ]
+    },
+    {
+      "code": "O",
+      "name": "Operating evidence",
+      "desc": "Measure the agreed workflow and use observations from the field to improve the deployment.",
+      "points": [
+        "Track task outcomes and human interventions",
+        "Review failure modes with site operators",
+        "Plan data collection and evaluation around the task"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "category": "Your environment",
+      "items": [
+        "A clearly defined workflow and operating area",
+        "Site access and integration requirements documented",
+        "An owner for the deployment program"
+      ]
+    },
+    {
+      "category": "Your operating model",
+      "items": [
+        "Hardware fit assessed against the task",
+        "Human supervision and teleoperation requirements agreed",
+        "Trial success criteria and review process defined"
+      ]
+    }
+  ],
+  "matchTags": [
+    "logistics",
+    "commercial",
+    "mobile",
+    "inspection"
+  ]
+},
+{
+  "slug": "cloud-kitchens",
+  "code": "S-08",
+  "name": "Cloud kitchens · exploring",
+  "short": "Exploration · workflow discovery and pilot scoping",
+  "tagline": "Exploring robot operations in a new environment.",
+  "intro": "Cloud kitchens are a vertical CosmicBrain is exploring. Bring a repeatable physical workflow, and we’ll assess the hardware, integration, human support, and evaluation needed for a practical pilot. These are discovery topics rather than claims of an established kitchen deployment.",
+  "useCases": [
+    {
+      "code": "T",
+      "name": "Choose one physical task",
+      "desc": "Start with a specific handling, movement, or preparation workflow that your team understands well.",
+      "points": [
+        "Describe the task, objects, and operating constraints",
+        "Identify where human judgment or dexterity matters",
+        "Assess feasibility with the proposed hardware"
+      ]
+    },
+    {
+      "code": "S",
+      "name": "Scope the environment",
+      "desc": "Understand the physical and operational requirements before committing to a pilot.",
+      "points": [
+        "Review space, cleanliness, and task-specific requirements",
+        "Check equipment interfaces and human interaction",
+        "Agree on operating limits and supervision"
+      ]
+    },
+    {
+      "code": "P",
+      "name": "Design a measured pilot",
+      "desc": "Define what to learn from a limited trial and what would justify expanding it.",
+      "points": [
+        "Set task completion and intervention criteria",
+        "Define the role of teleoperation",
+        "Review evidence before expanding the workflow"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "category": "Discovery",
+      "items": [
+        "A specific workflow to assess",
+        "Operating requirements and constraints documented",
+        "Hardware suitability discussed with the team"
+      ]
+    },
+    {
+      "category": "Pilot",
+      "items": [
+        "Human support requirements agreed",
+        "Evaluation protocol and trial limits defined",
+        "A site owner and practical next-step plan"
+      ]
+    }
+  ],
+  "matchTags": [
+    "hospitality",
+    "food",
+    "commercial",
+    "home-service"
+  ]
+},
   {
     slug: "manufacturing",
     code: "S-01",
@@ -27,7 +155,7 @@ export const solutions: Solution[] = [
     short: "Assembly, machine tending, inspection",
     tagline: "Humanoids on the line, working the same stations as people.",
     intro:
-      "Factories are built around human reach, human tools, and human workflows — which makes them the natural first home for humanoid labor. The platforms below are being piloted for assembly assist, machine tending, inspection, and material movement. CosmicBrain adds the teleop, data, and deployment layer that turns a pilot cell into a production line.",
+      "Factories are built around human reach, human tools, and human workflows — which makes them the natural first home for humanoid labor. The platforms below are being piloted for assembly assist, machine tending, inspection, and material movement. Discuss the teleoperation, data, and deployment support a manufacturing pilot would need with CosmicBrain.",
     useCases: [
       {
         code: "A",
@@ -113,7 +241,7 @@ export const solutions: Solution[] = [
     short: "Picking, palletizing, trailer work",
     tagline: "Human-shaped labor for the most human-shaped jobs in the warehouse.",
     intro:
-      "Warehouses have automated the easy conveyance problems; what's left — picking irregular items, palletizing mixed SKUs, unloading floor-stacked trailers — needs hands, legs, and judgment. That's the humanoid wedge. These platforms target the labor-intensive edges of the DC, and CosmicBrain supplies the remote-operation and data backbone to run them as a fleet.",
+      "Warehouses have automated the easy conveyance problems; what's left — picking irregular items, palletizing mixed SKUs, unloading floor-stacked trailers — needs hands, legs, and judgment. That's the humanoid wedge. These platforms target the labor-intensive edges of the DC, and remote operation, site integration, and data requirements are part of a deployment conversation with CosmicBrain.",
     useCases: [
       {
         code: "P",
@@ -331,7 +459,7 @@ export const solutions: Solution[] = [
     short: "Lab platforms, STEM programs, clinical studies",
     tagline: "The platforms the next generation of robotics gets built on.",
     intro:
-      "Research buyers need something different from operators: full control access, sensor logs, simulation assets, and reproducibility. Education buyers need durability, curriculum, and a path from block programming to real code. This is where most humanoid platforms actually ship today — and where CosmicBrain's data tooling plugs directly into experiment pipelines.",
+      "Research buyers need something different from operators: full control access, sensor logs, simulation assets, and reproducibility. Education buyers need durability, curriculum, and a path from block programming to real code. This is where most humanoid platforms actually ship today — and where model teams can discuss data formats, evaluation, and research requirements with CosmicBrain.",
     useCases: [
       {
         code: "LAB",
@@ -440,7 +568,7 @@ export const solutions: Solution[] = [
         points: [
           "Timebox the exploration and define exit criteria",
           "Instrument everything — the data is the deliverable",
-          "CosmicBrain teleop covers the autonomy gaps during evaluation",
+          "Scope human supervision and teleoperation for autonomy gaps during evaluation",
         ],
       },
     ],

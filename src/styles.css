@@ -397,7 +397,7 @@
   }
 }
 
-@media (min-width: 761px) {
+@media (min-width: 1241px) {
   .mobile-nav {
     display: none;
   }
@@ -408,3 +408,7 @@
     display: none;
   }
 }
+
+/* Keep every original navigation page alongside the new evaluation/data sections. */
+.desktop-nav { gap: clamp(12px, 1.4vw, 24px); }
+@media (min-width: 761px) and (max-width: 1240px) { .desktop-nav { display: none; } .menu-toggle { display: inline-flex; } }

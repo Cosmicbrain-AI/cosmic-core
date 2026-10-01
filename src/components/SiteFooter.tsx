@@ -29,7 +29,7 @@ export function SiteFooter() {
           <span className="eyebrow">Build with us</span>
           <Link to="/sales">Start a conversation</Link>
           <Link to="/docs">Technical report</Link>
-          <Link to="/app">Live Teleop</Link>
+          <a href="/app">Live Teleop</a>
           <a href="/#meet">Why we’re here</a>
           <a href="/#faq">A few good questions</a>
         </div>
