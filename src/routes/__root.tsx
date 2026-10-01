@@ -96,25 +96,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "CosmicBrain" },
       {
         property: "og:image",
-        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v4.png",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v5.jpg",
       },
-      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       {
         property: "og:image:alt",
         content:
-          "CosmicBrain — A human touch to a robotic world. A black humanoid robot carries a woven basket in a warm hallway.",
+          "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
       },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:image",
-        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v4.png",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v5.jpg",
       },
       {
         name: "twitter:image:alt",
         content:
-          "CosmicBrain — A human touch to a robotic world. A black humanoid robot carries a woven basket in a warm hallway.",
+          "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
       },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
       { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },

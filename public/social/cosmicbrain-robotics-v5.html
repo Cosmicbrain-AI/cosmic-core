@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <title>CosmicBrain social card · robot deployment edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        color: #292b25;
+        background: #fafbf9;
+        font-family: "DM Sans", sans-serif;
+      }
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+      }
+      .brand {
+        position: absolute;
+        left: 60px;
+        top: 48px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .mark {
+        width: 39px;
+        height: 47px;
+        color: #b94e32;
+      }
+      .brand span {
+        font-size: 32px;
+        font-weight: 500;
+        letter-spacing: -1.5px;
+      }
+      .kicker {
+        position: absolute;
+        left: 62px;
+        top: 144px;
+        margin: 0;
+        color: #5b7054;
+        font:
+          12px "DM Mono",
+          monospace;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+      h1 {
+        position: absolute;
+        z-index: 2;
+        left: 58px;
+        top: 203px;
+        margin: 0;
+        font:
+          400 76px/1.02 "Instrument Serif",
+          serif;
+        letter-spacing: -1.5px;
+      }
+      h1 span,
+      h1 em {
+        display: block;
+      }
+      h1 em {
+        font-size: 83px;
+        font-weight: 400;
+        color: #5b7054;
+      }
+      .purpose {
+        position: absolute;
+        left: 62px;
+        top: 482px;
+        margin: 0;
+        color: #6c6d61;
+        font-size: 17px;
+        line-height: 1.6;
+        letter-spacing: -0.1px;
+      }
+      .purpose strong {
+        font-weight: 500;
+        color: #292b25;
+      }
+      .footer {
+        position: absolute;
+        left: 62px;
+        bottom: 39px;
+        width: 570px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #d9ddd2;
+        padding-top: 16px;
+      }
+      .address {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .loop {
+        color: #5b7054;
+        font:
+          11px "DM Mono",
+          monospace;
+        letter-spacing: 0.8px;
+      }
+      .robot {
+        position: absolute;
+        left: 678px;
+        top: 23px;
+        width: 480px;
+        height: 560px;
+        margin: 0;
+      }
+      .robot img {
+        width: 480px;
+        height: 560px;
+        display: block;
+      }
+      .robot-caption {
+        position: absolute;
+        left: 714px;
+        right: 59px;
+        bottom: 42px;
+        display: flex;
+        justify-content: space-between;
+        color: #6c6d61;
+        font:
+          10px "DM Mono",
+          monospace;
+        letter-spacing: 1px;
+      }
+      .rule {
+        position: absolute;
+        left: 670px;
+        top: 51px;
+        bottom: 48px;
+        border-left: 1px solid #e6e8e0;
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      class="card"
+      aria-label="CosmicBrain: Robots in the world. One operating system. Robot as a Service, model evaluations and benchmarks, and datasets."
+    >
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 1146 1130" aria-hidden="true">
+          <defs>
+            <filter id="cosmic-mark" color-interpolation-filters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .2126 .7152 .0722 0 0"
+              />
+              <feComponentTransfer result="silhouette">
+                <feFuncA type="linear" slope="2.4" intercept="-0.14" />
+              </feComponentTransfer>
+              <feFlood flood-color="currentColor" />
+              <feComposite operator="in" in2="silhouette" />
+            </filter>
+          </defs>
+          <image
+            href="../brand/cosmicbrain-logo.png"
+            width="1146"
+            height="1130"
+            filter="url(#cosmic-mark)"
+          />
+        </svg>
+        <span>cosmicbrain.</span>
+      </div>
+      <p class="kicker">Physical AI. Put to work.</p>
+      <h1><span>Robots in the world.</span><em>One operating</em><em>system.</em></h1>
+      <p class="purpose">
+        <strong>Multi-brand Robots as a Service.</strong><br />Model evals &amp; benchmarks ·
+        Real-world datasets
+      </p>
+      <div class="footer">
+        <span class="address">cosmicbrain.ai</span
+        ><span class="loop">DEPLOY → EVALUATE → LEARN</span>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <figure class="robot">
+        <img
+          src="cosmicbrain-robot-v5.jpg"
+          alt="The website's white and black 3D humanoid robot, in a neutral standing pose."
+        />
+      </figure>
+      <div class="robot-caption">
+        <span>ONE OPERATING LAYER.</span><span>MANY ROBOT BRANDS.</span>
+      </div>
+    </main>
+  </body>
+</html>

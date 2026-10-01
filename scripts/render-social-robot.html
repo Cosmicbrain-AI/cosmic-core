@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CosmicBrain robot render</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 480px;
+        height: 560px;
+        overflow: hidden;
+        background: #fafbf9;
+      }
+      #robot {
+        width: 480px;
+        height: 560px;
+      }
+      #status {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        font: 12px sans-serif;
+      }
+      #status[data-ready="true"] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="robot" role="img" aria-label="CosmicBrain's white and black 3D robot"></div>
+    <p id="status">Rendering robot</p>
+    <script type="module">
+      import { createRobotScene } from "/src/components/robot3d/createRobotScene.ts";
+      const host = document.getElementById("robot");
+      const status = document.getElementById("status");
+      const scene = createRobotScene(
+        host,
+        () => {},
+        () => {
+          status.textContent = "Robot rendering failed";
+        },
+      );
+      scene.setPose("rest");
+      scene.setAutoRotate(false);
+      scene.rotate(-1);
+      scene.zoom(0.9);
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          status.dataset.ready = "true";
+          host.dataset.ready = "true";
+        }),
+      );
+      window.addEventListener("pagehide", () => scene.dispose(), { once: true });
+    </script>
+  </body>
+</html>
