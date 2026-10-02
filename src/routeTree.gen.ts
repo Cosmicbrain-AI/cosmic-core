@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as DocsRouteImport } from './routes/docs'
+import { Route as EvaluationsRouteImport } from './routes/evaluations'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as NewsroomRouteImport } from './routes/newsroom'
 import { Route as SalesRouteImport } from './routes/sales'
@@ -40,6 +41,11 @@ const AppRoute = AppRouteImport.update({
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvaluationsRoute = EvaluationsRouteImport.update({
+  id: '/evaluations',
+  path: '/evaluations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/docs': typeof DocsRoute
+  '/evaluations': typeof EvaluationsRoute
   '/login': typeof LoginRoute
   '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/docs': typeof DocsRoute
+  '/evaluations': typeof EvaluationsRoute
   '/login': typeof LoginRoute
   '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/app': typeof AppRoute
   '/docs': typeof DocsRoute
+  '/evaluations': typeof EvaluationsRoute
   '/login': typeof LoginRoute
   '/newsroom': typeof NewsroomRoute
   '/sales': typeof SalesRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/docs'
+    | '/evaluations'
     | '/login'
     | '/newsroom'
     | '/sales'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/docs'
+    | '/evaluations'
     | '/login'
     | '/newsroom'
     | '/sales'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/docs'
+    | '/evaluations'
     | '/login'
     | '/newsroom'
     | '/sales'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AppRoute: typeof AppRoute
   DocsRoute: typeof DocsRoute
+  EvaluationsRoute: typeof EvaluationsRoute
   LoginRoute: typeof LoginRoute
   NewsroomRoute: typeof NewsroomRoute
   SalesRoute: typeof SalesRoute
@@ -214,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/docs'
       fullPath: '/docs'
       preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evaluations': {
+      id: '/evaluations'
+      path: '/evaluations'
+      fullPath: '/evaluations'
+      preLoaderRoute: typeof EvaluationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -280,6 +300,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AppRoute: AppRoute,
   DocsRoute: DocsRoute,
+  EvaluationsRoute: EvaluationsRoute,
   LoginRoute: LoginRoute,
   NewsroomRoute: NewsroomRoute,
   SalesRoute: SalesRoute,

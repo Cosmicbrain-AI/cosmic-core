@@ -1,0 +1,55 @@
+{
+  "kind": "supplied_figure_summary",
+  "sample_size_episodes": 1,
+  "provenance": "Transcribed from supplied CosmicBrain figures. Underlying episode records, annotation timestamps, rubric instructions and judge run were not supplied. Values have not been independently recomputed.",
+  "rollout_control": "human_teleoperation",
+  "annotation": {
+    "episode_duration_seconds": 42,
+    "labeled_segments": 20,
+    "timeline_coverage_percent": 98.5,
+    "overlapping_segments": 0,
+    "reported_gap_milliseconds": 33,
+    "video_fps": 30,
+    "objects_with_attributes": 15,
+    "objects_total": 15,
+    "attributes": [
+      "color",
+      "shape",
+      "material",
+      "size"
+    ],
+    "exact_segment_timestamps": null
+  },
+  "rubric_scores": [
+    {
+      "name": "label_consistency",
+      "score": 1.98,
+      "max_score": 2,
+      "reported_percent": 99,
+      "reported_judge_confidence": 0.98
+    },
+    {
+      "name": "annotation_completeness",
+      "score": 2.73,
+      "max_score": 3,
+      "reported_percent": 91,
+      "reported_judge_confidence": 0.73
+    },
+    {
+      "name": "hospitality_relevance",
+      "score": 0.99,
+      "max_score": 2,
+      "reported_percent": 50,
+      "rounding": "Figure rounds 49.5% to 50%"
+    }
+  ],
+  "model_judgments": {
+    "task_success_probability": 0.89,
+    "hierarchical_policy_readiness_probability": 0.77,
+    "segmentation_granularity": "sub-action",
+    "reported_granularity_confidence": 1.0
+  },
+  "observed_autonomous_successes": null,
+  "autonomous_trial_count": null,
+  "interpretation": "Judge probabilities are not observed autonomous task success rates. Reported judge confidence is not a statistical confidence interval."
+}

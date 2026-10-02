@@ -320,7 +320,7 @@ function Home() {
                 <div><dt>Recovery behavior</dt><dd>How the model responds when a task breaks down.</dd></div>
               </dl>
               <p className="small-rail-note">Example measures. Each benchmark protocol is scoped with the model team.</p>
-              <Link to="/docs" className="text-link">Read the technical report <ArrowUpRight size={15} /></Link>
+              <Link to="/evaluations" className="text-link">Explore the evaluation protocol <ArrowUpRight size={15} /></Link>
             </div>
           </div>
         </section>

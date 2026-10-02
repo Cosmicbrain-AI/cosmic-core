@@ -1,0 +1,105 @@
+{
+  "title": "CosmicBrain physical AI evaluation protocol template",
+  "version": "0.1",
+  "status": "proposed_design_template_not_run_results",
+  "published_date": "2026-10-02",
+  "protocol": {
+    "run_id": null,
+    "task_manifest_hash": null,
+    "task_instruction": null,
+    "success_predicates": [],
+    "terminal_state_required": true,
+    "time_limit_seconds": null,
+    "maximum_retries": null,
+    "initiated_attempt_definition": null,
+    "assistance_policy": null,
+    "operating_envelope": null,
+    "stop_rules": [],
+    "planned_attempts": null,
+    "primary_metric": "unassisted_success / valid_initiated_attempts",
+    "release_thresholds": null,
+    "pre_registered_exclusion_rules": []
+  },
+  "system": {
+    "model_checkpoint_hash": null,
+    "training_data_manifest": null,
+    "known_pretraining_overlap": null,
+    "adaptation_budget": null,
+    "robot_platform": null,
+    "gripper": null,
+    "action_space": null,
+    "controller": null,
+    "control_frequency_hz": null,
+    "camera_manifest": null,
+    "calibration_hash": null,
+    "inference_hardware": null,
+    "runtime_commit": null,
+    "simulation_version_if_applicable": null
+  },
+  "split": {
+    "unit": "whole_episode",
+    "group_by": [
+      "site",
+      "recording_session",
+      "object_instance"
+    ],
+    "development_manifest": null,
+    "validation_manifest": null,
+    "held_out_test_manifest": null,
+    "generalization_slices": [
+      "objects",
+      "environment",
+      "instruction",
+      "temporal",
+      "embodiment"
+    ]
+  },
+  "comparison": {
+    "baseline_checkpoint": null,
+    "matched_condition_blocks": [],
+    "order_randomization_seed": null,
+    "blind_outcome_review": null
+  },
+  "episode_template": {
+    "episode_id": null,
+    "site_id": null,
+    "session_id": null,
+    "task_id": null,
+    "slice_ids": [],
+    "initial_state_or_seed": null,
+    "control_ownership_log": null,
+    "video_artifacts": [],
+    "observation_action_artifact": null,
+    "start_timestamp": null,
+    "terminal_timestamp": null,
+    "outcome": null,
+    "allowed_outcomes": [
+      "unassisted_success",
+      "assisted_completion",
+      "policy_failure",
+      "timeout",
+      "policy_caused_stop",
+      "infrastructure_invalid"
+    ],
+    "subgoals_completed": null,
+    "subgoals_required": null,
+    "interventions": [],
+    "failure_category": null,
+    "infrastructure_exclusion_reason": null,
+    "reviewer_id": null,
+    "adjudication_record": null
+  },
+  "analysis": {
+    "successes": null,
+    "valid_initiated_attempts": null,
+    "excluded_infrastructure_attempts": null,
+    "assisted_completions": null,
+    "confidence_method": "Wilson 95% only when independent Bernoulli trials are defensible; otherwise use cluster-aware analysis",
+    "aggregation": "publish per-task and per-site results, macro-average and pooled counts with declared weights",
+    "cycle_time": "successful-run median/p95 with timeout fraction separately",
+    "latency": "declare timestamp boundaries, p50/p95 and deadline misses",
+    "throughput": "include declared reset time and downtime",
+    "judge_audit": "rubric/version, inputs, outputs and held-out human reference"
+  },
+  "note": "Null means unmeasured or to be specified. Do not fill this template with invented evaluation results."
+}
