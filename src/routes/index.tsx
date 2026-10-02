@@ -332,6 +332,7 @@ function Home() {
             <p>We collect real robot deployment data and have hundreds of thousands of hours of teleoperation data available for model teams.</p>
             <p>Find data around the tasks, platforms, and intended use that matter to your research. Discuss coverage, sample availability, formats, and licensing with our team.</p>
             <ContactDialog title="Find the right robotics data." description="Tell us your target tasks, robot platforms, and how you plan to use the data." subject="Robotics dataset inventory and licensing inquiry" messagePlaceholder="Deployment or teleoperation data, target tasks, modalities, robot platforms, intended use, and approximate scope…" trigger={<button className="button" type="button">Request dataset inventory <ArrowUpRight size={16} /></button>} />
+            <Link to="/datasets" className="text-link">Explore egocentric &amp; teleop datasets <ArrowUpRight size={15} /></Link>
           </div>
           <div className="story-rail rail-right rail-offset"><DatasetExplorer /></div>
         </section>
