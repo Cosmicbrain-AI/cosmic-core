@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowUpRight, Search, Video, Hand, Radio, ArrowRight } from "lucide-react";
+import { ArrowUpRight, Search, Video, Radio, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
@@ -55,27 +55,6 @@ function DataInquiry({
 function DatasetPreview({ dataset }: { dataset: PublicDataset }) {
   const preview = dataset.preview;
   const [playing, setPlaying] = useState(false);
-  if (!preview) {
-    return (
-      <div className={`data-source-cover is-${dataset.kind}`}>
-        <span className="explore-note-label">
-          {dataset.kind === "egocentric" ? "Human demonstration" : "Robot demonstration"}
-        </span>
-        <div className="data-channel-map" aria-hidden="true">
-          {dataset.kind === "egocentric" ? (
-            <Hand size={36} strokeWidth={1} />
-          ) : (
-            <Radio size={36} strokeWidth={1} />
-          )}
-          <span className="data-channel-line" />
-          <span>{dataset.modalities.slice(0, 3).join(" / ")}</span>
-        </div>
-        <a href={dataset.exploreUrl} target="_blank" rel="noreferrer">
-          Explore at source <ArrowUpRight size={14} />
-        </a>
-      </div>
-    );
-  }
   const video = preview.src.endsWith(".mp4");
   const poster =
     "poster" in preview && typeof preview.poster === "string" ? preview.poster : undefined;
@@ -83,7 +62,13 @@ function DatasetPreview({ dataset }: { dataset: PublicDataset }) {
     <figure className="data-card-preview">
       <div className="data-media">
         {video ? (
-          <video controls playsInline preload="none" poster={poster} aria-label={preview.alt}>
+          <video
+            controls
+            playsInline
+            preload={preview.preload ?? "none"}
+            poster={poster}
+            aria-label={preview.alt}
+          >
             <source src={preview.src} type="video/mp4" />
             <a href={preview.src}>Open the dataset preview</a>
           </video>
@@ -116,7 +101,8 @@ function DatasetPreview({ dataset }: { dataset: PublicDataset }) {
         </a>
         {" · "}
         <a href={preview.licenseUrl} target="_blank" rel="noreferrer">
-          {dataset.id === "holoassist" ? "CDLA license text" : "CC BY 4.0"}
+          {preview.licenseLabel ??
+            (dataset.id === "holoassist" ? "CDLA license text" : "CC BY 4.0")}
         </a>
       </figcaption>
     </figure>
@@ -321,9 +307,9 @@ function DatasetsPage() {
               </div>
             )}
             <p className="data-library-note">
-              Preview media is credited at the point of use. Collections with restricted or
-              unverified display rights link to their official explorers. Access requirements,
-              available subsets and terms are set by each publisher.
+              Each collection includes a real data sample or the publisher’s official project
+              preview, credited at the point of use. Preview access is separate from dataset access.
+              Available subsets and usage terms are set by each publisher.
             </p>
           </section>
 

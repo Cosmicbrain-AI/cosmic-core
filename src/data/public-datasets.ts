@@ -14,13 +14,15 @@ export type PublicDataset = {
   licenseUrl: string;
   licenseNote: string;
   accessLabel: string;
-  preview?: {
+  preview: {
     src: string;
     poster?: string;
     alt: string;
     credit: string;
     sourceUrl: string;
     licenseUrl: string;
+    licenseLabel?: string;
+    preload?: "none" | "metadata";
   };
 };
 
@@ -45,6 +47,15 @@ export const publicDatasets: PublicDataset[] = [
     licenseNote:
       "Check each episode's license before reuse. The repository's MIT code license does not grant blanket dataset rights.",
     accessLabel: "Publisher explorer",
+    preview: {
+      src: "https://egoverse.ai/assets/videos/dense-language-overlay.mp4",
+      preload: "metadata",
+      alt: "EgoVerse human first-person tray-carrying demonstration with hand trajectories and dense action annotations.",
+      credit: "EgoVerse consortium · Official human data preview, hosted by the publisher.",
+      sourceUrl: "https://egoverse.ai/",
+      licenseUrl: "https://partners.mecka.ai/egoverse",
+      licenseLabel: "Publisher terms",
+    },
   },
   {
     id: "egodemo",
@@ -71,6 +82,16 @@ export const publicDatasets: PublicDataset[] = [
     licenseNote:
       "Custom terms support commercial training and restrict resale. Training rights do not establish permission to republish previews.",
     accessLabel: "Gated · accept publisher terms",
+    preview: {
+      src: "https://lw-cdn.lightwheel.net/build/egosuite-open100k/assets/feishu-20260826-103400-B0jsOkHY.mp4",
+      poster:
+        "https://lw-cdn.lightwheel.net/build/egosuite-open100k/assets/feishu-20260826-103400-Bej6_GzJ.jpg",
+      alt: "Lightwheel official first-person human demonstration arranging decorative objects.",
+      credit: "Lightwheel · Official EgoSuite project preview, hosted by the publisher.",
+      sourceUrl: "https://egosuite100k.lightwheel.ai/",
+      licenseUrl: "https://huggingface.co/datasets/LightwheelAI/EgoDemo",
+      licenseLabel: "Publisher terms",
+    },
   },
   {
     id: "holoassist",
@@ -127,6 +148,16 @@ export const publicDatasets: PublicDataset[] = [
     licenseNote:
       "The publisher explicitly licenses the dataset under Apache 2.0 and documents participant consent.",
     accessLabel: "Publisher downloader",
+    preview: {
+      src: "/datasets/captaincook-spillage.mp4",
+      poster: "/datasets/captaincook-spillage.jpg",
+      alt: "CaptainCook4D human first-person cooking demonstration showing corn spilling while mixing, a labeled technique error.",
+      credit:
+        "CaptainCook4D · Peddi, Arya & collaborators (2024). Cropped comparison panel; audio removed; poster extracted.",
+      sourceUrl: "https://captaincook4d.github.io/captain-cook/",
+      licenseUrl: "/datasets/Apache-2.0.txt",
+      licenseLabel: "Apache 2.0 license text",
+    },
   },
   {
     id: "droid",
