@@ -29,6 +29,7 @@ export function SiteFooter() {
           <Link to="/sales">Start a conversation</Link>
           <Link to="/docs">Technical report</Link>
           <Link to="/evaluations">Evaluation protocol</Link>
+          <Link to="/datasets">Datasets</Link>
           <a href="/app">Live Teleop</a>
           <a href="/#meet">Why we’re here</a>
           <a href="/#faq">A few good questions</a>

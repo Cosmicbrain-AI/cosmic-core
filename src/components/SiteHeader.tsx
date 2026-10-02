@@ -44,7 +44,7 @@ const links = [
   ["Solutions", "/solutions"],
   ["Sales", "/sales"],
   ["Evals", "/evaluations"],
-  ["Datasets", "/#datasets"],
+  ["Datasets", "/datasets"],
   ["Newsroom", "/newsroom"],
   ["Docs", "/docs"],
   ["Live Teleop", "/app"],
