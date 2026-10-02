@@ -21,11 +21,11 @@ for n in counts:
     half = z*math.sqrt(p*(1-p)/n + z*z/(4*n*n))/d
     rows.append([n, n//2, p, center-half, center+half, half*100])
 with (out / "precision-planning.csv").open("w", newline="") as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, lineterminator="\n")
     writer.writerow(["independent_trials", "hypothetical_successes", "hypothetical_rate", "wilson_95_lower", "wilson_95_upper", "half_width_percentage_points"])
     writer.writerows(rows)
 
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 13, "svg.fonttype": "none", "axes.labelcolor": "#68675d", "xtick.color": "#68675d", "ytick.color": "#68675d"})
+plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 13, "svg.fonttype": "none", "svg.hashsalt": "cosmicbrain-evaluation-v0.1", "axes.labelcolor": "#68675d", "xtick.color": "#68675d", "ytick.color": "#68675d"})
 fig, ax = plt.subplots(figsize=(10, 6.5), dpi=100)
 fig.patch.set_facecolor("#fffefa")
 ax.set_facecolor("#fffefa")
@@ -49,5 +49,7 @@ for row in rows:
     ax.annotate(f"±{row[-1]:.1f}", (row[0], row[-1]), xytext=(0, 14), textcoords="offset points", ha="center", color="#ad4a30", fontsize=13, fontweight="bold")
 fig.subplots_adjust(left=.13, right=.97, top=.94, bottom=.18)
 fig.savefig(out / "precision-planning.svg", metadata={"Date": None, "Description": "Mathematical illustration, not CosmicBrain performance: 95% Wilson intervals at hypothetical 50% success for independent binary trials."})
+svg = out / "precision-planning.svg"
+svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
 plt.close(fig)
 print("Generated precision-planning.svg and precision-planning.csv")
