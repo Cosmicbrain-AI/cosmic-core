@@ -1,5 +1,4 @@
 import robotsJson from "./robots.json";
-import brandsJson from "./brands.json";
 
 export type Robot = {
   slug: string;
@@ -23,23 +22,7 @@ export type Robot = {
   sources: string[];
 };
 
-export type Brand = {
-  slug: string;
-  name: string;
-  logo: string | null;
-  description: string | null;
-  country: string | null;
-  countryCode: string | null;
-  founded: number | null;
-  sector: string | null;
-  status: string | null;
-  robotCount: number | null;
-  topProducts: string[];
-  website: string | null;
-};
-
 export const robots = robotsJson as Robot[];
-export const brands = brandsJson as Brand[];
 
 export const families = [
   ...new Map(

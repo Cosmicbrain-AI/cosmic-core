@@ -21,7 +21,6 @@ export function SiteFooter() {
           <span className="eyebrow">Explore</span>
           <a href="/#stack">Our approach</a>
           <Link to="/catalog">The robots</Link>
-          <Link to="/brands">The makers</Link>
           <Link to="/solutions">Real-world uses</Link>
           <Link to="/newsroom">Newsroom</Link>
         </div>

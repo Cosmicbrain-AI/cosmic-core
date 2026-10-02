@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Search, RotateCcw, ArrowUpRight } from "lucide-react";
+import { Search, RotateCcw } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PageHero, FilterPill, RobotCard, SiteFooterCTA } from "@/components/explore/shared";
 import { robots, families } from "@/data/catalog";
@@ -111,15 +111,11 @@ function CatalogPage() {
               {String(filtered.length).padStart(2, "0")} of {robots.length} platforms in the
               notebook
             </span>
-            {hasFilters ? (
+            {hasFilters && (
               <button type="button" onClick={reset} className="explore-reset">
                 <RotateCcw size={12} />
                 Clear filters
               </button>
-            ) : (
-              <Link to="/brands" className="explore-reset">
-                Meet the makers <ArrowUpRight size={13} />
-              </Link>
             )}
           </div>
           <div className="explore-card-grid">
