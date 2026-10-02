@@ -43,7 +43,7 @@ const links = [
   ["Robots", "/catalog"],
   ["Solutions", "/solutions"],
   ["Sales", "/sales"],
-  ["Evals", "/#evaluations"],
+  ["Evals", "/evaluations"],
   ["Datasets", "/#datasets"],
   ["Newsroom", "/newsroom"],
   ["Docs", "/docs"],
