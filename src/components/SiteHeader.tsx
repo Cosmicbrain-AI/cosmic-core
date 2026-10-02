@@ -121,9 +121,6 @@ export function SiteHeader() {
               <ArrowUpRight size={18} />
             </a>
           ))}
-          <Link to="/brands">
-            Meet the makers <ArrowUpRight size={18} />
-          </Link>
         </nav>
       )}
     </header>
