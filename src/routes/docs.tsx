@@ -8,8 +8,8 @@ import "@/components/explore/docs.css";
 const title = "CosmicBrain Research · Technical papers";
 const description =
   "Who Checks the Checker? and Cosmic 0.5: research on demonstration scoring, telemetry-first verification and human-to-humanoid skill transfer.";
-const evalPaper = "/docs/cosmicbrain-eval-layer-2026-10.pdf";
-const shareImage = "https://www.cosmicbrain.ai/social/cosmicbrain-docs-v1.jpg";
+const evalPaper = "/docs/cosmicbrain-eval-layer-2026-10.pdf?v=34a4cce2";
+const shareImage = "https://www.cosmicbrain.ai/social/cosmicbrain-docs-v2.jpg";
 const shareImageAlt =
   "CosmicBrain Research: Inside the engineering. Covers of Who Checks the Checker? and Cosmic 0.5, with demonstration scoring, verification and skill transfer research.";
 
@@ -58,10 +58,10 @@ function TechnicalReportPage() {
               href={evalPaper}
               target="_blank"
               rel="noreferrer"
-              aria-label="Read Who Checks the Checker? (PDF, 14 pages)"
+              aria-label="Read Who Checks the Checker? (PDF, 12 pages)"
             >
               <img
-                src="/docs/cosmicbrain-eval-layer-2026-10-cover.webp"
+                src="/docs/cosmicbrain-eval-layer-2026-10-cover-v2.webp"
                 alt="First page of Who Checks the Checker?, the CosmicBrain evaluation-layer preprint."
                 width="1082"
                 height="1400"
@@ -73,8 +73,8 @@ function TechnicalReportPage() {
               </span>
               <div className="docs-paper-meta">
                 <time dateTime="2026-10-02">October 2, 2026</time>
-                <span>Anto Patrex</span>
-                <span>PDF · 14 pages</span>
+                <span>CosmicBrain AI</span>
+                <span>PDF · 12 pages</span>
               </div>
               <h2 id="eval-paper-title">Who Checks the Checker?</h2>
               <p className="docs-paper-subtitle">
