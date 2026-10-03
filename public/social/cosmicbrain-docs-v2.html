@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200, initial-scale=1" />
+<title>CosmicBrain Docs share card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box}
+html,body{width:1200px;height:630px;margin:0;overflow:hidden}
+body{color:#292b25;background:#fafbf9;font-family:"DM Sans",sans-serif}
+.card{position:relative;width:1200px;height:630px}
+.brand{position:absolute;left:60px;top:48px;display:flex;align-items:center;gap:15px}
+.mark{width:39px;height:47px;color:#b94e32}
+.brand span{font-size:32px;font-weight:500;letter-spacing:-1.5px}
+.kicker{position:absolute;left:62px;top:145px;margin:0;color:#5b7054;font:12px "DM Mono",monospace;letter-spacing:1.5px;text-transform:uppercase}
+h1{position:absolute;left:58px;top:198px;margin:0;font:400 82px/1.04 "Instrument Serif",serif;letter-spacing:-1.5px}
+h1 span,h1 em{display:block}
+h1 em{color:#5b7054;font-weight:400}
+.description{position:absolute;left:62px;top:400px;width:520px;margin:0;color:#6c6d61;font-size:17px;line-height:1.6}
+.papers{position:absolute;left:62px;top:487px;display:grid;gap:13px;font:13px "DM Mono",monospace;color:#292b25}
+.papers span{color:#b94e32;margin-right:13px}
+.cover{position:absolute;margin:0;width:224px}
+.cover img{width:224px;height:290px;display:block;border:1px solid #d9ddd2;background:white;box-shadow:0 10px 32px #302d2514}
+.cover figcaption{margin-top:15px;font:10px "DM Mono",monospace;color:#6c6d61;letter-spacing:1px}
+.latest{left:672px;top:164px}
+.cosmic{left:918px;top:225px}
+.footer{position:absolute;left:62px;right:58px;bottom:32px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #d9ddd2;padding-top:15px}
+.address{font-size:14px;font-weight:500}
+.note{color:#5b7054;font:11px "DM Mono",monospace;letter-spacing:.8px}
+</style>
+</head>
+<body>
+<main class="card" aria-label="CosmicBrain research notebook: Who Checks the Checker? and Cosmic 0.5">
+<div class="brand">
+        <svg class="mark" viewBox="0 0 1146 1130" aria-hidden="true">
+          <defs>
+            <filter id="cosmic-mark" color-interpolation-filters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .2126 .7152 .0722 0 0"
+              />
+              <feComponentTransfer result="silhouette">
+                <feFuncA type="linear" slope="2.4" intercept="-0.14" />
+              </feComponentTransfer>
+              <feFlood flood-color="currentColor" />
+              <feComposite operator="in" in2="silhouette" />
+            </filter>
+          </defs>
+          <image
+            href="../brand/cosmicbrain-logo.png"
+            width="1146"
+            height="1130"
+            filter="url(#cosmic-mark)"
+          />
+        </svg>
+        <span>cosmicbrain.</span>
+      </div>
+
+<p class="kicker">Research notebook / Technical papers</p>
+<h1><span>Inside the</span><em>engineering.</em></h1>
+<p class="description">Demonstration scoring, telemetry-first verification<br />and human-to-humanoid skill transfer.</p>
+<div class="papers"><div><span>01 /</span>Who Checks the Checker?</div><div><span>02 /</span>Cosmic 0.5</div></div>
+<figure class="cover latest"><img src="../docs/cosmicbrain-eval-layer-2026-10-cover-v2.webp" alt="Who Checks the Checker? cover" /><figcaption>OCTOBER 2026 · PREPRINT</figcaption></figure>
+<figure class="cover cosmic"><img src="../docs/cosmic-0-5-cover.webp" alt="Cosmic 0.5 cover" /><figcaption>AUGUST 2026 · REPORT</figcaption></figure>
+<div class="footer"><span class="address">cosmicbrain.ai/docs</span><span class="note">SHOW YOUR WORKING. KEEP ASKING QUESTIONS.</span></div>
+</main>
+</body>
+</html>
