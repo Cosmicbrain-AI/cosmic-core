@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ArrowUpRight, RotateCcw } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ContactDialog } from "@/components/ContactDialog";
 import { NotebookSketch, RobotCard, SiteFooterCTA } from "@/components/explore/shared";
 import { getSolution, type Solution } from "@/data/solutions";
 import { robotsForTags } from "@/data/catalog";
@@ -99,16 +100,23 @@ function SolutionPage() {
         <div className="explore-wrap">
           <Link to="/solutions" className="explore-back">
             <ArrowLeft size={14} />
-            All the possibilities
+            Deployments and field guides
           </Link>
           <div className="explore-solution-hero-grid">
             <div>
               <div className="explore-eyebrow">
-                Field guide / {solution.code} / A place to begin
+                {solution.slug === "data-centers" ? "Deployment" : "Field guide"} / {solution.code}{" "}
+                / {solution.slug === "data-centers" ? "Data centers" : "Reference library"}
               </div>
               <h1>{solution.name}</h1>
               <p className="explore-solution-tagline">{solution.tagline}</p>
               <p className="explore-solution-intro">{solution.intro}</p>
+              {solution.slug !== "data-centers" && (
+                <p className="explore-note-label">
+                  A reference guide to the wider robotics field. CosmicBrain’s deployment focus is
+                  data centers.
+                </p>
+              )}
             </div>
             <aside className="explore-guide-aside">
               <span className="explore-note-label">The first principle</span>
@@ -126,6 +134,32 @@ function SolutionPage() {
           </div>
         </div>
       </section>
+      {solution.slug === "data-centers" && (
+        <section className="explore-section" aria-labelledby="deployment-evaluations-title">
+          <div className="explore-wrap">
+            <div className="explore-eyebrow">Model evaluations on deployments</div>
+            <h2 id="deployment-evaluations-title" className="explore-section-heading">
+              Measure the model in the field.
+            </h2>
+            <p>
+              Evaluate your model on the data center deployment. Agree on the task, robot, trial
+              conditions, and success criteria, then review task outcomes and human interventions.
+            </p>
+            <div className="explore-actions">
+              <ContactDialog
+                title="Evaluate your model at a deployment."
+                description="Scope a model evaluation around your data center workflow, robot and trial conditions."
+                subject="Model evaluation at a data center deployment"
+                messagePlaceholder="Your model or checkpoint, robot platform, data center task, trial conditions and evaluation goals…"
+                trigger={<button type="button" className="explore-primary-link">Evaluate a model <ArrowUpRight size={15} /></button>}
+              />
+              <Link to="/evaluations" className="explore-text-link">
+                Full evaluation protocol <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
       <section id="use-cases" className="explore-section">
         <div className="explore-wrap">
           <div className="explore-eyebrow">01 / Where we can start</div>
@@ -194,7 +228,7 @@ function SolutionPage() {
           </div>
         </section>
       )}
-      <SiteFooterCTA context={`robots in ${solution.name.toLowerCase()}`} />
+      <SiteFooterCTA context="robots in data centers" />
     </main>
   );
 }

@@ -7,11 +7,11 @@ import { solutions } from "@/data/solutions";
 export const Route = createFileRoute("/solutions/")({
   head: () => ({
     meta: [
-      { title: "Robots in the real world · CosmicBrain Solutions" },
+      { title: "Data center deployments · CosmicBrain Solutions" },
       {
         name: "description",
         content:
-          "Explore thoughtful robotics deployment guides for manufacturing, logistics, healthcare, hospitality, research, and general-purpose work.",
+          "Explore CosmicBrain robot deployments in data centers and model evaluations on those deployments, alongside our existing robotics field guides.",
       },
     ],
     links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/solutions" }],
@@ -20,8 +20,10 @@ export const Route = createFileRoute("/solutions/")({
 });
 
 const INTRO: Record<string, string> = {
-  "data-centers": "Deploying into data centers. Scope hardware, site integration, human operations, and a measured physical workflow.",
-  "cloud-kitchens": "Under exploration. Define a practical kitchen workflow and assess the hardware and support needed for a pilot.",
+  "data-centers":
+    "Scope a physical workflow, hardware, site integration, and human operations. Evaluate models on the deployment against agreed trial conditions.",
+  "cloud-kitchens":
+    "A field guide to practical kitchen workflows, hardware, and the support needed for a pilot.",
   manufacturing:
     "A helping hand on the line. Explore assembly, inspection, and the everyday work that keeps a factory moving.",
   "warehousing-logistics":
@@ -37,25 +39,67 @@ const INTRO: Record<string, string> = {
 };
 
 function SolutionsPage() {
+  const deployment = solutions.find((solution) => solution.slug === "data-centers")!;
+  const fieldGuides = solutions.filter((solution) => solution.slug !== "data-centers");
+
   return (
     <main className="explore-page">
       <SiteHeader />
       <PageHero
-        kicker="Field guide / 02 / In the real world"
-        title="Real places."
-        accent="Robot operations."
-        sub="Our deployment work spans hospitality and data centers, with cloud kitchens under exploration. Explore those environments and the existing field guides to other robotics workflows."
+        kicker="Deployments / Data centers"
+        title="Data centers."
+        accent="Robot deployments."
+        sub="Our deployment focus is data centers. Bring a defined physical workflow, scope the robot and site requirements, and evaluate models on the deployment."
         sketch="arm"
         note="Good engineering begins with listening."
       />
       <section className="explore-content">
         <div className="explore-wrap">
           <div className="explore-results-bar">
-            <span>{solutions.length} field guides. Start with your environment.</span>
-            <span>Choose your chapter ↓</span>
+            <span>Our deployment focus</span>
+            <span>Data centers ↓</span>
           </div>
           <div className="explore-chapter-list">
-            {solutions.map((s, i) => (
+            <Link
+              to="/solutions/$slug"
+              params={{ slug: deployment.slug }}
+              className="explore-chapter"
+            >
+              <span className="explore-chapter-number">01</span>
+              <div className="explore-chapter-figure">
+                <NotebookSketch variant="arm" />
+              </div>
+              <div>
+                <h2>{deployment.name}</h2>
+                <p>{INTRO[deployment.slug]}</p>
+                <span className="explore-note-label">Deployments + model evaluations</span>
+              </div>
+              <ArrowUpRight className="explore-chapter-arrow" size={27} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="explore-actions">
+            <Link to="/evaluations" className="explore-text-link">
+              Model evaluations on deployments <ArrowUpRight size={15} />
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="explore-section" aria-labelledby="field-guides-title">
+        <div className="explore-wrap">
+          <div className="explore-eyebrow">Existing field guides</div>
+          <h2 id="field-guides-title" className="explore-section-heading">
+            Other robotics workflows.
+          </h2>
+          <p>
+            Reference guides to the wider robotics field. CosmicBrain’s deployment focus is data
+            centers.
+          </p>
+          <div className="explore-results-bar">
+            <span>{fieldGuides.length} field guides</span>
+            <span>Browse the reference library ↓</span>
+          </div>
+          <div className="explore-chapter-list">
+            {fieldGuides.map((s, i) => (
               <Link
                 key={s.slug}
                 to="/solutions/$slug"
@@ -79,7 +123,7 @@ function SolutionsPage() {
           </div>
         </div>
       </section>
-      <SiteFooterCTA context="robots in your world" />
+      <SiteFooterCTA context="robots in data centers" />
     </main>
   );
 }

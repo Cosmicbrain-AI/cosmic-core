@@ -9,19 +9,22 @@ import "@/components/workspace.css";
 export const Route = createFileRoute("/sales")({
   head: () => ({
     meta: [
-      { title: "Let’s build something useful — CosmicBrain" },
+      { title: "Data center deployments and model evaluations — CosmicBrain" },
       {
         name: "description",
         content:
-          "Talk with CosmicBrain about your robotics project. Explore deployment, robot learning data, and hardware integration with people who love building.",
+          "Talk with CosmicBrain about robot deployments in data centers and model evaluations on those deployments. Explore robotics data and hardware partnerships.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
-      { property: "og:title", content: "Let’s build something useful — CosmicBrain" },
+      {
+        property: "og:title",
+        content: "Data center deployments and model evaluations — CosmicBrain",
+      },
       {
         property: "og:description",
         content:
-          "A good robotics project begins with a conversation. Tell us what you’re working on.",
+          "Start a conversation about data center robot deployments and model evaluations in the field.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -34,19 +37,19 @@ const paths = [
   {
     id: "deployment",
     number: "01",
-    label: "Deploy robots as a service",
+    label: "Deploy in a data center",
     icon: MoveUpRight,
-    title: "Start with a task. Build from there.",
+    title: "Start with one data center workflow.",
     description:
-      "Deploy into hotels or data centers with hardware selection, site integration, and human operations brought together. Cloud kitchens and other verticals are under exploration. Start with your workflow and environment.",
+      "Deploy robots in data centers with hardware selection, site integration, and human operations brought together. Start with a defined physical task and measure progress in your facility.",
     details: [
-      "The task and its real-world constraints",
+      "The data center task and site constraints",
       "Hardware, supervision, and integration needs",
       "A pilot with clear measures of progress",
     ],
-    subject: "Let’s explore a robot deployment",
+    subject: "Data center robot deployment inquiry",
     placeholder:
-      "What task would you like help with? Tell us about your workplace, current process, and what a useful first step would look like.",
+      "Tell us about your data center, the physical task, current process, site requirements, and what a useful first trial would look like.",
     formula: "progress = observe → test → learn",
   },
   {
@@ -54,11 +57,17 @@ const paths = [
     number: "02",
     label: "Evaluate a model",
     icon: Cpu,
-    title: "Test physical AI in the field.",
-    description: "Run model evaluations and benchmarks on live deployment sites. Define the task, robot, and trial conditions, then review performance and human interventions against an agreed protocol.",
-    details: ["Your model, hardware, and target workflow", "Trial conditions and operating limits", "Task success, interventions, and failure modes"],
-    subject: "Physical AI model evaluation and benchmark inquiry",
-    placeholder: "Tell us about your model, robot platform, tasks, deployment environment, and evaluation goals.",
+    title: "Evaluate models on data center deployments.",
+    description:
+      "Run model evaluations on data center robot deployments. Define the task, robot, and trial conditions, then review task outcomes, human interventions, and failure modes against an agreed protocol.",
+    details: [
+      "Your model, hardware, and target workflow",
+      "Trial conditions and operating limits",
+      "Task success, interventions, and failure modes",
+    ],
+    subject: "Model evaluation on data center deployments",
+    placeholder:
+      "Tell us about your model, robot platform, data center workflow, trial conditions, and evaluation goals.",
     formula: "field evidence = model × robot × environment",
   },
   {
@@ -118,8 +127,8 @@ function SalesPage() {
               something <em>useful.</em>
             </h1>
             <p className="cb-sales-intro">
-              A deployment, a model evaluation, a dataset, or a hardware partnership. Tell us what
-              you’re building. We’ll connect your goals with a practical next step.
+              Robot deployments in data centers, with model evaluations on those deployments. Tell
+              us about your workflow. You can also discuss datasets and hardware partnerships.
             </p>
             <a className="cb-text-link" href="#your-project">
               What are you working on? <ArrowDown size={17} />
@@ -325,8 +334,8 @@ function SalesPage() {
               </button>
             }
           />
-          <Link to="/solutions" className="cb-text-link">
-            Explore what we’re building <ArrowRight size={17} />
+          <Link to="/solutions/$slug" params={{ slug: "data-centers" }} className="cb-text-link">
+            Explore data center deployments <ArrowRight size={17} />
           </Link>
         </section>
       </main>

@@ -39,10 +39,10 @@ export function CosmicMark({ className = "" }: { className?: string }) {
 }
 
 const links = [
-  ["Robots", "/catalog"],
-  ["Solutions", "/solutions"],
-  ["Sales", "/sales"],
+  ["Deployments", "/solutions"],
   ["Evals", "/evaluations"],
+  ["Robots", "/catalog"],
+  ["Sales", "/sales"],
   ["Datasets", "/datasets"],
   ["Newsroom", "/newsroom"],
   ["Docs", "/docs"],

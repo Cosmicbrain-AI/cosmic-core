@@ -70,9 +70,9 @@
   font-weight: 400;
 }
 .cb-sales-hero {
-  max-width: 1280px;
+  width: min(1180px, calc(100% - 96px));
   margin: 0 auto;
-  padding: 168px 56px 104px;
+  padding: 168px 0 104px;
   display: grid;
   grid-template-columns: 1.25fr 1fr;
   gap: 72px;
@@ -148,7 +148,7 @@
 }
 .cb-project-section {
   border-top: 1px solid var(--border);
-  max-width: 1168px;
+  width: min(1180px, calc(100% - 96px));
   margin: 0 auto;
   padding: 76px 0 84px;
   scroll-margin-top: 100px;
@@ -268,7 +268,7 @@
   padding-top: 20px;
 }
 .cb-conversation-section {
-  max-width: 1168px;
+  width: min(1180px, calc(100% - 96px));
   margin: 0 auto;
   padding: 78px 0 88px;
   border-top: 1px solid var(--border);
@@ -636,7 +636,7 @@ textarea.cb-form-input {
 @media (max-width: 1240px) {
   .cb-project-section,
   .cb-conversation-section {
-    margin-inline: 48px;
+    margin-inline: auto;
   }
   .cb-sales-hero {
     gap: 48px;
@@ -647,7 +647,7 @@ textarea.cb-form-input {
 }
 @media (max-width: 850px) {
   .cb-sales-hero {
-    padding: 140px 32px 70px;
+    padding: 140px 0 70px;
     gap: 35px;
   }
   .cb-sales-hero h1 {
@@ -664,7 +664,7 @@ textarea.cb-form-input {
   }
   .cb-project-section,
   .cb-conversation-section {
-    margin-inline: 32px;
+    margin-inline: auto;
   }
   .cb-path-options {
     gap: 8px;
@@ -709,7 +709,7 @@ textarea.cb-form-input {
 @media (max-width: 640px) {
   .cb-sales-hero {
     grid-template-columns: 1fr;
-    padding: 125px 24px 62px;
+    padding: 125px 0 62px;
     gap: 43px;
   }
   .cb-sales-hero h1 {
@@ -735,7 +735,7 @@ textarea.cb-form-input {
   }
   .cb-project-section,
   .cb-conversation-section {
-    margin-inline: 24px;
+    margin-inline: auto;
     padding-block: 52px;
   }
   .cb-section-intro h2 {
@@ -867,3 +867,11 @@ textarea.cb-form-input {
 
 /* Four inquiry paths, using the original sales-page components. */
 @media (min-width: 851px) { .cb-path-options { grid-template-columns: repeat(4, 1fr); } }
+
+@media (max-width: 760px) {
+  .cb-sales-hero,
+  .cb-project-section,
+  .cb-conversation-section {
+    width: calc(100% - 40px);
+  }
+}
