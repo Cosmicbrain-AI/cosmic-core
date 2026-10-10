@@ -79,19 +79,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosmicBrain · The operating system for real-world robots" },
+      { title: "CosmicBrain · Data center robot deployments & model evaluations" },
       {
         name: "description",
         content:
-          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
+          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
-      { property: "og:title", content: "CosmicBrain · The operating system for real-world robots" },
+      { property: "og:title", content: "CosmicBrain · Data center robot deployments & model evaluations" },
       {
         property: "og:description",
         content:
-          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
+          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
       },
       { property: "og:site_name", content: "CosmicBrain" },
       {
@@ -117,11 +117,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
       },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
-      { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },
+      { name: "twitter:title", content: "CosmicBrain · Data center robot deployments & model evaluations" },
       {
         name: "twitter:description",
         content:
-          "Multi-brand Robots as a Service, live physical AI evaluations and benchmarks, and real deployment and teleoperation datasets.",
+          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
       },
       {
         name: "keywords",

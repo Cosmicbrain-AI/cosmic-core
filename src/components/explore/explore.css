@@ -841,7 +841,7 @@
 }
 @media (max-width: 1000px) {
   .explore-wrap {
-    width: calc(100% - 56px);
+    width: calc(100% - 96px);
   }
   .explore-hero-grid {
     gap: 35px;

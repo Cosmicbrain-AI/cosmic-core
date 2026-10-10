@@ -19,9 +19,9 @@ export function SiteFooter() {
         </div>
         <div className="footer-column">
           <span className="eyebrow">Explore</span>
-          <a href="/#stack">Our approach</a>
+          <Link to="/solutions/$slug" params={{ slug: "data-centers" }}>Data center deployments</Link>
           <Link to="/catalog">The robots</Link>
-          <Link to="/solutions">Real-world uses</Link>
+          <Link to="/solutions">Field guides</Link>
           <Link to="/newsroom">Newsroom</Link>
         </div>
         <div className="footer-column">
@@ -31,8 +31,6 @@ export function SiteFooter() {
           <Link to="/evaluations">Evaluation protocol</Link>
           <Link to="/datasets">Datasets</Link>
           <a href="/app">Live Teleop</a>
-          <a href="/#meet">Why we’re here</a>
-          <a href="/#faq">A few good questions</a>
         </div>
         <div className="footer-column">
           <span className="eyebrow">Say hello</span>

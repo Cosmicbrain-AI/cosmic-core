@@ -110,9 +110,9 @@ export const metricDefinitions = [
 
 export const workflows = [
   {
-    id: "data-centers",
-    label: "Data centers",
-    status: "Current deployment vertical",
+    id: "parts-transport",
+    label: "Parts transport",
+    status: "Proposed data center trial",
     task: "Move a sealed parts tote to a designated service staging bay.",
     success:
       "Correct tote reaches the marked bay within the time budget; payload remains intact and the route stays inside the authorized zone.",
@@ -126,36 +126,36 @@ export const workflows = [
       "Work near live electrical equipment requires a separately authorized task and site-specific operating limits.",
   },
   {
-    id: "hospitality",
-    label: "Hospitality",
-    status: "Current deployment vertical",
-    task: "Deliver a supply tote to a designated service point.",
+    id: "service-bay-handoff",
+    label: "Service-bay handoff",
+    status: "Proposed data center trial",
+    task: "Place a sealed parts tote at a marked handoff point in a service staging bay.",
     success:
-      "Correct contents reach the correct handoff zone within the time budget, with no unauthorized entry or operator takeover.",
+      "The correct tote reaches the marked handoff position within the time budget, remains intact and requires no operator takeover.",
     shifts: [
-      "Corridor and floor layout",
-      "Door and handoff geometry",
-      "Guest traffic and occlusion",
-      "Instructions and destination names",
+      "Handoff position and approach geometry",
+      "Tote geometry and payload",
+      "Bay lighting and occlusion",
+      "Instructions and bay identifiers",
     ],
     exclusions:
-      "Agree access permissions and human handoff criteria with the site before evaluation.",
+      "Agree access permissions and handoff criteria with the data center operator before evaluation. Rack installation and work on live equipment are outside this trial scope.",
   },
   {
-    id: "cloud-kitchens",
-    label: "Cloud kitchens",
-    status: "Exploratory vertical",
-    task: "Sort closed, room-temperature containers into marked staging zones.",
+    id: "tote-staging",
+    label: "Tote staging",
+    status: "Proposed data center trial",
+    task: "Sort sealed parts totes into marked zones in a service staging area.",
     success:
-      "All containers reach their prescribed zones without spills, drops or help, and the station is left in the required final state.",
+      "All totes reach their prescribed zones without drops, damage or help, and the staging area is left in the required final state.",
     shifts: [
-      "Container geometry and labels",
-      "Counter layout and clutter",
+      "Tote geometry, labels and payload",
+      "Staging layout and clutter",
       "Lighting and occlusion",
       "Ordering and task composition",
     ],
     exclusions:
-      "Food contact, hot surfaces and sharp tools require additional validation. This example is a protocol scope, not a deployed kitchen capability.",
+      "This trial covers sealed totes in an authorized staging area. Unpacking hardware, connecting cables and handling live equipment require separately defined tasks and operating limits.",
   },
 ] as const;
 

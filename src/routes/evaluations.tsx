@@ -16,9 +16,9 @@ import {
 import { wilsonInterval } from "@/lib/evaluation-statistics";
 import "@/components/explore/evaluations.css";
 
-const title = "Physical AI evaluation protocol · CosmicBrain";
+const title = "Data center model evaluations · CosmicBrain";
 const description =
-  "A research-backed protocol for robot policy evaluations, live-site benchmarks and annotation quality. Explore example figures, uncertainty, open benchmarks and reproducible evidence.";
+  "A public protocol for robot model evaluations at data center deployments. Define tasks, measure performance and retain reproducible evidence.";
 export const Route = createFileRoute("/evaluations")({
   head: () => ({
     meta: [
@@ -181,7 +181,7 @@ function WorkflowScope() {
   const workflow = workflows[selected];
   return (
     <div className="eval-scope">
-      <div className="eval-scope-tabs" aria-label="Choose a workflow example">
+      <div className="eval-scope-tabs" aria-label="Choose a data center trial example">
         {workflows.map((w, i) => (
           <button
             key={w.id}
@@ -195,7 +195,7 @@ function WorkflowScope() {
       </div>
       <div className="eval-scope-grid" aria-live="polite">
         <div>
-          <span className="explore-note-label">{workflow.status} / proposed trial scope</span>
+          <span className="explore-note-label">{workflow.status}</span>
           <h3>{workflow.task}</h3>
           <p>{workflow.exclusions}</p>
         </div>
@@ -219,10 +219,10 @@ function EvaluationsPage() {
     <main className="explore-page eval-page">
       <SiteHeader />
       <PageHero
-        kicker="Physical AI / Evaluation protocol v0.1"
-        title="Capability is a claim."
-        accent="Evidence is the work."
-        sub="A protocol for testing robot policies where they have to perform. Connect data quality, open benchmarks and controlled site trials to evidence a model team can inspect and an operator can act on."
+        kicker="Data centers / Model evaluation protocol v0.1"
+        title="Evaluate the model."
+        accent="At the deployment."
+        sub="A public protocol for robot model evaluations in data centers. Define the task, measure performance and give model teams and site operators evidence they can inspect."
         sketch="arm"
         note="Define the task. Record every attempt."
       />
@@ -271,7 +271,7 @@ function EvaluationsPage() {
             [
               "03",
               "Field performance",
-              "Does it work on the tested robot, at the tested site, with assistance accounted for?",
+              "Does it work on the tested robot, at the data center site, with assistance accounted for?",
             ],
           ].map(([n, t, p]) => (
             <div key={n}>
@@ -285,8 +285,9 @@ function EvaluationsPage() {
         <section id="protocol" className="eval-section">
           <SectionTitle number="01" title="Before the first trial," accent="write the contract.">
             A benchmark becomes useful when the task, conditions and scoring rule stay fixed. This
-            public design is the starting point for scoping an engagement, with thresholds and
-            operating limits agreed for each robot and site.
+            public design is the starting point for a data center evaluation, with thresholds and
+            operating limits agreed for each robot and site. The task examples below are proposed
+            trial scopes, not measured deployment results.
           </SectionTitle>
           <ol className="eval-protocol-steps">
             {protocolSteps.map(([t, p], i) => (
@@ -304,9 +305,10 @@ function EvaluationsPage() {
 
         <section id="annotation" className="eval-section">
           <SectionTitle number="02" title="One episode." accent="Every primitive.">
-            A useful training demonstration needs more than a video. It needs timing, action
-            boundaries, arm identity, object attributes and an auditable relationship between the
-            labels and what happened.
+            A useful training demonstration needs timing, action boundaries, arm identity, object
+            attributes and an auditable relationship between the labels and what happened. The
+            supplied tabletop examples illustrate annotation methods; they are not data center trial
+            results.
           </SectionTitle>
           <div className="eval-stat-strip">
             {[
@@ -373,21 +375,6 @@ function EvaluationsPage() {
               </p>
             </div>
           </div>
-          <figure className="eval-montage eval-human-montage">
-            <img
-              src="/evaluations/humanoid-task-montage.jpeg"
-              width="1376"
-              height="768"
-              loading="lazy"
-              alt="Supplied montage of a humanoid demonstrating manipulation of fruit, bowls, bags and a small crate on a table."
-            />
-            <figcaption>
-              <span>From demonstrations to an inspectable record of work.</span>
-              <span>
-                Reference montage; evaluation outcomes require episode logs and a scoring rule.
-              </span>
-            </figcaption>
-          </figure>
           <div className="eval-callout">
             <span className="explore-note-label">
               Evidence provenance / image estimates vs telemetry
@@ -429,7 +416,7 @@ function EvaluationsPage() {
           </SectionTitle>
           <div className="eval-table-scroll">
             <table className="eval-table">
-              <caption>Field metrics and their reporting units</caption>
+              <caption>Data center field metrics and their reporting units</caption>
               <thead>
                 <tr>
                   <th scope="col">Measure</th>
@@ -651,25 +638,23 @@ function EvaluationsPage() {
         </section>
         <section className="eval-final-cta">
           <div>
-            <span className="explore-note-label">
-              For model teams, site operators & hardware partners
-            </span>
+            <span className="explore-note-label">For model teams & data center operators</span>
             <h2>
               Bring a model.
               <br />
               <em>Define the test.</em>
             </h2>
             <p>
-              Scope a live-site evaluation around the workflow, platform and conditions that matter
-              to you.
+              Scope a model evaluation around your data center task, robot platform and operating
+              conditions.
             </p>
           </div>
           <div>
             <ContactDialog
-              title="Let’s scope a field evaluation."
-              description="Tell us about your model, robot platform, task and target environment."
-              subject="Evaluation protocol and live-site benchmark inquiry"
-              messagePlaceholder="Model or checkpoint, robot platform, target workflow, site conditions, success criteria and desired evaluation scope…"
+              title="Let’s scope a data center evaluation."
+              description="Tell us about your model, robot platform and data center task."
+              subject="Data center model evaluation inquiry"
+              messagePlaceholder="Model or checkpoint, robot platform, data center task, site conditions, success criteria and desired evaluation scope…"
               trigger={
                 <button type="button" className="button">
                   Plan an evaluation <ArrowUpRight size={17} />

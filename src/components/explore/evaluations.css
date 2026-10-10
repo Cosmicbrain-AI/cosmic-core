@@ -333,10 +333,6 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.eval-human-montage {
-  width: min(880px, 100%);
-  margin-inline: auto;
-}
 .eval-table-scroll {
   overflow-x: auto;
 }
