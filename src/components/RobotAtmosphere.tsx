@@ -1,138 +1,109 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, Eye, Layers3, Pause, Play, RotateCcw, Plus, X } from "lucide-react";
-import type { RobotService } from "./robot3d/createServiceProps";
+import { Layers3, Pause, Play, RotateCcw } from "lucide-react";
+import { NotebookSketch } from "./explore/shared";
 import type { AtmosphereScene } from "./robot3d/createAtmosphereScene";
 import "./RobotAtmosphere.css";
 
 const chapters = [
   ["top", "Welcome"],
-  ["motion", "Deployment OS"],
-  ["stack", "Our approach"],
-  ["deployment", "In the world"],
-  ["primitives", "The physics"],
-  ["platform", "Human connection"],
-  ["evaluations", "Evals & benchmarks"],
-  ["datasets", "Datasets"],
-  ["hardware-partners", "Hardware partners"],
-  ["newsroom", "In the news"],
-  ["faq", "Questions"],
-  ["contact", "Say hello"],
+  ["deployment", "Data centers"],
+  ["evaluations", "Model evaluations"],
+  ["platform", "Human operations"],
+  ["datasets", "Deployment data"],
+  ["hardware-partners", "Robot partners"],
 ] as const;
-// The model trades places with the reading column at each chapter.
+
 const compositions = [
-  { x: 54, zoom: 1.23, elevation: 1.25 },
+  { x: 50, zoom: 1, elevation: 1.05 },
   { x: 74, zoom: 1, elevation: 1.07 },
   { x: 25, zoom: 1.13, elevation: 1.13 },
   { x: 74, zoom: 1.04, elevation: 1.07 },
-  { x: 25, zoom: 1.15, elevation: 1.1 },
-  { x: 74, zoom: 1.04, elevation: 1.07 },
   { x: 25, zoom: 1.12, elevation: 1.12 },
   { x: 74, zoom: 1.04, elevation: 1.07 },
-  { x: 25, zoom: 1.12, elevation: 1.12 },
-  { x: 74, zoom: 1.04, elevation: 1.07 },
-  { x: 25, zoom: 1.12, elevation: 1.12 },
-  { x: 74, zoom: 1.2, elevation: 1.15 },
-];
-const services: RobotService[] = ["laundry", "cooking", "cleaning", "cleaning", "cooking", "cleaning", "laundry", "cleaning", "laundry", "cleaning", "cooking", "laundry"];
+] as const;
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
-/** A persistent gallery scene, composed around each scrolling chapter. */
+/** The original robot follows the homepage's short scrolling chapters. */
 export function RobotAtmosphere() {
   const layerRef = useRef<HTMLDivElement>(null);
+  const interfaceRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<AtmosphereScene | null>(null);
   const pausedRef = useRef(false);
-  const manualServiceRef = useRef<RobotService | null>(null);
-  const serviceChapterRef = useRef(0);
-  const [selectedService, setSelectedService] = useState<RobotService>("laundry");
   const reducedRef = useRef(false);
+  const blueprintRef = useRef(false);
   const scheduleRef = useRef<() => void>(() => {});
-  const [exploring, setExploring] = useState(false);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [blueprint, setBlueprint] = useState(false);
-  const [chapter, setChapter] = useState(0);
   const [status, setStatus] = useState<"loading" | "ready" | "fallback">("loading");
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     const host = hostRef.current;
     const layer = layerRef.current;
-    if (!host || !layer) return;
+    const sceneInterface = interfaceRef.current;
+    if (!host || !layer || !sceneInterface) return;
     let disposed = false;
     let frame = 0;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const sections = chapters.map(([id]) => document.getElementById(id));
+    const footer = document.getElementById("home-footer");
+
     const update = () => {
       frame = 0;
       const height = window.innerHeight;
-      const progress = clamp(
-        window.scrollY / Math.max(1, document.documentElement.scrollHeight - height),
-      );
+      const footerTop = footer?.getBoundingClientRect().top;
+      const end =
+        footerTop === undefined
+          ? document.documentElement.scrollHeight - height
+          : window.scrollY + footerTop - height;
+      const progress = clamp(window.scrollY / Math.max(1, end));
+      // Finish fading before the footer enters, so the fixed scene never covers it.
+      const opacity = footerTop === undefined ? 1 : clamp((footerTop - height) / 240);
+      const hidden = opacity === 0;
+      layer.style.setProperty("--scene-opacity", String(opacity));
+      sceneInterface.style.setProperty("--scene-opacity", String(opacity));
+      layer.dataset.hidden = String(hidden);
+      sceneInterface.dataset.hidden = String(hidden);
+      sceneInterface.inert = hidden;
+      sceneRef.current?.setActive(!hidden && !document.hidden);
+
       let current = 0;
       sections.forEach((section, index) => {
-        if (section && section.getBoundingClientRect().top <= height * 0.55) current = index;
+        if (section && section.getBoundingClientRect().top < height - 1) current = index;
       });
-      setChapter(current);
       layer.dataset.chapter = String(current);
+      sceneInterface.dataset.chapter = String(current);
       layer.dataset.reduced = String(reducedRef.current);
-      if (!pausedRef.current) {
-        if (!reducedRef.current && current !== serviceChapterRef.current)
-          manualServiceRef.current = null;
-        serviceChapterRef.current = current;
-        const service =
-          manualServiceRef.current ?? (reducedRef.current ? "laundry" : services[current]);
-        sceneRef.current?.setService(service);
-        setSelectedService(service);
-        const mobile = window.innerWidth <= 760;
-        const destination = compositions[current];
-        const previous = compositions[Math.max(0, current - 1)];
-        const top = sections[current]?.getBoundingClientRect().top ?? 0;
-        const t = current === 0 ? 1 : clamp((height * 0.55 - top) / (height * 0.55));
-        const blend = t * t * (3 - 2 * t);
-        const x = reducedRef.current
-          ? mobile
-            ? 45
-            : 74
-          : mobile
-            ? current === 0
-              ? 55
-              : 45
-            : previous.x + (destination.x - previous.x) * blend;
-        layer.style.setProperty("--scene-x", `${x}%`);
-        sceneRef.current?.setFraming({
-          zoom:
-            service === "cleaning"
-              ? mobile
-                ? 0.8
-                : 1.0
-              : reducedRef.current
-                ? mobile
-                  ? 0.8
-                  : 1.05
-                : mobile
-                  ? current === 0
-                    ? 1.1
-                    : 0.8
-                  : previous.zoom + (destination.zoom - previous.zoom) * blend,
-          elevation:
-            service === "cleaning"
-              ? 1.05
-              : reducedRef.current
-                ? 1.07
-                : mobile
-                  ? 1.15
-                  : previous.elevation + (destination.elevation - previous.elevation) * blend,
-        });
-        if (!reducedRef.current) sceneRef.current?.setProgress(progress);
+      if (pausedRef.current) return;
+
+      const mobile = window.innerWidth <= 760;
+      if (reducedRef.current) {
+        layer.style.setProperty("--scene-x", (mobile ? 50 : compositions[current].x) + "%");
+        sceneRef.current?.setFraming({ zoom: mobile ? 1 : 1.05, elevation: 1.07 });
+        return;
       }
+
+      const destination = compositions[current];
+      const previous = compositions[Math.max(0, current - 1)];
+      const top = sections[current]?.getBoundingClientRect().top ?? 0;
+      // Move before the incoming chapter's centered text reaches the reading area.
+      const t = current === 0 ? 1 : clamp((height - top) / (height * 0.4));
+      const blend = t * t * (3 - 2 * t);
+      const x = mobile ? 50 : previous.x + (destination.x - previous.x) * blend;
+      layer.style.setProperty("--scene-x", String(x) + "%");
+      sceneRef.current?.setFraming({
+        zoom: mobile ? 1 : previous.zoom + (destination.zoom - previous.zoom) * blend,
+        elevation: mobile
+          ? 1.05
+          : previous.elevation + (destination.elevation - previous.elevation) * blend,
+      });
+      sceneRef.current?.setProgress(progress);
+      layer.dataset.progress = progress.toFixed(3);
     };
     const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    const onVisibility = () => {
-      sceneRef.current?.setActive(!document.hidden);
-      if (!document.hidden) schedule();
+      if (!disposed && !frame) frame = requestAnimationFrame(update);
     };
     scheduleRef.current = schedule;
     const updatePreference = () => {
@@ -163,12 +134,12 @@ export function RobotAtmosphere() {
           return;
         }
         sceneRef.current = scene;
-        scene.setActive(!document.hidden);
         scene.setReducedMotion(reducedRef.current || pausedRef.current);
+        scene.setMode(blueprintRef.current ? "blueprint" : "solid");
         update();
         setStatus("ready");
       } catch {
-        if (!disposed) setStatus("fallback");
+        onFailure();
       }
     };
     host.addEventListener("atmosphereerror", onFailure);
@@ -176,11 +147,12 @@ export function RobotAtmosphere() {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     window.addEventListener("pointermove", onPointer, { passive: true });
-    document.addEventListener("visibilitychange", onVisibility);
+    document.addEventListener("visibilitychange", schedule);
     const resizeObserver = new ResizeObserver(schedule);
     resizeObserver.observe(document.body);
     updatePreference();
     void start();
+
     return () => {
       disposed = true;
       cancelAnimationFrame(frame);
@@ -190,124 +162,60 @@ export function RobotAtmosphere() {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       window.removeEventListener("pointermove", onPointer);
-      document.removeEventListener("visibilitychange", onVisibility);
+      document.removeEventListener("visibilitychange", schedule);
       sceneRef.current?.dispose();
       sceneRef.current = null;
       scheduleRef.current = () => {};
     };
   }, [attempt]);
 
-  const togglePaused = () => {
-    const next = !paused;
-    pausedRef.current = next;
-    setPaused(next);
-    sceneRef.current?.setReducedMotion(next || reducedRef.current);
-    scheduleRef.current();
-  };
-
   return (
     <>
-      <div ref={layerRef} className="robot-atmosphere" aria-hidden="true">
-        <div className="robot-atmosphere-paper" />
-        <div className="robot-atmosphere-grid" />
+      <div
+        ref={layerRef}
+        className="robot-atmosphere"
+        data-status={status}
+        data-progress="0.000"
+        aria-hidden="true"
+      >
         <div ref={hostRef} className="robot-atmosphere-host" />
-        {/* Keep the loading frame on the paper background; the photograph is
-            only a recovery view when 3D initialization or rendering fails. */}
         {status === "fallback" && (
           <div className="robot-atmosphere-fallback">
-            <img src="/media/deployment/hallway-delivery.png" alt="" />
+            <NotebookSketch variant="robot" />
           </div>
         )}
       </div>
-      <div className="robot-service-picker" role="group" aria-label="Choose the robot’s task">
-        {(
-          [
-            ["laundry", "Laundry"],
-            ["cooking", "Kitchen"],
-            ["cleaning", "Cleaning"],
-          ] as const
-        ).map(([service, label]) => (
-          <button
-            key={service}
-            type="button"
-            disabled={status !== "ready"}
-            aria-pressed={selectedService === service}
-            onClick={() => {
-              manualServiceRef.current = service;
-              setSelectedService(service);
-              sceneRef.current?.setService(service);
-              scheduleRef.current();
-            }}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <div className="robot-scene-caption">
-        <span>
-          {String(chapter + 1).padStart(2, "0")} / {chapters[chapter][1]}
-        </span>
-      </div>
-      <nav className="scene-chapter-nav" aria-label="Explore this page">
-        {chapters.map(([id, label], index) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            aria-label={label}
-            aria-current={chapter === index ? "location" : undefined}
-          >
-            <span className="scene-nav-dot" />
-            <span className="scene-nav-label">{label}</span>
-          </a>
-        ))}
-      </nav>
-      <div className={`scene-controls${exploring ? " is-open" : ""}`}>
-        <div className="scene-controls-bar">
-          <button
-            type="button"
-            aria-expanded={exploring}
-            aria-controls="robot-exploration"
-            onClick={() => setExploring(!exploring)}
-          >
-            {exploring ? <X size={14} /> : <Plus size={14} />} Explore the robot
-          </button>
-          <button
-            type="button"
-            aria-pressed={paused}
-            aria-label={paused ? "Resume animation" : "Pause animation"}
-            onClick={togglePaused}
-          >
-            {paused ? <Play size={12} /> : <Pause size={12} />}
-          </button>
-        </div>
-        <div
-          id="robot-exploration"
-          className="scene-toolbar"
-          role="group"
-          aria-label="Humanoid display controls"
-          hidden={!exploring}
-        >
-          <span className="scene-controls-note">Reference-inspired 3D study</span>
+      <div ref={interfaceRef} className="robot-atmosphere-interface">
+        <div className="scene-controls" role="group" aria-label="Robot display controls">
           {status === "fallback" ? (
             <button
               type="button"
               onClick={() => {
                 setStatus("loading");
-                setBlueprint(false);
                 setAttempt((value) => value + 1);
               }}
             >
-              <RotateCcw size={14} /> Retry 3D
+              <RotateCcw size={13} aria-hidden="true" /> Retry 3D
             </button>
           ) : (
             <button
               type="button"
-              aria-label="Look this way"
-              disabled={status !== "ready" || paused || reduced}
-              onClick={() => sceneRef.current?.playGesture("acknowledge")}
+              disabled={status !== "ready" || reduced}
+              aria-pressed={paused}
+              onClick={() => {
+                const next = !pausedRef.current;
+                pausedRef.current = next;
+                setPaused(next);
+                sceneRef.current?.setReducedMotion(next || reducedRef.current);
+                scheduleRef.current();
+              }}
             >
-              <Eye size={14} />
-              <span>Look this way</span>
+              {paused ? (
+                <Play size={13} aria-hidden="true" />
+              ) : (
+                <Pause size={13} aria-hidden="true" />
+              )}
+              {paused ? "Resume" : "Pause"}
             </button>
           )}
           <button
@@ -315,22 +223,14 @@ export function RobotAtmosphere() {
             disabled={status !== "ready"}
             aria-pressed={blueprint}
             onClick={() => {
-              setBlueprint(!blueprint);
-              sceneRef.current?.setMode(blueprint ? "solid" : "blueprint");
+              const next = !blueprintRef.current;
+              blueprintRef.current = next;
+              setBlueprint(next);
+              sceneRef.current?.setMode(next ? "blueprint" : "solid");
             }}
           >
-            <Layers3 size={14} />
-            <span>Blueprint</span>
+            <Layers3 size={13} aria-hidden="true" /> Blueprint
           </button>
-          <span className="scene-scroll-hint">
-            {reduced ? (
-              "Still view"
-            ) : (
-              <>
-                <ArrowDown size={12} /> Scroll to rotate
-              </>
-            )}
-          </span>
         </div>
       </div>
     </>
