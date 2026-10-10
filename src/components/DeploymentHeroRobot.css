@@ -1,0 +1,110 @@
+.deployment-hero-robot {
+  position: relative;
+  width: min(500px, 100%);
+  height: 560px;
+  min-width: 0;
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+.deployment-hero-robot-stage {
+  position: absolute;
+  inset: 0 0 48px;
+  background: radial-gradient(ellipse at 50% 62%, #e8ede1 0%, #e8ede100 65%);
+}
+
+.deployment-hero-robot-host,
+.deployment-hero-robot-fallback {
+  position: absolute;
+  inset: 0;
+}
+
+.deployment-hero-robot-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.deployment-hero-robot-fallback {
+  display: grid;
+  place-items: center;
+}
+
+.deployment-hero-robot-fallback img {
+  display: block;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.deployment-hero-robot-caption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font: 9px/1.6 var(--font-mono);
+}
+
+.deployment-hero-robot-caption > span {
+  white-space: nowrap;
+}
+
+.deployment-hero-robot-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.deployment-hero-robot-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  min-height: 36px;
+  color: var(--signal);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.deployment-hero-robot-controls button:hover:not(:disabled),
+.deployment-hero-robot-controls button[aria-pressed="true"] {
+  background: var(--secondary);
+  border-color: var(--border);
+}
+
+.deployment-hero-robot-controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.deployment-hero-robot-controls button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .deployment-hero-robot {
+    width: min(350px, 100%);
+    height: 420px;
+  }
+
+  .deployment-hero-robot-caption {
+    gap: 8px;
+    font-size: 8px;
+  }
+
+  .deployment-hero-robot-controls {
+    gap: 2px;
+  }
+
+  .deployment-hero-robot-controls button {
+    padding-inline: 6px;
+  }
+}

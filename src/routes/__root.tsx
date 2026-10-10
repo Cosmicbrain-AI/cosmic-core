@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosmicBrain · Data center robot deployments & model evaluations" },
+      { title: "CosmicBrain · The operating system for real-world robots" },
       {
         name: "description",
         content:
@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
-      { property: "og:title", content: "CosmicBrain · Data center robot deployments & model evaluations" },
+      { property: "og:title", content: "CosmicBrain · The operating system for real-world robots" },
       {
         property: "og:description",
         content:
@@ -117,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
       },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
-      { name: "twitter:title", content: "CosmicBrain · Data center robot deployments & model evaluations" },
+      { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },
       {
         name: "twitter:description",
         content:
