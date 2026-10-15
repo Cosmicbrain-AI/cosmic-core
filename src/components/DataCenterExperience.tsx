@@ -41,8 +41,7 @@ export function DataCenterExperience() {
       const tops = sections.map(
         (section) => (section?.getBoundingClientRect().top ?? 0) + window.scrollY,
       );
-      const chapterOffset = window.innerWidth <= 760 ? 0 : 100;
-      const stops = tops.map((top, index) => Math.max(0, top - (index === 0 ? 0 : chapterOffset)));
+      const stops = tops.map((top) => Math.max(0, top));
       const scroll = window.scrollY;
       let segment = 0;
       for (let i = 1; i < stops.length; i++) if (scroll >= stops[i]) segment = i;
@@ -52,6 +51,8 @@ export function DataCenterExperience() {
           : clamp((scroll - stops[segment]) / Math.max(1, stops[segment + 1] - stops[segment]));
       const progress = clamp((segment + t) / 4);
       const current = Math.min(4, Math.round(progress * 4));
+      const reading = clamp((progress * 4 - 0.2) / 0.55);
+      layer.style.setProperty("--scene-opacity", String(1 - reading * 0.82));
       layer.dataset.layout = current === 0 ? "overview" : "detail";
       layer.dataset.reduced = String(reducedRef.current);
       sceneRef.current?.setActive(active && !document.hidden);
@@ -133,8 +134,7 @@ export function DataCenterExperience() {
     const section = document.getElementById(stages[index].id);
     if (!section) return;
     window.scrollTo({
-      top:
-        section.getBoundingClientRect().top + window.scrollY - (window.innerWidth <= 760 ? 0 : 100),
+      top: section.getBoundingClientRect().top + window.scrollY,
       // Scene navigation jumps to its chapter; the 3D engine handles the camera transition.
       behavior: "instant",
     });
@@ -149,16 +149,6 @@ export function DataCenterExperience() {
       data-status={status}
     >
       <div className="dc-scene-frame">
-        <div className="dc-scene-border" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="dc-scene-stamp" aria-hidden="true">
-          <span>CB—DC / 001</span>
-          <span>HYPERSCALE INFRASTRUCTURE STUDY</span>
-        </div>
         <div ref={hostRef} className="dc-canvas-host" aria-hidden="true" />
         {status !== "ready" && (
           <div className="dc-scene-fallback">
@@ -184,10 +174,23 @@ export function DataCenterExperience() {
             )}
           </div>
         )}
-        <div className="dc-scene-task" aria-live="polite" aria-atomic="true">
-          <span className="dc-live-dot" />
-          {stages[stage].action}
-        </div>
+      </div>
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {stages[stage].action}
+      </p>
+      <div className="dc-scene-footer">
+        <nav className="dc-stage-nav" aria-label="Explore the data center">
+          {stages.map(({ label }, index) => (
+            <button
+              type="button"
+              key={label}
+              aria-pressed={stage === index}
+              onClick={() => selectStage(index)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
         <div className="dc-scene-tools" role="group" aria-label="3D view controls">
           <button
             type="button"
@@ -244,22 +247,6 @@ export function DataCenterExperience() {
             <span>{paused ? "Resume" : "Pause"}</span>
           </button>
         </div>
-      </div>
-      <div className="dc-scene-footer">
-        <nav className="dc-stage-nav" aria-label="Explore the data center">
-          {stages.map(({ label }, index) => (
-            <button
-              type="button"
-              key={label}
-              aria-pressed={stage === index}
-              onClick={() => selectStage(index)}
-            >
-              <span>0{index}</span>
-              {label}
-            </button>
-          ))}
-        </nav>
-        <p>Illustrative environment · Workflows scoped per site</p>
       </div>
     </div>
   );
