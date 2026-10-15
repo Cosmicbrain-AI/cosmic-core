@@ -3,6 +3,20 @@
   "usage_note": "Illustrative data center photography. These images do not document Cosmic Brain deployments or imply partnership or endorsement by the pictured facility operators.",
   "assets": [
     {
+      "filename": "server-aisle.jpg",
+      "title": "Wikimedia Servers-0051 19",
+      "description": "Bright server aisle with complete racks and overhead cable trays, photographed in 2012. Illustrative server infrastructure.",
+      "author": "Helpameout",
+      "author_url": "https://commons.wikimedia.org/wiki/User:Helpameout",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Wikimedia_Servers-0051_19.jpg",
+      "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Wikimedia_Servers-0051_19.jpg/1280px-Wikimedia_Servers-0051_19.jpg?utm_campaign=index&utm_content=thumbnail&utm_source=commons.wikimedia.org",
+      "license": "CC BY-SA 3.0 Unported",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "credit": "Photo: Helpameout / Wikimedia Commons, CC BY-SA 3.0",
+      "changes": "Source-provided 1280px version; cropped and feathered at the edges using CSS. Displayed adaptation remains available under CC BY-SA 3.0.",
+      "commercial_use": true
+    },
+    {
       "filename": "rack-aisle.jpg",
       "title": "Cable network",
       "description": "Wired server rack banks at the University of Washington, Seattle. Close view, not a wide aisle.",

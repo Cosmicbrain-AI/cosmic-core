@@ -93,59 +93,6 @@
   color: #a44a31;
   margin-bottom: 6px;
 }
-.pilot-record {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  border-block: 1px solid #ccd1c0;
-  padding: 24px 0;
-}
-.pilot-record p {
-  font: 11px/1.8 var(--font-mono);
-  color: #626a5a;
-  max-width: 640px;
-  margin-top: 8px;
-}
-.pilot-record > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: #a44a31;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-.pilot-references {
-  padding-top: 22px;
-}
-.pilot-references > p {
-  font: 10px var(--font-mono);
-  color: #607052;
-}
-.pilot-references > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  margin-top: 12px;
-}
-.pilot-references a {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  color: #56654b;
-  font-size: 11px;
-}
-.pilot-references a:hover {
-  color: #a44a31;
-}
-.pilot-references > span {
-  display: block;
-  max-width: 790px;
-  font-size: 10px;
-  line-height: 1.7;
-  color: #6b7262;
-  margin-top: 16px;
-}
 @media (max-width: 760px) {
   .pilot-scorecard {
     padding: 48px 0;
@@ -193,10 +140,5 @@
   .pilot-metric-index {
     display: inline-block;
     margin: 0 12px 0 0;
-  }
-  .pilot-record {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
   }
 }

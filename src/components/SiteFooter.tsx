@@ -17,7 +17,7 @@ export function SiteFooter() {
             <br />
             the data center.
           </p>
-          <span className="eyebrow">Rack inspection. Asset audits. Parts runs.</span>
+          <span className="eyebrow">Humanoid deployments. Data center operations.</span>
         </div>
         <div className="footer-column">
           <span className="eyebrow">Evidence</span>

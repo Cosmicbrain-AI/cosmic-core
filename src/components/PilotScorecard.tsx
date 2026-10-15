@@ -1,5 +1,4 @@
-import { ArrowUpRight, Download } from "lucide-react";
-import { pilotMetrics, pilotReferences } from "@/data/data-center-pilot";
+import { pilotMetrics } from "@/data/data-center-pilot";
 import "./pilot-scorecard.css";
 
 export function PilotScorecard({ embedded = false }: { embedded?: boolean }) {
@@ -50,34 +49,6 @@ export function PilotScorecard({ embedded = false }: { embedded?: boolean }) {
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="pilot-record">
-          <div>
-            <span className="eyebrow">Minimum evidence record</span>
-            <p>
-              Mission ID · task version · robot/software version · site/row/rack/U · UTC timestamps
-              · control owner · evidence URI · outcome · adjudicator
-            </p>
-          </div>
-          <a href="/data-center-pilot-template.json" download>
-            Download blank pilot record <Download size={15} />
-          </a>
-        </div>
-        <div className="pilot-references">
-          <p>Technical references</p>
-          <div>
-            {pilotReferences.map((source) => (
-              <a key={source.href} href={source.href} target="_blank" rel="noreferrer">
-                {source.label}
-                <ArrowUpRight size={12} />
-              </a>
-            ))}
-          </div>
-          <span>
-            The scorecard combines site-specific pilot definitions with these measurement and
-            equipment references. A reference does not establish a CosmicBrain integration or
-            measured capability.
-          </span>
         </div>
       </div>
     </section>
