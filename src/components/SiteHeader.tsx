@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { ContactDialog } from "./ContactDialog";
 import "./CompanyLogo.css";
+import "./data-center-sales.css";
 
 export function CosmicMark({ className = "" }: { className?: string }) {
   const filterId = `cosmic-mark-${useId().replace(/:/g, "")}`;
@@ -39,14 +40,11 @@ export function CosmicMark({ className = "" }: { className?: string }) {
 }
 
 const links = [
-  ["Deployments", "/solutions"],
   ["Evals", "/evaluations"],
-  ["Robots", "/catalog"],
-  ["Sales", "/sales"],
   ["Datasets", "/datasets"],
   ["Newsroom", "/newsroom"],
   ["Docs", "/docs"],
-  ["Live Teleop", "/app"],
+  ["Sales", "/sales"],
 ] as const;
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -74,23 +72,20 @@ export function SiteHeader() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, href]) => (
-            <a
-              key={href}
-              href={href}
-              className={label === "Live Teleop" ? "nav-teleop" : undefined}
-              aria-current={pathname === href ? "page" : undefined}
-            >
+            <a key={href} href={href} aria-current={pathname === href ? "page" : undefined}>
               {label}
             </a>
           ))}
         </nav>
         <div className="header-actions">
           <ContactDialog
-            title="Let’s talk."
-            subject="A project inquiry from the CosmicBrain website"
+            title="Plan your data center deployment."
+            description="Start with one workflow. Tell us about your facility, operating constraints, and what a successful pilot should demonstrate."
+            subject="Data center humanoid deployment inquiry"
+            messagePlaceholder="Your data center / the workflow you want to start with / site access and supervision requirements / what success looks like."
             trigger={
-              <button type="button" className="button button-small">
-                Let’s talk <ArrowUpRight size={16} />
+              <button type="button" className="button button-small deployment-header-cta">
+                Plan a deployment <ArrowUpRight size={16} />
               </button>
             }
           />
@@ -120,6 +115,9 @@ export function SiteHeader() {
               <ArrowUpRight size={18} />
             </a>
           ))}
+          <Link to="/sales" className="mobile-deployment-link" onClick={() => setOpen(false)}>
+            Plan a data center deployment <ArrowUpRight size={18} />
+          </Link>
         </nav>
       )}
     </header>

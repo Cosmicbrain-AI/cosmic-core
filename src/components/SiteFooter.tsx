@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Heart } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { ContactDialog } from "./ContactDialog";
 import { CosmicMark } from "./SiteHeader";
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -12,47 +13,46 @@ export function SiteFooter() {
             <span>cosmicbrain.</span>
           </Link>
           <p>
-            A little curiosity.
-            <br />A lot of possibility.
+            Humanoids in
+            <br />
+            the data center.
           </p>
-          <span className="eyebrow">Human ideas. Physical intelligence.</span>
+          <span className="eyebrow">Physical intelligence. Operational focus.</span>
         </div>
         <div className="footer-column">
-          <span className="eyebrow">Explore</span>
-          <Link to="/solutions/$slug" params={{ slug: "data-centers" }}>Data center deployments</Link>
-          <Link to="/catalog">The robots</Link>
-          <Link to="/solutions">Field guides</Link>
-          <Link to="/newsroom">Newsroom</Link>
-        </div>
-        <div className="footer-column">
-          <span className="eyebrow">Build with us</span>
-          <Link to="/sales">Start a conversation</Link>
-          <Link to="/docs">Technical report</Link>
-          <Link to="/evaluations">Evaluation protocol</Link>
+          <span className="eyebrow">Evidence</span>
+          <Link to="/evaluations">Evals</Link>
           <Link to="/datasets">Datasets</Link>
-          <a href="/app">Live Teleop</a>
+          <Link to="/docs">Docs</Link>
         </div>
         <div className="footer-column">
-          <span className="eyebrow">Say hello</span>
+          <span className="eyebrow">CosmicBrain</span>
+          <Link to="/newsroom">Newsroom</Link>
+          <Link to="/sales">Sales</Link>
+        </div>
+        <div className="footer-column">
+          <span className="eyebrow">Your next workflow</span>
           <ContactDialog
+            title="Plan your data center deployment."
+            description="Tell us about the workflow, your facility, and the criteria for a useful first pilot."
+            subject="Data center humanoid deployment inquiry"
+            messagePlaceholder="Your data center / first workflow / site and supervision requirements / pilot success criteria."
             trigger={
               <button type="button" className="footer-email">
-                Get in touch <ArrowUpRight size={16} />
+                Plan a deployment <ArrowUpRight size={16} />
               </button>
             }
           />
           <span className="footer-location">
-            Built with care in
+            From site assessment
             <br />
-            San Francisco, California.
+            to a measured pilot.
           </span>
         </div>
       </div>
       <div className="footer-bottom page-width">
         <span>© {new Date().getFullYear()} CosmicBrain AI</span>
-        <span>
-          <Heart size={12} /> People at the heart. Robots in the loop.
-        </span>
+        <span>One workflow. Clear evidence. Practical scale.</span>
         <a href="#">Back to the top ↑</a>
       </div>
     </footer>

@@ -1,30 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowDown, ArrowRight, Check, Cpu, Database, MoveUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, ArrowRight, Check, CircleDot } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
-import "@/components/workspace.css";
+import "@/components/data-center-sales.css";
 
 export const Route = createFileRoute("/sales")({
   head: () => ({
     meta: [
-      { title: "Data center deployments and model evaluations — CosmicBrain" },
+      { title: "Plan a data center deployment — CosmicBrain" },
       {
         name: "description",
         content:
-          "Talk with CosmicBrain about robot deployments in data centers and model evaluations on those deployments. Explore robotics data and hardware partnerships.",
+          "Scope a supervised humanoid deployment in your data center. Start with one workflow, define site requirements, and agree on the evidence for a successful pilot.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
-      {
-        property: "og:title",
-        content: "Data center deployments and model evaluations — CosmicBrain",
-      },
+      { property: "og:title", content: "Plan a data center deployment — CosmicBrain" },
       {
         property: "og:description",
-        content:
-          "Start a conversation about data center robot deployments and model evaluations in the field.",
+        content: "Your workflow. Your facility. A measurable first deployment.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -33,310 +29,311 @@ export const Route = createFileRoute("/sales")({
   component: SalesPage,
 });
 
-const paths = [
+const workflows = [
   {
-    id: "deployment",
-    number: "01",
-    label: "Deploy in a data center",
-    icon: MoveUpRight,
-    title: "Start with one data center workflow.",
+    label: "Inspection rounds",
+    location: "DATA HALL / AISLE 01",
+    title: "A repeatable route. A clearer view.",
     description:
-      "Deploy robots in data centers with hardware selection, site integration, and human operations brought together. Start with a defined physical task and measure progress in your facility.",
-    details: [
-      "The data center task and site constraints",
-      "Hardware, supervision, and integration needs",
-      "A pilot with clear measures of progress",
-    ],
-    subject: "Data center robot deployment inquiry",
-    placeholder:
-      "Tell us about your data center, the physical task, current process, site requirements, and what a useful first trial would look like.",
-    formula: "progress = observe → test → learn",
+      "Scope a supervised route for rack labels, indicator checks, and visual observations. Bring findings back to your team for review.",
+    criteria: "Route coverage, observation quality, and human interventions.",
+    points: "130,187 250,187 250,122 332,122",
+    position: [250, 173],
   },
   {
-    id: "evaluation",
-    number: "02",
-    label: "Evaluate a model",
-    icon: Cpu,
-    title: "Evaluate models on data center deployments.",
+    label: "Parts logistics",
+    location: "STAGING / DATA HALL",
+    title: "The right part. At the right aisle.",
     description:
-      "Run model evaluations on data center robot deployments. Define the task, robot, and trial conditions, then review task outcomes, human interventions, and failure modes against an agreed protocol.",
-    details: [
-      "Your model, hardware, and target workflow",
-      "Trial conditions and operating limits",
-      "Task success, interventions, and failure modes",
-    ],
-    subject: "Model evaluation on data center deployments",
-    placeholder:
-      "Tell us about your model, robot platform, data center workflow, trial conditions, and evaluation goals.",
-    formula: "field evidence = model × robot × environment",
+      "Define an approved path for moving parts and consumables from staging to a work area, within agreed load and access limits.",
+    criteria: "Delivery completion, handling accuracy, and intervention rate.",
+    points: "105,235 156,235 156,187 308,187",
+    position: [156, 225],
   },
   {
-    id: "data",
-    number: "03",
-    label: "License robotics datasets",
-    icon: Database,
-    title: "Better learning begins with the right experience.",
+    label: "Service preparation",
+    location: "SERVICE BAY / AISLE 02",
+    title: "Prepare the work. Respect the procedure.",
     description:
-      "Access real deployment data and hundreds of thousands of hours of teleoperation data. Discuss the available inventory, task coverage, formats, and licensing around the models you’re building.",
-    details: [
-      "The behaviors and tasks you’re training for",
-      "Your robot platform and data format",
-      "Collection scope and quality criteria",
-    ],
-    subject: "Let’s talk robot learning data",
-    placeholder:
-      "What are you teaching your robot? Tell us about your model, embodiment, target tasks, and the data you need.",
-    formula: "learning = experience + feedback",
-  },
-  {
-    id: "hardware",
-    number: "04",
-    label: "Connect your hardware",
-    icon: Cpu,
-    title: "You build the body. Let’s connect the pieces.",
-    description:
-      "Join our network of more than 15 robotics brand partners. Bring your hardware and interfaces; we’ll discuss integration, operating environments, human support, and a practical deployment path.",
-    details: [
-      "Your hardware and existing interfaces",
-      "Teleoperation and data collection workflows",
-      "An integration path we can test together",
-    ],
-    subject: "Let’s explore a hardware partnership",
-    placeholder:
-      "What are you building? Tell us about your hardware, available interfaces, and the software or teleoperation challenges you’re working through.",
-    formula: "possibility = hardware × connection",
+      "Explore tool staging, component identification, and pre-task visual checks under your team's supervision and site procedures.",
+    criteria: "Checklist completion, identification accuracy, and handoff quality.",
+    points: "342,230 285,230 285,123 332,123",
+    position: [285, 153],
   },
 ] as const;
 
+function SiteStudy({ selected }: { selected: number }) {
+  const workflow = workflows[selected];
+  return (
+    <div className="dcs-study">
+      <div className="dcs-study-meta">
+        <span>DEPLOYMENT STUDY</span>
+        <span>CB / 001</span>
+      </div>
+      <svg
+        viewBox="0 0 440 320"
+        fill="none"
+        role="img"
+        aria-label={`Data center floor plan showing a proposed route for ${workflow.label.toLowerCase()}`}
+      >
+        <defs>
+          <pattern id="sales-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20 0H0V20" stroke="#71806b" strokeOpacity=".12" strokeWidth=".5" />
+          </pattern>
+          <pattern id="sales-rack" width="30" height="8" patternUnits="userSpaceOnUse">
+            <path d="M0 6H30" stroke="#5b7054" strokeOpacity=".5" strokeWidth="1" />
+          </pattern>
+        </defs>
+        <rect width="440" height="320" fill="url(#sales-grid)" />
+        <g stroke="#788473" strokeWidth="1.2">
+          <path d="M67 61H373V264H67V61Z" fill="#f7f4ec" fillOpacity=".55" />
+          <path d="M67 61H373V264M67 264V61H373" strokeWidth="3" />
+          <path d="M67 212H121V264M317 264V212H373" />
+          <path d="M121 212H152M317 212H287" strokeDasharray="3 3" />
+          <path d="M67 48V29M373 48V29M67 35H373M55 61H33M55 264H33M41 61V264" strokeOpacity=".4" />
+          <path d="M65 39L69 31M371 39L375 31M37 63L45 59M37 266L45 262" />
+          <path d="M91 87H351M91 96H351" stroke="#91a58b" />
+          <path d="M91 78H351" stroke="#b94e32" strokeOpacity=".5" strokeDasharray="3 3" />
+          {[107, 177, 247, 317].map((x) => (
+            <g key={x}>
+              <rect x={x} y="111" width="28" height="58" fill="#dfe4d4" />
+              <rect x={x + 4} y="115" width="20" height="50" fill="url(#sales-rack)" />
+              <path d={`M${x + 4} 125H${x + 24}M${x + 4} 149H${x + 24}`} />
+            </g>
+          ))}
+          <rect x="83" y="230" width="22" height="17" fill="#dfe4d4" />
+          <path d="M86 235H102M86 240H102" />
+          <rect x="339" y="226" width="20" height="20" fill="#dfe4d4" />
+          <path d="M345 230V242M341 236H355" />
+        </g>
+        <polyline
+          className="dcs-study-route"
+          points={workflow.points}
+          stroke="#b94e32"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+        />
+        <g
+          className="dcs-study-robot"
+          transform={`translate(${workflow.position[0]} ${workflow.position[1]})`}
+        >
+          <circle r="18" fill="#b94e32" fillOpacity=".08" stroke="#b94e32" strokeOpacity=".25" />
+          <circle cy="-7" r="3.5" fill="#b94e32" />
+          <path
+            d="M-5 -1H5L7 7H-7L-5 -1ZM-3 7L-5 13M3 7L5 13M-5 0L-10 5M5 0L10 5"
+            fill="#b94e32"
+            stroke="#b94e32"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </g>
+        <g fill="#687461" fontFamily="DM Mono, monospace" fontSize="7" letterSpacing="1">
+          <text x="172" y="28">
+            SITE-SPECIFIC SCOPE
+          </text>
+          <text x="155" y="205">
+            CONTROLLED ACCESS ROUTE
+          </text>
+          <text x="77" y="281">
+            STAGING
+          </text>
+          <text x="316" y="281">
+            SERVICE
+          </text>
+          <text x="103" y="105">
+            R01
+          </text>
+          <text x="173" y="105">
+            R02
+          </text>
+          <text x="243" y="105">
+            R03
+          </text>
+          <text x="313" y="105">
+            R04
+          </text>
+          <text x="335" y="305">
+            N
+          </text>
+          <path d="M337 292V285M334 288L337 285L340 288" stroke="#687461" />
+        </g>
+      </svg>
+      <div className="dcs-study-caption">
+        <span className="dcs-status-dot" />
+        <span>{workflow.location}</span>
+        <span>Illustrative site plan</span>
+      </div>
+    </div>
+  );
+}
+
 function SalesPage() {
   const [selected, setSelected] = useState(0);
-  const path = paths[selected];
+  const workflow = workflows[selected];
+  const inquiry = {
+    title: "Let’s scope your first deployment.",
+    description:
+      "Tell us about your data center, the workflow, and the evidence you need to move forward.",
+    subject: `Data center deployment — ${workflow.label}`,
+    messagePlaceholder: `First workflow: ${workflow.label}\nFacility: data hall layout, access rules, and operating constraints\nSupervision: your team's role and required handoffs\nPilot criteria: what success should demonstrate`,
+  };
 
   return (
-    <div className="cb-sales" id="top">
+    <div className="dcs-page" id="top">
       <SiteHeader />
       <main>
-        <section className="cb-sales-hero">
-          <div>
-            <p className="cb-eyebrow">
-              <span className="cb-small-dot" /> A conversation, then a collaboration
+        <section className="dcs-hero page-width">
+          <div className="dcs-hero-copy">
+            <p className="eyebrow">
+              <span className="dcs-status-dot" /> DATA CENTER DEPLOYMENTS
             </p>
             <h1>
-              Let’s build
+              Start in one aisle.
               <br />
-              something <em>useful.</em>
+              <em>Build from evidence.</em>
             </h1>
-            <p className="cb-sales-intro">
-              Robot deployments in data centers, with model evaluations on those deployments. Tell
-              us about your workflow. You can also discuss datasets and hardware partnerships.
+            <p className="dcs-lead">
+              Bring a real workflow. We’ll work through the site, the supervision, and the measures
+              that make a humanoid pilot useful.
             </p>
-            <a className="cb-text-link" href="#your-project">
-              What are you working on? <ArrowDown size={17} />
+            <a href="#pilot-scope" className="dcs-scroll-link">
+              Define your first deployment <ArrowDown size={16} />
             </a>
           </div>
-          <div className="cb-project-note">
-            <div className="cb-note-top">
-              <span>FROM THE WORKBENCH</span>
-              <span>fig. 01</span>
-            </div>
-            <svg
-              className="cb-arm-study"
-              viewBox="0 0 380 260"
-              fill="none"
-              role="img"
-              aria-label="An engineering sketch of a robot arm reaching toward a small star"
-            >
-              <path
-                d="M49 224H333M81 42V224"
-                stroke="currentColor"
-                strokeOpacity=".2"
-                strokeDasharray="4 5"
-              />
-              <path
-                d="M110 208L163 119L250 145L287 92"
-                stroke="currentColor"
-                strokeWidth="16"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M110 208L163 119L250 145L287 92"
-                stroke="#f7f4ec"
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M81 217H143L135 201H92Z"
-                fill="#d8d7bd"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <circle
-                cx="110"
-                cy="202"
-                r="12"
-                fill="#f7f4ec"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <circle
-                cx="163"
-                cy="119"
-                r="13"
-                fill="#d8d7bd"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <circle
-                cx="250"
-                cy="145"
-                r="10"
-                fill="#d8d7bd"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M281 90L286 72L301 70M291 97L308 89L311 76"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path d="M311 33L314 46L327 49L314 53L311 66L307 53L294 49L307 46Z" fill="#b94e32" />
-              <path
-                d="M175 202A63 63 0 0 0 143 149M171 68C226 58 267 64 282 79"
-                stroke="#b94e32"
-                strokeDasharray="4 5"
-              />
-              <text
-                x="163"
-                y="184"
-                fill="#b94e32"
-                fontSize="20"
-                fontFamily="serif"
-                fontStyle="italic"
-              >
-                θ
-              </text>
-              <text x="180" y="44" fill="currentColor" fontSize="13" fontFamily="monospace">
-                a little reach.
-              </text>
-            </svg>
-            <div className="cb-note-message">
-              Big ideas.
-              <br />
-              <em>Thoughtful first steps.</em>
-            </div>
-            <div className="cb-note-bottom">curiosity + care + a bit of engineering</div>
-          </div>
+          <SiteStudy selected={selected} />
         </section>
 
-        <section className="cb-project-section" id="your-project" aria-labelledby="project-title">
-          <div className="cb-section-intro">
-            <p className="cb-eyebrow">01 / Your starting point</p>
-            <h2 id="project-title">Every project starts somewhere.</h2>
-            <p>Pick the thought that’s closest to yours. We can figure out the rest together.</p>
+        <section className="dcs-workflows page-width" aria-labelledby="workflow-heading">
+          <div className="dcs-section-heading">
+            <p className="eyebrow">01 / CHOOSE A STARTING WORKFLOW</p>
+            <h2 id="workflow-heading">A focused place to begin.</h2>
+            <p>Each workflow starts with site approval, defined limits, and human supervision.</p>
           </div>
-          <div className="cb-path-options" aria-label="Choose your project focus">
-            {paths.map((option, index) => (
+          <div className="dcs-workflow-selector" role="group" aria-label="Deployment workflow">
+            {workflows.map((item, index) => (
               <button
-                key={option.id}
+                key={item.label}
                 type="button"
-                className="cb-path-option"
                 aria-pressed={selected === index}
-                aria-controls="project-brief"
+                aria-controls="workflow-detail"
                 onClick={() => setSelected(index)}
               >
-                <span className="cb-path-number">{option.number}</span>
-                <option.icon size={24} strokeWidth={1.4} />
-                <span>{option.label}</span>
-                <ArrowRight className="cb-path-arrow" size={19} />
+                <span>0{index + 1}</span>
+                <span>{item.label}</span>
+                <ArrowUpRight size={18} />
               </button>
             ))}
           </div>
-          <div className="cb-project-brief" id="project-brief" aria-live="polite">
+          <div className="dcs-workflow-detail" id="workflow-detail" aria-live="polite">
             <div>
-              <p className="cb-eyebrow">A few things we can explore</p>
-              <h3>{path.title}</h3>
-              <p>{path.description}</p>
+              <CircleDot size={23} strokeWidth={1.2} />
+              <h3>{workflow.title}</h3>
+              <p>{workflow.description}</p>
+            </div>
+            <div className="dcs-measure">
+              <span className="eyebrow">WHAT WE MEASURE</span>
+              <p>{workflow.criteria}</p>
+              <Link to="/evaluations">
+                Explore the evaluation approach <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="dcs-scope page-width" id="pilot-scope" aria-labelledby="scope-heading">
+          <div className="dcs-scope-intro">
+            <p className="eyebrow">02 / YOUR DEPLOYMENT BRIEF</p>
+            <h2 id="scope-heading">
+              A useful pilot has
+              <br />
+              <em>a precise brief.</em>
+            </h2>
+            <p>
+              You don’t need a finished plan. Bring the operational context, and we’ll define a
+              practical first scope together.
+            </p>
+            <ContactDialog
+              {...inquiry}
+              trigger={
+                <button type="button" className="button">
+                  Scope your pilot <ArrowUpRight size={17} />
+                </button>
+              }
+            />
+            <span className="dcs-scope-note">
+              <Check size={14} /> Straight to the deployment team.
+            </span>
+          </div>
+          <ol className="dcs-brief-list">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>The workflow.</h3>
+                <p>
+                  The current process, objects involved, frequency, and where people need support.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>The facility.</h3>
+                <p>
+                  Aisles and access, network requirements, safety procedures, supervision, and
+                  handoffs.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>The acceptance criteria.</h3>
+                <p>
+                  Task outcomes, allowed interventions, operating limits, and the evidence required
+                  to expand.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section className="dcs-process">
+          <div className="page-width">
+            <p className="eyebrow">03 / FROM FIRST VISIT TO NEXT DECISION</p>
+            <div className="dcs-process-grid">
+              {[
+                [
+                  "Map the site.",
+                  "Review the environment and agree on a bounded task, access conditions, and human responsibilities.",
+                ],
+                [
+                  "Validate the workflow.",
+                  "Run supervised trials. Document outcomes, interventions, and failure modes against an agreed protocol.",
+                ],
+                [
+                  "Decide what scales.",
+                  "Review the evidence together before extending the task, operating window, or deployment footprint.",
+                ],
+              ].map(([title, description], index) => (
+                <div className="dcs-process-step" key={title}>
+                  <span className="dcs-step-number">0{index + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+              ))}
+            </div>
+            <div className="dcs-process-bottom">
+              <span>One facility. One workflow. A clear next step.</span>
               <ContactDialog
-                title="Tell us what you’re building."
-                description="A rough idea is a perfectly good place to start."
-                subject={path.subject}
-                messagePlaceholder={path.placeholder}
+                {...inquiry}
                 trigger={
-                  <button className="cb-warm-button" type="button">
-                    Let’s talk about it <ArrowRight size={18} />
+                  <button type="button" className="dcs-text-button">
+                    Plan a deployment <ArrowRight size={17} />
                   </button>
                 }
               />
             </div>
-            <div className="cb-brief-aside">
-              <span className="cb-eyebrow">Bring your questions</span>
-              <ul>
-                {path.details.map((detail) => (
-                  <li key={detail}>
-                    <Check size={17} />
-                    {detail}
-                  </li>
-                ))}
-              </ul>
-              <div className="cb-brief-formula">{path.formula}</div>
-            </div>
           </div>
-        </section>
-
-        <section className="cb-conversation-section">
-          <div>
-            <p className="cb-eyebrow">02 / How we work together</p>
-            <h2>
-              More listening.
-              <br />
-              <em>Less guessing.</em>
-            </h2>
-            <p>
-              Robotics works best when we get close to the real problem. That starts with
-              understanding your world.
-            </p>
-          </div>
-          <ol className="cb-conversation-steps">
-            {[
-              [
-                "Share the messy version.",
-                "The idea, the challenge, the thing you’re not sure is possible yet. You don’t need a finished brief.",
-              ],
-              [
-                "Find the right first experiment.",
-                "We’ll discuss the task, the constraints, and what we should learn before going further.",
-              ],
-              [
-                "Build with a clear view of progress.",
-                "Agree on the scope, the role of human supervision, and how we’ll evaluate the work together.",
-              ],
-            ].map(([title, description], index) => (
-              <li key={title}>
-                <span>0{index + 1}</span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </section>
-        <section className="cb-sales-closing">
-          <span className="cb-eyebrow">Still connecting the dots?</span>
-          <h2>That’s our favorite part.</h2>
-          <ContactDialog
-            trigger={
-              <button className="cb-warm-button" type="button">
-                Say hello <ArrowRight size={18} />
-              </button>
-            }
-          />
-          <Link to="/solutions/$slug" params={{ slug: "data-centers" }} className="cb-text-link">
-            Explore data center deployments <ArrowRight size={17} />
-          </Link>
         </section>
       </main>
       <SiteFooter />
