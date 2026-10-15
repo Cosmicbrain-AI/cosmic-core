@@ -24,10 +24,10 @@ interface ContactDialogProps {
 
 export function ContactDialog({
   trigger,
-  title = "A good idea starts with hello.",
-  description = "Tell us what’s on your mind. We’d love to hear what you’re building.",
-  subject = "A hello from the CosmicBrain website",
-  messagePlaceholder = "A project, a question, a wild idea… tell us a little about it.",
+  title = "Plan a data center deployment.",
+  description = "Tell us about your facility and the workflow you want to automate.",
+  subject = "Data center humanoid deployment inquiry",
+  messagePlaceholder = "Your facility, target workflow, site constraints, and deployment timeline…",
 }: ContactDialogProps) {
   const id = useId();
   const [open, setOpen] = useState(false);
@@ -54,7 +54,7 @@ export function ContactDialog({
         );
       form.reset();
       setSent(true);
-      toast.success("Message sent. Thanks for saying hello.");
+      toast.success("Inquiry sent. Our team will be in touch.");
     } catch (err) {
       setError(
         err instanceof TypeError
@@ -87,11 +87,11 @@ export function ContactDialog({
         <DialogHeader className="text-left">
           <span className="cb-eyebrow">A note to CosmicBrain</span>
           <DialogTitle className="cb-contact-title">
-            {sent ? "A lovely place to start." : title}
+            {sent ? "Inquiry received." : title}
           </DialogTitle>
           <DialogDescription className="cb-contact-description">
             {sent
-              ? "Your message is with our team. Thanks for letting us into your world — we’ll be in touch."
+              ? "Your inquiry is with our team. We’ll be in touch to discuss the next step."
               : description}
           </DialogDescription>
         </DialogHeader>
@@ -117,7 +117,7 @@ export function ContactDialog({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor={`${id}-message`}>What are you thinking about?</Label>
+                <Label htmlFor={`${id}-message`}>Your message</Label>
                 <Textarea
                   id={`${id}-message`}
                   name="message"
@@ -138,11 +138,11 @@ export function ContactDialog({
                 disabled={submitting}
                 className="cb-warm-button w-full justify-center"
               >
-                {submitting ? "Sending your note…" : "Send a little hello"}
+                {submitting ? "Sending your note…" : "Send inquiry"}
                 {!submitting && <ArrowRight size={17} />}
               </button>
             </fieldset>
-            <p className="cb-form-footnote">Straight to our team. No perfect pitch required.</p>
+            <p className="cb-form-footnote">Sent directly to the CosmicBrain team.</p>
           </form>
         )}
       </DialogContent>

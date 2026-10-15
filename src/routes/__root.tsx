@@ -79,24 +79,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosmicBrain · The operating system for real-world robots" },
+      { title: "CosmicBrain · Humanoids for data center operations" },
       {
         name: "description",
         content:
-          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
+          "Humanoid automation for data centers. Site integration, supervised operations, model evaluations, and deployment data.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/" },
-      { property: "og:title", content: "CosmicBrain · The operating system for real-world robots" },
+      { property: "og:title", content: "CosmicBrain · Humanoids for data center operations" },
       {
         property: "og:description",
         content:
-          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
+          "Humanoid automation for data centers. Site integration, supervised operations, model evaluations, and deployment data.",
       },
       { property: "og:site_name", content: "CosmicBrain" },
       {
         property: "og:image",
-        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v5.jpg",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-data-centers-v1.jpg",
       },
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
@@ -104,28 +104,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:image:alt",
         content:
-          "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
+          "CosmicBrain — AI runs the data center. Now it can work the floor. A graphite humanoid concept with the CosmicBrain data center automation headline.",
       },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:image",
-        content: "https://www.cosmicbrain.ai/social/cosmicbrain-robotics-v5.jpg",
+        content: "https://www.cosmicbrain.ai/social/cosmicbrain-data-centers-v1.jpg",
       },
       {
         name: "twitter:image:alt",
         content:
-          "CosmicBrain — Robots in the world. One operating system. Multi-brand Robots as a Service, model evals and benchmarks, and real-world datasets, beside the website's white and black 3D robot.",
+          "CosmicBrain — AI runs the data center. Now it can work the floor. A graphite humanoid concept with the CosmicBrain data center automation headline.",
       },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/" },
-      { name: "twitter:title", content: "CosmicBrain · The operating system for real-world robots" },
+      { name: "twitter:title", content: "CosmicBrain · Humanoids for data center operations" },
       {
         name: "twitter:description",
         content:
-          "Robots as a Service for data centers, with physical AI model evaluations at live deployments.",
+          "Humanoid automation for data centers. Site integration, supervised operations, model evaluations, and deployment data.",
       },
       {
         name: "keywords",
-        content: "humanoid robotics, robot deployment, teleoperation, data pipeline, humanoid OS",
+        content:
+          "data center automation, humanoid deployment, GPU infrastructure, physical AI, data center robotics",
       },
     ],
     links: [

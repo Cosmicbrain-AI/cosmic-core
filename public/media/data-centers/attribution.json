@@ -1,0 +1,42 @@
+{
+  "verified_on": "2026-10-15",
+  "usage_note": "Illustrative data center photography. These images do not document Cosmic Brain deployments or imply partnership or endorsement by the pictured facility operators.",
+  "assets": [
+    {
+      "filename": "rack-aisle.jpg",
+      "title": "Cable network",
+      "description": "Wired server rack banks at the University of Washington, Seattle. Close view, not a wide aisle.",
+      "author": "Taylor Vick",
+      "author_url": "https://unsplash.com/@tvick",
+      "source_url": "https://unsplash.com/photos/cable-network-M5tzZtFCOfs",
+      "download_url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=2000&q=88&auto=format&fit=crop",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "credit": "Photo: Taylor Vick / Unsplash",
+      "changes": "Downloaded at 2000px wide using the source CDN. No other edits.",
+      "commercial_use": true
+    },
+    {
+      "filename": "cooling-infrastructure.jpg",
+      "title": "Kaukojaahdytyslaitteistoja",
+      "description": "District cooling pipes in the Academica data center, Helsinki, Finland. This is an illustrative cooling plant, not a hyperscaler or a Cosmic Brain deployment.",
+      "author": "Helen Ltd mediabank (Helsingin Energia); individual photographer not specified on source",
+      "author_url": "https://commons.wikimedia.org/wiki/File:Kaukojaahdytyslaitteistoja.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Kaukojaahdytyslaitteistoja.jpg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Kaukojaahdytyslaitteistoja.jpg",
+      "license": "CC BY-SA 3.0 Unported",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "credit": "Cooling photo: Helen Ltd mediabank / Wikimedia Commons, CC BY-SA 3.0",
+      "permission_evidence": "Wikimedia VRT permission ticket #2011030310008504, linked on the file page.",
+      "changes": "Resized to 1600px maximum dimension and JPEG-compressed for the web; cropped to fit its display frame. Adapted photograph remains available under CC BY-SA 3.0.",
+      "commercial_use": true
+    },
+    {
+      "filename": "graphite-robot.webp",
+      "title": "Graphite humanoid automation concept",
+      "source": "User-supplied IMG_5995.jpeg",
+      "changes": "Robot shells edited to satin graphite-black using the built-in image_gen tool; converted to WebP for the website. Concept image, not evidence of a CosmicBrain deployment.",
+      "generated_on": "2026-10-15"
+    }
+  ]
+}

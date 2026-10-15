@@ -1,0 +1,526 @@
+/* Deployment planning: the same warm, precise visual language as the data hall. */
+.deployment-header-cta {
+  white-space: nowrap;
+}
+.mobile-nav .mobile-deployment-link {
+  color: var(--primary);
+  font-weight: 500;
+}
+.dcs-page {
+  background: #f7f4ec;
+}
+.dcs-page h1,
+.dcs-page h2,
+.dcs-page h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.dcs-page em {
+  color: #b94e32;
+  font-weight: 400;
+}
+.dcs-status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: #6b7d5c;
+  border-radius: 50%;
+}
+.dcs-hero {
+  padding-top: 176px;
+  padding-bottom: 84px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.dcs-hero-copy > .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #65715b;
+}
+.dcs-hero h1 {
+  font-size: clamp(48px, 5.8vw, 79px);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  margin: 24px 0;
+}
+.dcs-lead {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #6c6d61;
+  max-width: 430px;
+}
+.dcs-scroll-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 12px;
+  margin-top: 27px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #c7ccbc;
+}
+.dcs-scroll-link:hover {
+  color: #b94e32;
+  border-color: #b94e32;
+}
+.dcs-study {
+  position: relative;
+  background-color: #e9ecdf;
+  border: 1px solid #cbd1bf;
+  padding: 20px 22px 16px;
+}
+.dcs-study::before,
+.dcs-study::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: #6c7d62;
+  border-style: solid;
+}
+.dcs-study::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.dcs-study::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+.dcs-study-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #687461;
+  font: 9px var(--font-mono);
+  letter-spacing: 0.1em;
+}
+.dcs-study svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+}
+.dcs-study-route {
+  transition: points 0.4s;
+}
+.dcs-study-robot {
+  transition: transform 0.6s ease;
+}
+.dcs-study-caption {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-top: 1px solid #cbd1bf;
+  padding-top: 15px;
+  font: 7px var(--font-mono);
+  letter-spacing: 0.06em;
+  color: #65715b;
+}
+.dcs-study-caption > span:last-child {
+  margin-left: auto;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0;
+}
+.dcs-workflows {
+  border-top: 1px solid #d4d7ca;
+  padding-top: 49px;
+  padding-bottom: 61px;
+}
+.dcs-section-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 12px 60px;
+}
+.dcs-section-heading > .eyebrow {
+  grid-column: 1 / -1;
+  color: #65715b;
+}
+.dcs-section-heading h2 {
+  font-size: 39px;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.dcs-section-heading > p:last-child {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #6c6d61;
+  max-width: 370px;
+  justify-self: end;
+}
+.dcs-workflow-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 31px;
+  border: 1px solid #d4d7ca;
+}
+.dcs-workflow-selector button {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 21px 24px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid #d4d7ca;
+  transition: background 0.2s;
+}
+.dcs-workflow-selector button:last-child {
+  border-right: 0;
+}
+.dcs-workflow-selector button > span:first-child {
+  font: 9px var(--font-mono);
+  color: #6c6d61;
+}
+.dcs-workflow-selector button > span:nth-child(2) {
+  font-size: 13px;
+}
+.dcs-workflow-selector button svg {
+  margin-left: auto;
+  color: #7b806e;
+}
+.dcs-workflow-selector button:hover {
+  background: #f0eee4;
+}
+.dcs-workflow-selector button[aria-pressed="true"] {
+  background: #e6eadb;
+}
+.dcs-workflow-selector button[aria-pressed="true"] > span:first-child,
+.dcs-workflow-selector button[aria-pressed="true"] svg {
+  color: #b94e32;
+}
+.dcs-workflow-detail {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 60px;
+  padding: 31px 24px 4px;
+}
+.dcs-workflow-detail > div:first-child {
+  position: relative;
+  padding-left: 37px;
+}
+.dcs-workflow-detail > div:first-child > svg {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  color: #6b7d5c;
+}
+.dcs-workflow-detail h3 {
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.dcs-workflow-detail p {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.85;
+  color: #6c6d61;
+  max-width: 480px;
+}
+.dcs-measure {
+  padding-left: 30px;
+  border-left: 1px solid #d4d7ca;
+}
+.dcs-measure .eyebrow {
+  font-size: 8px;
+  color: #65715b;
+}
+.dcs-measure p {
+  max-width: 290px;
+}
+.dcs-measure a {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 13px;
+  font-size: 10px;
+  color: #6b775f;
+}
+.dcs-measure a:hover {
+  color: #b94e32;
+}
+.dcs-scope {
+  padding-top: 66px;
+  padding-bottom: 72px;
+  border-top: 1px solid #d4d7ca;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  scroll-margin-top: 35px;
+}
+.dcs-scope-intro .eyebrow {
+  color: #65715b;
+}
+.dcs-scope h2 {
+  margin-top: 19px;
+  font-size: clamp(40px, 4vw, 57px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+.dcs-scope-intro > p:not(.eyebrow) {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #6c6d61;
+  max-width: 355px;
+  margin-top: 20px;
+}
+.dcs-scope-intro .button {
+  margin-top: 25px;
+  font-size: 12px;
+}
+.dcs-scope-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  color: #6c6d61;
+  margin-top: 13px;
+}
+.dcs-scope-note svg {
+  color: #738067;
+}
+.dcs-brief-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dcs-brief-list li {
+  display: flex;
+  gap: 24px;
+  padding: 25px 0;
+  border-bottom: 1px solid #d4d7ca;
+}
+.dcs-brief-list li:first-child {
+  padding-top: 3px;
+}
+.dcs-brief-list li > span {
+  padding-top: 6px;
+  font: 9px var(--font-mono);
+  color: #b94e32;
+}
+.dcs-brief-list h3 {
+  font-size: 30px;
+  line-height: 1.15;
+}
+.dcs-brief-list p {
+  font-size: 12px;
+  line-height: 1.85;
+  color: #6c6d61;
+  max-width: 365px;
+  margin-top: 9px;
+}
+.dcs-process {
+  background: #e9ecdf;
+  border-top: 1px solid #d4d7ca;
+  padding: 43px 0 0;
+}
+.dcs-process > div > .eyebrow {
+  color: #65715b;
+}
+.dcs-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 52px;
+  margin-top: 34px;
+  padding-bottom: 39px;
+}
+.dcs-step-number {
+  font: 9px var(--font-mono);
+  color: #718163;
+}
+.dcs-process-step h3 {
+  font-size: 29px;
+  margin-top: 15px;
+  line-height: 1.1;
+}
+.dcs-process-step p {
+  font-size: 12px;
+  line-height: 1.85;
+  color: #6c6d61;
+  margin-top: 13px;
+  max-width: 305px;
+}
+.dcs-process-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 24px;
+  border-top: 1px solid #ccd2bf;
+}
+.dcs-process-bottom > span {
+  font-family: var(--font-display);
+  font-size: 25px;
+}
+.dcs-text-button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  color: #65715b;
+}
+.dcs-text-button:hover {
+  color: #b94e32;
+}
+@media (max-width: 1000px) {
+  .dcs-hero {
+    gap: 35px;
+  }
+  .dcs-hero h1 {
+    font-size: 58px;
+  }
+  .dcs-workflow-selector button {
+    padding-inline: 16px;
+    gap: 10px;
+  }
+  .dcs-workflow-selector button > span:nth-child(2) {
+    font-size: 12px;
+  }
+  .dcs-study {
+    padding-inline: 14px;
+  }
+  .dcs-scope {
+    gap: 50px;
+  }
+  .dcs-process-grid {
+    gap: 30px;
+  }
+}
+@media (max-width: 760px) {
+  .dcs-hero {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding-top: 126px;
+    padding-bottom: 42px;
+  }
+  .dcs-hero h1 {
+    font-size: clamp(46px, 9vw, 68px);
+    margin-top: 21px;
+  }
+  .dcs-lead {
+    font-size: 14px;
+  }
+  .dcs-study {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  .dcs-study svg {
+    max-height: 320px;
+  }
+  .dcs-workflows {
+    padding-top: 35px;
+    padding-bottom: 37px;
+  }
+  .dcs-section-heading {
+    display: block;
+  }
+  .dcs-section-heading h2 {
+    font-size: 36px;
+    margin-top: 14px;
+  }
+  .dcs-section-heading > p:last-child {
+    margin-top: 13px;
+  }
+  .dcs-workflow-selector {
+    grid-template-columns: 1fr;
+    margin-top: 23px;
+  }
+  .dcs-workflow-selector button {
+    border-right: 0;
+    border-bottom: 1px solid #d4d7ca;
+    padding: 17px 18px;
+  }
+  .dcs-workflow-selector button:last-child {
+    border-bottom: 0;
+  }
+  .dcs-workflow-selector button > span:nth-child(2) {
+    font-size: 13px;
+  }
+  .dcs-workflow-detail {
+    grid-template-columns: 1fr;
+    gap: 23px;
+    padding: 26px 7px 4px;
+  }
+  .dcs-workflow-detail h3 {
+    font-size: 27px;
+  }
+  .dcs-workflow-detail p {
+    font-size: 12px;
+  }
+  .dcs-measure {
+    border-left: 0;
+    border-top: 1px solid #d4d7ca;
+    padding: 19px 0 0 37px;
+  }
+  .dcs-scope {
+    grid-template-columns: 1fr;
+    padding-top: 38px;
+    padding-bottom: 42px;
+    gap: 34px;
+  }
+  .dcs-scope h2 {
+    font-size: 46px;
+  }
+  .dcs-scope-intro > p:not(.eyebrow) {
+    max-width: 420px;
+  }
+  .dcs-brief-list li {
+    gap: 19px;
+    padding-block: 22px;
+  }
+  .dcs-process {
+    padding-top: 32px;
+  }
+  .dcs-process-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 15px;
+    padding-bottom: 22px;
+  }
+  .dcs-process-step {
+    position: relative;
+    padding: 23px 0 23px 37px;
+    border-bottom: 1px solid #ccd2bf;
+  }
+  .dcs-process-step:last-child {
+    border-bottom: 0;
+  }
+  .dcs-step-number {
+    position: absolute;
+    top: 29px;
+    left: 0;
+  }
+  .dcs-process-step h3 {
+    margin-top: 0;
+  }
+  .dcs-process-step p {
+    max-width: 420px;
+  }
+  .dcs-process-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 23px;
+    gap: 16px;
+  }
+  .dcs-process-bottom > span {
+    font-size: 24px;
+  }
+}
+@media (max-width: 520px) {
+  .header-actions .deployment-header-cta {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dcs-study-robot,
+  .dcs-study-route {
+    transition: none;
+  }
+}
