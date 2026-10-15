@@ -2,7 +2,7 @@
 
 ## Direction
 
-CosmicBrain is focused on humanoid automation inside data centers. The opening is “AI runs the data center. Now it can work the floor.” Preserve the warm editorial identity: ivory paper, charcoal typography, sage architectural details, and terracotta actions.
+CosmicBrain is focused on humanoid automation inside data centers. The opening is “Rack inspection. Asset audits. Parts runs.” Preserve the warm editorial identity: ivory paper, charcoal typography, sage architectural details, and terracotta actions. Use task definitions, evidence fields and operating limits in place of broad claims about physical intelligence.
 
 ## Type and color
 
@@ -16,7 +16,7 @@ A persistent, client-lazy Three.js data center model is the central visual. Nati
 
 The scene is an illustrative environment, not a CAD model, customer deployment, or live telemetry. Keep this qualification concise and visible. Do not imply autonomous electrical repair, live cabinet intervention, guaranteed uptime or unsupported customer relationships.
 
-Use a centered editorial composition. The opening headline and deployment action sit above the prominent architectural model. As scrolling enters the workflow chapters, the model becomes a low-opacity background behind large centered headings and one short sentence. Photographs appear as substantial image-and-text blocks in the compute, cooling, and logistics chapters. Use consistent large image sizes and short text alongside, alternating left and right. Stack full-width photography above centered text on phones. Keep captions off. The composition adapts to phones without text or control overlap. Essential content remains HTML. Stage controls, rotation, reset, blueprint and pause controls are keyboard accessible. Respect reduced motion, suspend rendering offscreen, cap pixel ratio, release GPU resources on unmount, and retain the static blueprint and retry fallback.
+Use a centered editorial composition. The opening headline and deployment action sit above the prominent architectural model. As scrolling enters the workflow chapters, the model becomes a low-opacity background. Photographs appear as substantial image-and-text blocks in the compute, cooling, and logistics chapters. Use consistent large image sizes, a short workflow description, and three ruled specification rows for observations, evidence and qualification. Alternate left and right. Stack full-width photography above centered headings on phones, keeping specification rows left-aligned. Keep captions off. The composition adapts to phones without text or control overlap. Essential content remains HTML. Stage controls, rotation, reset, blueprint and pause controls are keyboard accessible. Respect reduced motion, suspend rendering offscreen, cap pixel ratio, release GPU resources on unmount, and retain the static blueprint and retry fallback.
 
 ## Photography
 
@@ -31,3 +31,9 @@ Public navigation contains Evals, Datasets, Newsroom, Docs and Sales, plus a dat
 Sales has one purpose: plan a humanoid deployment inside a data center. Qualify the first workflow, facility constraints, human supervision, operating limits, pilot timeline and acceptance criteria. The interactive workflow selector carries context into the existing inquiry endpoint. No broad hardware, dataset licensing, or unrelated project intake paths belong on Sales.
 
 Keep Evals, Datasets, Newsroom and Docs available. On the homepage, connect evaluations and datasets to the deployment learning loop. Avoid invented metrics, testimonials, customer logos and autonomy promises.
+
+## Technical pilot content
+
+The homepage and Sales share a nine-measure operational scorecard: robot availability, round completion, site-adjudicated findings, sampled asset-tag accuracy, request-to-rack parts time, intervention rate, operator-control minutes per completed task, incidents with exposure, and robot-to-operator network health. Evals presents the same definitions separately from existing model-trial metrics and research results. Definitions live in src/data/data-center-pilot.ts. Label the scorecard as a proposed reporting protocol; numerical pilot results and fixed acceptance thresholds are not supplied.
+
+Retain failed attempts, unread asset tags and blocked racks in the declared denominators. Keep operator control, passive supervision and reset labor distinct. Declare network endpoints, cadence and jitter method, with loss reported separately from delivered-probe latency. Cite primary technical references for measurement, equipment identity, thermal envelopes and OEM service preparation. They do not establish product integrations, certification or measured capability. public/data-center-pilot-template.json is a blank evidence template with null measurements, separate from the existing research protocol downloads.

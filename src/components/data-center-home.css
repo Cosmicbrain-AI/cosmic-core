@@ -255,6 +255,33 @@ html:has(.dc-home) {
   margin-inline: auto;
   text-wrap: balance;
 }
+.dc-workflow-spec {
+  margin: 23px auto 0;
+  max-width: 570px;
+  text-align: left;
+}
+.dc-workflow-spec > div {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  gap: 16px;
+  padding: 13px 0;
+  border-top: 1px solid #d4d7ca;
+}
+.dc-workflow-spec dt {
+  font: 9px/1.8 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a44a31;
+}
+.dc-workflow-spec dd {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #5e6757;
+}
+.dc-workflow--illustrated .dc-workflow-spec {
+  margin-inline: 0;
+}
 .dc-workflow-inner {
   position: relative;
   z-index: 4;

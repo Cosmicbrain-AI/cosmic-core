@@ -4,23 +4,24 @@ import { ArrowDown, ArrowUpRight, ArrowRight, Check, CircleDot } from "lucide-re
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
+import { PilotScorecard } from "@/components/PilotScorecard";
 import "@/components/data-center-sales.css";
 
 export const Route = createFileRoute("/sales")({
   head: () => ({
     meta: [
-      { title: "Plan a data center deployment — CosmicBrain" },
+      { title: "Data center robot pilot protocol — CosmicBrain" },
       {
         name: "description",
         content:
-          "Scope a supervised humanoid deployment in your data center. Start with one workflow, define site requirements, and agree on the evidence for a successful pilot.",
+          "Define a data center robot pilot: rack inspection, asset audits, parts runs, operator minutes per task, network qualification, and site acceptance criteria.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/sales" },
-      { property: "og:title", content: "Plan a data center deployment — CosmicBrain" },
+      { property: "og:title", content: "Data center robot pilot protocol — CosmicBrain" },
       {
         property: "og:description",
-        content: "Your workflow. Your facility. A measurable first deployment.",
+        content: "Define the workflow. Set the acceptance criteria. Measure every attempt.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -33,30 +34,48 @@ const workflows = [
   {
     label: "Inspection rounds",
     location: "DATA HALL / AISLE 01",
-    title: "A repeatable route. A clearer view.",
+    title: "Rack inspection and asset audit.",
     description:
-      "Scope a supervised route for rack labels, indicator checks, and visual observations. Bring findings back to your team for review.",
-    criteria: "Route coverage, observation quality, and human interventions.",
+      "Register the rack list, U positions, inspection points, and expected asset identities before the round.",
+    steps: [
+      "Read asset tags and serials; compare a sampled set with hand-checked ground truth.",
+      "Check visible indicators, cable obstructions, and the site-approved inspection checklist.",
+      "Attach rack/U IDs, timestamps, and images to findings; site staff confirm or reject each anomaly.",
+    ],
+    criteria:
+      "Racks inspected / scheduled; exact tag matches / sampled tags; confirmed, rejected, and unresolved findings; operator minutes per completed task.",
     points: "130,187 250,187 250,122 332,122",
     position: [250, 173],
   },
   {
     label: "Parts logistics",
     location: "STAGING / DATA HALL",
-    title: "The right part. At the right aisle.",
+    title: "Request-to-rack parts runs.",
     description:
-      "Define an approved path for moving parts and consumables from staging to a work area, within agreed load and access limits.",
-    criteria: "Delivery completion, handling accuracy, and intervention rate.",
+      "Specify the part, pickup point, target rack, payload envelope, and authorized recipient for each run.",
+    steps: [
+      "Timestamp request receipt, acceptance, staging pickup, and verified handoff at the target rack.",
+      "Qualify packaging, payload retention, ESD controls, aisle clearance, and door/access limits.",
+      "Record blocked routes, incorrect or rejected handoffs, operator takeovers, and recovery time.",
+    ],
+    criteria:
+      "Request-to-rack elapsed time, including dispatch / queue / pickup / transit / handoff intervals; completed runs / attempts; operator minutes per completed run.",
     points: "105,235 156,235 156,187 308,187",
     position: [156, 225],
   },
   {
     label: "Service preparation",
     location: "SERVICE BAY / AISLE 02",
-    title: "Prepare the work. Respect the procedure.",
+    title: "Procedure-controlled service preparation.",
     description:
-      "Explore tool staging, component identification, and pre-task visual checks under your team's supervision and site procedures.",
-    criteria: "Checklist completion, identification accuracy, and handoff quality.",
+      "Scope component identification, tool staging, and pre-task checks against a named OEM service procedure.",
+    steps: [
+      "Match the work order, rack/slot, part number, and required tools before the task begins.",
+      "Define operator approval points, ESD checks, equipment state, and the stop/recovery procedure.",
+      "Qualify GPU handling or insertion in a separately approved hardware trial with the required tooling and OEM procedure.",
+    ],
+    criteria:
+      "Checklist completion, identity mismatches, approval-point compliance, interventions, and control minutes. GPU manipulation requires separate acceptance criteria.",
     points: "342,230 285,230 285,123 332,123",
     position: [285, 153],
   },
@@ -171,11 +190,11 @@ function SalesPage() {
   const [selected, setSelected] = useState(0);
   const workflow = workflows[selected];
   const inquiry = {
-    title: "Let’s scope your first deployment.",
+    title: "Define the pilot protocol.",
     description:
-      "Tell us about your data center, the workflow, and the evidence you need to move forward.",
+      "Share the task boundary, site constraints, and acceptance measures for a supervised data center trial.",
     subject: `Data center deployment — ${workflow.label}`,
-    messagePlaceholder: `First workflow: ${workflow.label}\nFacility: data hall layout, access rules, and operating constraints\nSupervision: your team's role and required handoffs\nPilot criteria: what success should demonstrate`,
+    messagePlaceholder: `Workflow: ${workflow.label}\nScope: rack list / U positions / task frequency / current timing baseline\nSite: aisle widths / door thresholds / floor limits / docking / payload and ESD rules\nNetwork: robot-to-operator path / RTT p50-p95-p99 / jitter / loss / failover / stop behavior\nOperations: operator authority / work-order handoff / evidence retention\nAcceptance: hand-checked sample / denominators / agreed thresholds / stop conditions`,
   };
 
   return (
@@ -188,16 +207,16 @@ function SalesPage() {
               <span className="dcs-status-dot" /> DATA CENTER DEPLOYMENTS
             </p>
             <h1>
-              Start in one aisle.
+              Define the workflow.
               <br />
-              <em>Build from evidence.</em>
+              <em>Set the acceptance criteria.</em>
             </h1>
             <p className="dcs-lead">
-              Bring a real workflow. We’ll work through the site, the supervision, and the measures
-              that make a humanoid pilot useful.
+              Scope a supervised humanoid trial around a rack list, a task protocol, and an agreed
+              scorecard. Include failed attempts, recovery time, and operator control minutes.
             </p>
             <a href="#pilot-scope" className="dcs-scroll-link">
-              Define your first deployment <ArrowDown size={16} />
+              Specify the pilot <ArrowDown size={16} />
             </a>
           </div>
           <SiteStudy selected={selected} />
@@ -206,8 +225,11 @@ function SalesPage() {
         <section className="dcs-workflows page-width" aria-labelledby="workflow-heading">
           <div className="dcs-section-heading">
             <p className="eyebrow">01 / CHOOSE A STARTING WORKFLOW</p>
-            <h2 id="workflow-heading">A focused place to begin.</h2>
-            <p>Each workflow starts with site approval, defined limits, and human supervision.</p>
+            <h2 id="workflow-heading">Select the task protocol.</h2>
+            <p>
+              Proposed pilot scopes. Hardware, sensing, routes, and operator responsibilities
+              require site qualification.
+            </p>
           </div>
           <div className="dcs-workflow-selector" role="group" aria-label="Deployment workflow">
             {workflows.map((item, index) => (
@@ -229,68 +251,79 @@ function SalesPage() {
               <CircleDot size={23} strokeWidth={1.2} />
               <h3>{workflow.title}</h3>
               <p>{workflow.description}</p>
+              <ul className="dcs-protocol-steps">
+                {workflow.steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ul>
             </div>
             <div className="dcs-measure">
-              <span className="eyebrow">WHAT WE MEASURE</span>
+              <span className="eyebrow">ACCEPTANCE MEASURES</span>
               <p>{workflow.criteria}</p>
               <Link to="/evaluations">
-                Explore the evaluation approach <ArrowUpRight size={15} />
+                Evaluation protocol <ArrowUpRight size={15} />
               </Link>
             </div>
           </div>
         </section>
 
+        <PilotScorecard />
+
         <section className="dcs-scope page-width" id="pilot-scope" aria-labelledby="scope-heading">
           <div className="dcs-scope-intro">
-            <p className="eyebrow">02 / YOUR DEPLOYMENT BRIEF</p>
+            <p className="eyebrow">03 / SITE QUALIFICATION BRIEF</p>
             <h2 id="scope-heading">
-              A useful pilot has
+              Specify the operating
               <br />
-              <em>a precise brief.</em>
+              <em>envelope.</em>
             </h2>
             <p>
-              You don’t need a finished plan. Bring the operational context, and we’ll define a
-              practical first scope together.
+              Document the constraints before a site trial. Attach the route plan, task checklist,
+              baseline timings, and the sample used to verify observations.
             </p>
             <ContactDialog
               {...inquiry}
               trigger={
                 <button type="button" className="button">
-                  Scope your pilot <ArrowUpRight size={17} />
+                  Submit the pilot brief <ArrowUpRight size={17} />
                 </button>
               }
             />
             <span className="dcs-scope-note">
-              <Check size={14} /> Straight to the deployment team.
+              <Check size={14} /> Thresholds agreed before the first measured run.
             </span>
           </div>
           <ol className="dcs-brief-list">
             <li>
               <span>01</span>
               <div>
-                <h3>The workflow.</h3>
+                <h3>Route and hardware.</h3>
                 <p>
-                  The current process, objects involved, frequency, and where people need support.
+                  Rack/U locations, aisle widths, turning clearance, door thresholds, floor limits,
+                  access permissions, and docking space. State payload dimensions, mass, retention,
+                  and ESD requirements.
                 </p>
               </div>
             </li>
             <li>
               <span>02</span>
               <div>
-                <h3>The facility.</h3>
+                <h3>Network and stop behavior.</h3>
                 <p>
-                  Aisles and access, network requirements, safety procedures, supervision, and
-                  handoffs.
+                  Identify the robot-to-operator path. Measure RTT p50/p95/p99, defined jitter,
+                  loss, roaming, and failover. Qualify local stop behavior, degraded operation, and
+                  recovery when connectivity fails.
                 </p>
               </div>
             </li>
             <li>
               <span>03</span>
               <div>
-                <h3>The acceptance criteria.</h3>
+                <h3>Operator and evidence.</h3>
                 <p>
-                  Task outcomes, allowed interventions, operating limits, and the evidence required
-                  to expand.
+                  Define who can approve, take over, stop, and restart each task. Specify work-order
+                  IDs, handoff acknowledgement, access to images/logs, and retention periods. Agree
+                  a hand-checked sample, denominators, thresholds, and stop conditions.
                 </p>
               </div>
             </li>
@@ -299,20 +332,20 @@ function SalesPage() {
 
         <section className="dcs-process">
           <div className="page-width">
-            <p className="eyebrow">03 / FROM FIRST VISIT TO NEXT DECISION</p>
+            <p className="eyebrow">04 / TRIAL AND ACCEPTANCE</p>
             <div className="dcs-process-grid">
               {[
                 [
-                  "Map the site.",
-                  "Review the environment and agree on a bounded task, access conditions, and human responsibilities.",
+                  "Pre-register the protocol.",
+                  "Freeze the scheduled rack list, task definition, baselines, sampling method, operating limits, and acceptance thresholds. Assign site and operator responsibilities.",
                 ],
                 [
-                  "Validate the workflow.",
-                  "Run supervised trials. Document outcomes, interventions, and failure modes against an agreed protocol.",
+                  "Execute and review.",
+                  "Log every attempt, including skips, failures, takeovers, recovery, stop events, and network degradation. Site staff adjudicate findings against timestamped evidence.",
                 ],
                 [
-                  "Decide what scales.",
-                  "Review the evidence together before extending the task, operating window, or deployment footprint.",
+                  "Accept, hold, or expand.",
+                  "Compare the complete run set with the agreed criteria. Hold unresolved failure modes; qualify any change to route, payload, hardware, or autonomy before expanding scope.",
                 ],
               ].map(([title, description], index) => (
                 <div className="dcs-process-step" key={title}>
@@ -323,12 +356,12 @@ function SalesPage() {
               ))}
             </div>
             <div className="dcs-process-bottom">
-              <span>One facility. One workflow. A clear next step.</span>
+              <span>Every attempt logged. Every expansion qualified.</span>
               <ContactDialog
                 {...inquiry}
                 trigger={
                   <button type="button" className="dcs-text-button">
-                    Plan a deployment <ArrowRight size={17} />
+                    Define a pilot <ArrowRight size={17} />
                   </button>
                 }
               />

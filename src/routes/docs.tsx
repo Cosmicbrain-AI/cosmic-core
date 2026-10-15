@@ -44,11 +44,11 @@ function TechnicalReportPage() {
       <SiteHeader />
       <PageHero
         kicker="Research notebook / Technical papers"
-        title="Curious about"
-        accent="the engineering?"
-        sub="Come a little closer. Our research explores the systems behind robot learning, the evidence behind evaluation, and the open questions worth asking next."
+        title="Technical reports."
+        accent="Methods and evidence."
+        sub="Demonstration scoring, telemetry-based verification and human-to-humanoid skill transfer. Read the methods, limitations and evaluation protocols in the original papers."
         sketch="orbit"
-        note="Show your working. Keep asking questions."
+        note="Methods · Provenance · Evaluation protocols"
       />
       <section className="explore-content">
         <div className="explore-wrap">
@@ -123,17 +123,12 @@ function TechnicalReportPage() {
                 A Universal Stack for Human-to-Humanoid Skill Transfer
               </p>
               <p className="docs-paper-description">
-                A technical report on turning human video, egocentric recordings and VR teleoperation
-                into a canonical motion representation, retargeting it across robot bodies, and
-                executing it through a supervised hardware stack.
+                A technical report on turning human video, egocentric recordings and VR
+                teleoperation into a canonical motion representation, retargeting it across robot
+                bodies, and executing it through a supervised hardware stack.
               </p>
               <div className="docs-paper-actions">
-                <a
-                  href="/docs/cosmic-0-5.html"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button"
-                >
+                <a href="/docs/cosmic-0-5.html" target="_blank" rel="noreferrer" className="button">
                   Read the report <ArrowUpRight size={16} />
                 </a>
               </div>

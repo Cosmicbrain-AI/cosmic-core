@@ -80,9 +80,9 @@ export function SiteHeader() {
         <div className="header-actions">
           <ContactDialog
             title="Plan your data center deployment."
-            description="Start with one workflow. Tell us about your facility, operating constraints, and what a successful pilot should demonstrate."
+            description="Define the rack or row scope, task frequency, access limits, supervision model and pilot acceptance criteria."
             subject="Data center humanoid deployment inquiry"
-            messagePlaceholder="Your data center / the workflow you want to start with / site access and supervision requirements / what success looks like."
+            messagePlaceholder="Facility and rack/row scope / inspection, asset audit or parts run / task frequency / access and supervision / network conditions / acceptance criteria."
             trigger={
               <button type="button" className="button button-small deployment-header-cta">
                 Plan a deployment <ArrowUpRight size={16} />

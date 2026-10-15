@@ -3,11 +3,12 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DataCenterExperience } from "@/components/DataCenterExperience";
+import { PilotScorecard } from "@/components/PilotScorecard";
 import "@/components/data-center-home.css";
 
 const title = "CosmicBrain — Humanoid automation for data centers";
 const description =
-  "Humanoids for the data center floor. Rack operations, cooling inspections, power checks, and equipment logistics with CosmicBrain.";
+  "Supervised data center robot pilots for rack inspection, asset audits and parts logistics. Measure route coverage, operator minutes, site-confirmed findings and network health.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,9 +33,17 @@ const chapters = [
     id: "compute",
     number: "01",
     label: "Compute",
-    title: "At the rack.",
-    emphasis: "On the task.",
-    description: "Inspect equipment. Handle GPU trays. Keep your team in control.",
+    title: "Rack rounds.",
+    emphasis: "Asset-level evidence.",
+    description: "Define the rack list and required observations before each inspection round.",
+    details: [
+      ["Observe", "Rack / U position, asset tag, serial number and visible status indicators."],
+      ["Record", "Timestamped images, read confidence, unread tags and site-reviewed exceptions."],
+      [
+        "Qualify",
+        "GPU tray alignment and insertion require a separate trial for the hardware, tooling and OEM procedure.",
+      ],
+    ],
     image: "/media/data-centers/rack-aisle.jpg",
     alt: "Server racks and their cable infrastructure",
     side: "left",
@@ -43,9 +52,23 @@ const chapters = [
     id: "cooling",
     number: "02",
     label: "Cooling",
-    title: "Every connection.",
-    emphasis: "In view.",
-    description: "Check connections and read instruments along a defined inspection route.",
+    title: "Cooling checks.",
+    emphasis: "At the equipment.",
+    description: "Scope repeatable observations of accessible cooling infrastructure.",
+    details: [
+      [
+        "Observe",
+        "CDU indicators, visible hose connections and rack-inlet conditions, subject to the agreed sensor package.",
+      ],
+      [
+        "Record",
+        "Instrument value, unit, equipment ID and image; reconcile observations with site telemetry.",
+      ],
+      [
+        "Qualify",
+        "Use equipment-specific inlet and liquid-cooling limits. Define escalation and any connection handling with the site.",
+      ],
+    ],
     image: "/media/data-centers/cooling-infrastructure.jpg",
     alt: "Data center cooling pipes and infrastructure",
     side: "right",
@@ -54,9 +77,23 @@ const chapters = [
     id: "power",
     number: "03",
     label: "Power",
-    title: "Watch the systems.",
-    emphasis: "Catch the details.",
-    description: "Inspect cabinet indicators. Bring exceptions to your operations team.",
+    title: "Power checks.",
+    emphasis: "External indicators.",
+    description: "Define an inspection route around approved electrical equipment access points.",
+    details: [
+      [
+        "Observe",
+        "Visible UPS, PDU and switchgear indicators within the approved inspection boundary.",
+      ],
+      [
+        "Record",
+        "Panel ID, indicator state, timestamp and image for the responsible site technician.",
+      ],
+      [
+        "Qualify",
+        "Switching, resets and cabinet access require a separately authorized procedure.",
+      ],
+    ],
     image: null,
     alt: "",
     side: "left",
@@ -65,9 +102,20 @@ const chapters = [
     id: "logistics",
     number: "04",
     label: "Logistics",
-    title: "Move the hardware.",
-    emphasis: "Keep work moving.",
-    description: "Transport parts and equipment through your facility, with supervised handoffs.",
+    title: "Parts runs.",
+    emphasis: "Verified handoffs.",
+    description: "Measure the full request-to-rack interval on a site-approved delivery route.",
+    details: [
+      ["Dispatch", "Request ID, part number, pickup point, target rack and approved payload."],
+      [
+        "Track",
+        "Request receipt, acceptance, pickup and handoff timestamps, plus operator-control intervals.",
+      ],
+      [
+        "Accept",
+        "Correct part and condition confirmed at the rack; retain failed runs and recovery time.",
+      ],
+    ],
     image: "/media/data-centers/graphite-robot.webp",
     alt: "Graphite humanoid working at an electronics station",
     side: "left",
@@ -84,12 +132,16 @@ function Home() {
           <div className="dc-story">
             <section id="facility" className="dc-chapter dc-hero" aria-labelledby="hero-heading">
               <div className="dc-hero-inner">
-                <p className="eyebrow">Humanoid automation / Data centers</p>
+                <p className="eyebrow">Data center robotics / Supervised pilots</p>
                 <h1 id="hero-heading">
-                  <span>AI runs the data center.</span>
-                  <em>Now it can work the floor.</em>
+                  <span>Rack inspection.</span>
+                  <em>Asset audits. Parts runs.</em>
                 </h1>
-                <p className="dc-hero-lead">Humanoids for the infrastructure behind AI.</p>
+                <p className="dc-hero-lead">
+                  Wheeled humanoids. Defined routes. Logged interventions.
+                  <br />
+                  Evaluate coverage, operator time and site-confirmed findings.
+                </p>
                 <Link to="/sales" className="button dc-primary-action">
                   Plan a deployment <ArrowUpRight size={16} />
                 </Link>
@@ -128,6 +180,14 @@ function Home() {
                       <em>{chapter.emphasis}</em>
                     </h2>
                     <p className="dc-chapter-description">{chapter.description}</p>
+                    <dl className="dc-workflow-spec">
+                      {chapter.details.map(([label, detail]) => (
+                        <div key={label}>
+                          <dt>{label}</dt>
+                          <dd>{detail}</dd>
+                        </div>
+                      ))}
+                    </dl>
                   </div>
                 </div>
               </section>
@@ -135,17 +195,28 @@ function Home() {
           </div>
         </div>
 
+        <PilotScorecard />
+
         <section className="dc-rollout" aria-labelledby="rollout-heading">
           <div className="page-width">
-            <p className="eyebrow">From your first workflow</p>
+            <p className="eyebrow">Site qualification / Acceptance sequence</p>
             <h2 id="rollout-heading">
-              Your site. <em>One operating partner.</em>
+              Register the scope. <em>Test against it.</em>
             </h2>
             <ol className="dc-rollout-steps">
               {[
-                ["Scope", "One task. Clear operating limits."],
-                ["Integrate", "Hardware and workflows matched to your site."],
-                ["Operate", "Human supervision. Measurable progress."],
+                [
+                  "Pre-register",
+                  "Rack list, route, payload, access rules, operator authority and pass/fail criteria.",
+                ],
+                [
+                  "Run & log",
+                  "Retain each attempt, takeover, stop, network outage and staff-adjudicated finding.",
+                ],
+                [
+                  "Review",
+                  "Compare with the manual baseline. Accept, revise or hold scope using the agreed thresholds.",
+                ],
               ].map(([heading, copy], index) => (
                 <li key={heading}>
                   <span className="dc-rollout-number">0{index + 1}</span>
@@ -160,7 +231,7 @@ function Home() {
         <section className="dc-closing" aria-labelledby="closing-heading">
           <div className="page-width">
             <h2 id="closing-heading">
-              Put intelligence <em>to work.</em>
+              Define the task. <em>Set the acceptance test.</em>
             </h2>
             <Link to="/sales" className="button dc-primary-action">
               Plan a deployment <ArrowUpRight size={16} />

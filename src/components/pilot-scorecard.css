@@ -1,0 +1,202 @@
+.pilot-scorecard {
+  padding: 80px 0;
+  background: #f1f0e7;
+  border-block: 1px solid #d4d7ca;
+  color: #292b25;
+  scroll-margin-top: 100px;
+}
+.pilot-scorecard--embedded {
+  padding: 70px 0 55px;
+  background: transparent;
+  border: 0;
+}
+.pilot-scorecard-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 30px;
+}
+.pilot-scorecard .eyebrow {
+  color: #627156;
+  font-size: 9px;
+}
+.pilot-scorecard h2 {
+  font: 400 clamp(38px, 4vw, 56px)/1.06 var(--font-display);
+  letter-spacing: -0.025em;
+  margin-top: 15px;
+}
+.pilot-scorecard h2 em {
+  color: #b94e32;
+}
+.pilot-scorecard-heading > p {
+  max-width: 450px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #636a5c;
+}
+.pilot-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.pilot-table-wrap:focus-visible {
+  outline: 2px solid #b94e32;
+  outline-offset: 4px;
+}
+.pilot-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+}
+.pilot-table caption {
+  text-align: left;
+  font-size: 11px;
+  color: #626a58;
+  margin-bottom: 15px;
+}
+.pilot-table th,
+.pilot-table td {
+  padding: 20px 24px 20px 0;
+  border-top: 1px solid #ccd1c0;
+  vertical-align: top;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.pilot-table th:last-child,
+.pilot-table td:last-child {
+  padding-right: 0;
+}
+.pilot-table thead th {
+  padding-block: 13px;
+  font: 10px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #607052;
+}
+.pilot-table thead th:first-child {
+  width: 23%;
+}
+.pilot-table thead th:nth-child(2) {
+  width: 32%;
+}
+.pilot-table tbody th {
+  font-weight: 500;
+}
+.pilot-table td:last-child {
+  color: #626a5a;
+}
+.pilot-metric-index {
+  display: block;
+  font: 9px var(--font-mono);
+  color: #a44a31;
+  margin-bottom: 6px;
+}
+.pilot-record {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-block: 1px solid #ccd1c0;
+  padding: 24px 0;
+}
+.pilot-record p {
+  font: 11px/1.8 var(--font-mono);
+  color: #626a5a;
+  max-width: 640px;
+  margin-top: 8px;
+}
+.pilot-record > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #a44a31;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.pilot-references {
+  padding-top: 22px;
+}
+.pilot-references > p {
+  font: 10px var(--font-mono);
+  color: #607052;
+}
+.pilot-references > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 12px;
+}
+.pilot-references a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: #56654b;
+  font-size: 11px;
+}
+.pilot-references a:hover {
+  color: #a44a31;
+}
+.pilot-references > span {
+  display: block;
+  max-width: 790px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #6b7262;
+  margin-top: 16px;
+}
+@media (max-width: 760px) {
+  .pilot-scorecard {
+    padding: 48px 0;
+  }
+  .pilot-scorecard-heading {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .pilot-scorecard h2 {
+    font-size: 42px;
+  }
+  .pilot-table,
+  .pilot-table tbody {
+    display: block;
+  }
+  .pilot-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .pilot-table caption {
+    display: block;
+  }
+  .pilot-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    border-top: 1px solid #ccd1c0;
+    padding: 23px 0;
+  }
+  .pilot-table tbody th,
+  .pilot-table tbody td {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    font-size: 13px;
+  }
+  .pilot-table tbody th {
+    margin-bottom: 3px;
+    font-size: 15px;
+  }
+  .pilot-metric-index {
+    display: inline-block;
+    margin: 0 12px 0 0;
+  }
+  .pilot-record {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
