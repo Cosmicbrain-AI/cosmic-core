@@ -6,9 +6,9 @@ import { DataCenterExperience } from "@/components/DataCenterExperience";
 import { PilotScorecard } from "@/components/PilotScorecard";
 import "@/components/data-center-home.css";
 
-const title = "CosmicBrain — Humanoid automation for data centers";
+const title = "CosmicBrain — Humanoid deployments for data centers";
 const description =
-  "Supervised data center robot pilots for rack inspection, asset audits and parts logistics. Measure route coverage, operator minutes, site-confirmed findings and network health.";
+  "Humanoid deployments for data center operations. Scope compute, cooling, power and logistics workflows with defined operating limits and measurable task performance.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,8 +44,8 @@ const chapters = [
         "GPU tray alignment and insertion require a separate trial for the hardware, tooling and OEM procedure.",
       ],
     ],
-    image: "/media/data-centers/rack-aisle.jpg",
-    alt: "Server racks and their cable infrastructure",
+    image: "/media/data-centers/server-aisle.jpg",
+    alt: "Bright server aisle with full-height racks and overhead cable trays",
     side: "left",
   },
   {
@@ -132,15 +132,15 @@ function Home() {
           <div className="dc-story">
             <section id="facility" className="dc-chapter dc-hero" aria-labelledby="hero-heading">
               <div className="dc-hero-inner">
-                <p className="eyebrow">Data center robotics / Supervised pilots</p>
+                <p className="eyebrow">Humanoid deployments / Data centers</p>
                 <h1 id="hero-heading">
-                  <span>Rack inspection.</span>
-                  <em>Asset audits. Parts runs.</em>
+                  <span>The next shift</span>
+                  <em>in data center operations.</em>
                 </h1>
                 <p className="dc-hero-lead">
-                  Wheeled humanoids. Defined routes. Logged interventions.
+                  Supervised humanoid deployments for the data center floor.
                   <br />
-                  Evaluate coverage, operator time and site-confirmed findings.
+                  Defined operating limits. Measured task performance.
                 </p>
                 <Link to="/sales" className="button dc-primary-action">
                   Plan a deployment <ArrowUpRight size={16} />
@@ -165,8 +165,8 @@ function Home() {
                         src={chapter.image}
                         alt={chapter.alt}
                         loading="lazy"
-                        width="1200"
-                        height="900"
+                        width="1280"
+                        height="800"
                       />
                     </figure>
                   )}

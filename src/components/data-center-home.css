@@ -298,16 +298,21 @@ html:has(.dc-home) {
 .dc-workflow-image {
   margin: 0;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 8 / 5;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
-  background: #e4e6dd;
-  box-shadow: 0 15px 40px #2636230d;
+  background: transparent;
 }
 .dc-workflow-image img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  mask-image:
+    linear-gradient(to right, transparent, #000 5%, #000 95%, transparent),
+    linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
 }
 .dc-workflow-image img[src$="graphite-robot.webp"] {
   object-position: 64% center;
@@ -588,9 +593,6 @@ html:has(.dc-home) {
     gap: 30px;
     max-width: 640px;
   }
-  .dc-workflow-image {
-    aspect-ratio: 3 / 2;
-  }
   .dc-workflow--illustrated .dc-reading-rail {
     padding: 0;
     text-align: center;
@@ -608,7 +610,8 @@ html:has(.dc-home) {
     padding: 110px 20px 135px;
   }
   .dc-workflow-image {
-    aspect-ratio: 4 / 3;
+    width: calc(100% + 40px);
+    margin-inline: -20px;
   }
   .dc-workflow--illustrated .dc-workflow-inner {
     gap: 28px;

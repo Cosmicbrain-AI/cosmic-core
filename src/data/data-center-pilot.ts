@@ -67,30 +67,3 @@ export const pilotMetrics = [
       "Declare endpoints, probe cadence, sample count and jitter method. Report sent/lost probes separately from delivered-probe latency; tie outages and failovers to mission IDs. Set thresholds with the site.",
   },
 ] as const;
-
-export const pilotReferences = [
-  {
-    label: "NIST · HRI measurement",
-    href: "https://www.nist.gov/publications/towards-effective-interface-designs-collaborative-hri-manufacturing-metrics-and",
-  },
-  {
-    label: "IETF · RTT, loss & delay variation",
-    href: "https://www.rfc-editor.org/rfc/rfc9439.html",
-  },
-  {
-    label: "DMTF · Redfish asset schema",
-    href: "https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2026.2.pdf",
-  },
-  {
-    label: "ASHRAE · Thermal conditions",
-    href: "https://handbook.ashrae.org/Handbooks/A23/IP/A23_Ch20/a23_ch20_ip.aspx",
-  },
-  {
-    label: "NVIDIA · OEM service preparation",
-    href: "https://docs.nvidia.com/dgx/dgxh100-service-manual/motherboard-tray-common.html",
-  },
-  {
-    label: "OSHA · Robot system assessment",
-    href: "https://www.osha.gov/otm/section-4-safety-hazards/chapter-4",
-  },
-] as const;
