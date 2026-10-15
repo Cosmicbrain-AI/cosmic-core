@@ -141,113 +141,117 @@ export function DataCenterExperience() {
   }
 
   return (
-    <div
-      ref={layerRef}
-      className="dc-scene-layer"
-      data-stage="0"
-      data-layout="overview"
-      data-status={status}
-    >
-      <div className="dc-scene-frame">
-        <div ref={hostRef} className="dc-canvas-host" aria-hidden="true" />
-        {status !== "ready" && (
-          <div className="dc-scene-fallback">
-            <img
-              src="/media/data-center-blueprint.svg"
-              alt="Isometric data center blueprint with compute racks, cooling pipes, electrical cabinets, and a humanoid at work"
-            />
-            <p role="status">
-              {status === "loading"
-                ? "Preparing the interactive facility…"
-                : "Data center / Architectural study"}
-            </p>
-            {status === "fallback" && (
+    <>
+      <div
+        ref={layerRef}
+        className="dc-scene-layer"
+        data-stage="0"
+        data-layout="overview"
+        data-status={status}
+      >
+        <div className="dc-scene-frame">
+          <div ref={hostRef} className="dc-canvas-host" aria-hidden="true" />
+          {status !== "ready" && (
+            <div className="dc-scene-fallback">
+              <img
+                src="/media/data-center-blueprint.svg"
+                alt="Isometric data center blueprint with compute racks, cooling pipes, electrical cabinets, and a humanoid at work"
+              />
+              <p role="status">
+                {status === "loading"
+                  ? "Preparing the interactive facility…"
+                  : "Data center / Architectural study"}
+              </p>
+              {status === "fallback" && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStatus("loading");
+                    setAttempt((n) => n + 1);
+                  }}
+                >
+                  Retry interactive view <RotateCcw size={13} />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {stages[stage].action}
+        </p>
+      </div>
+      <div className="dc-scene-controls-layer">
+        <div className="dc-scene-footer">
+          <nav className="dc-stage-nav" aria-label="Explore the data center">
+            {stages.map(({ label }, index) => (
               <button
                 type="button"
-                onClick={() => {
-                  setStatus("loading");
-                  setAttempt((n) => n + 1);
-                }}
+                key={label}
+                aria-pressed={stage === index}
+                onClick={() => selectStage(index)}
               >
-                Retry interactive view <RotateCcw size={13} />
+                {label}
               </button>
-            )}
-          </div>
-        )}
-      </div>
-      <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {stages[stage].action}
-      </p>
-      <div className="dc-scene-footer">
-        <nav className="dc-stage-nav" aria-label="Explore the data center">
-          {stages.map(({ label }, index) => (
+            ))}
+          </nav>
+          <div className="dc-scene-tools" role="group" aria-label="3D view controls">
             <button
               type="button"
-              key={label}
-              aria-pressed={stage === index}
-              onClick={() => selectStage(index)}
+              aria-label="Rotate facility left"
+              disabled={status !== "ready"}
+              onClick={() => sceneRef.current?.rotate(-0.15)}
             >
-              {label}
+              <ArrowLeft size={14} />
             </button>
-          ))}
-        </nav>
-        <div className="dc-scene-tools" role="group" aria-label="3D view controls">
-          <button
-            type="button"
-            aria-label="Rotate facility left"
-            disabled={status !== "ready"}
-            onClick={() => sceneRef.current?.rotate(-0.15)}
-          >
-            <ArrowLeft size={14} />
-          </button>
-          <button
-            type="button"
-            aria-label="Reset facility view"
-            disabled={status !== "ready"}
-            onClick={() => sceneRef.current?.resetView()}
-          >
-            <RotateCcw size={14} />
-          </button>
-          <button
-            type="button"
-            aria-label="Rotate facility right"
-            disabled={status !== "ready"}
-            onClick={() => sceneRef.current?.rotate(0.15)}
-          >
-            <ArrowRight size={14} />
-          </button>
-          <span className="dc-tool-divider" />
-          <button
-            type="button"
-            disabled={status !== "ready"}
-            aria-pressed={blueprint}
-            onClick={() => {
-              const next = !blueprintRef.current;
-              blueprintRef.current = next;
-              setBlueprint(next);
-              sceneRef.current?.setBlueprint(next);
-            }}
-          >
-            <Layers3 size={14} />
-            <span>Blueprint</span>
-          </button>
-          <button
-            type="button"
-            disabled={status !== "ready" || reduced}
-            aria-pressed={paused}
-            onClick={() => {
-              const next = !pausedRef.current;
-              pausedRef.current = next;
-              setPaused(next);
-              sceneRef.current?.setPaused(next);
-              scheduleRef.current();
-            }}
-          >
-            {paused ? <Play size={14} /> : <Pause size={14} />}
-            <span>{paused ? "Resume" : "Pause"}</span>
-          </button>
+            <button
+              type="button"
+              aria-label="Reset facility view"
+              disabled={status !== "ready"}
+              onClick={() => sceneRef.current?.resetView()}
+            >
+              <RotateCcw size={14} />
+            </button>
+            <button
+              type="button"
+              aria-label="Rotate facility right"
+              disabled={status !== "ready"}
+              onClick={() => sceneRef.current?.rotate(0.15)}
+            >
+              <ArrowRight size={14} />
+            </button>
+            <span className="dc-tool-divider" />
+            <button
+              type="button"
+              disabled={status !== "ready"}
+              aria-pressed={blueprint}
+              onClick={() => {
+                const next = !blueprintRef.current;
+                blueprintRef.current = next;
+                setBlueprint(next);
+                sceneRef.current?.setBlueprint(next);
+              }}
+            >
+              <Layers3 size={14} />
+              <span>Blueprint</span>
+            </button>
+            <button
+              type="button"
+              disabled={status !== "ready" || reduced}
+              aria-pressed={paused}
+              onClick={() => {
+                const next = !pausedRef.current;
+                pausedRef.current = next;
+                setPaused(next);
+                sceneRef.current?.setPaused(next);
+                scheduleRef.current();
+              }}
+            >
+              {paused ? <Play size={14} /> : <Pause size={14} />}
+              <span>{paused ? "Resume" : "Pause"}</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

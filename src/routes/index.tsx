@@ -103,31 +103,33 @@ function Home() {
               <section
                 key={chapter.id}
                 id={chapter.id}
-                className="dc-chapter dc-workflow"
+                className={`dc-chapter dc-workflow${chapter.image ? " dc-workflow--illustrated" : ""}`}
                 aria-labelledby={`${chapter.id}-heading`}
               >
-                <div className="dc-reading-rail">
-                  <p className="eyebrow">
-                    {chapter.number} / {chapter.label}
-                  </p>
-                  <h2 id={`${chapter.id}-heading`}>
-                    {chapter.title}
-                    <br />
-                    <em>{chapter.emphasis}</em>
-                  </h2>
-                  <p className="dc-chapter-description">{chapter.description}</p>
+                <div className="dc-workflow-inner" data-image-side={chapter.side}>
+                  {chapter.image && (
+                    <figure className="dc-workflow-image">
+                      <img
+                        src={chapter.image}
+                        alt={chapter.alt}
+                        loading="lazy"
+                        width="1200"
+                        height="900"
+                      />
+                    </figure>
+                  )}
+                  <div className="dc-reading-rail">
+                    <p className="eyebrow">
+                      {chapter.number} / {chapter.label}
+                    </p>
+                    <h2 id={`${chapter.id}-heading`}>
+                      {chapter.title}
+                      <br />
+                      <em>{chapter.emphasis}</em>
+                    </h2>
+                    <p className="dc-chapter-description">{chapter.description}</p>
+                  </div>
                 </div>
-                {chapter.image && (
-                  <figure className="dc-side-photo" data-side={chapter.side}>
-                    <img
-                      src={chapter.image}
-                      alt={chapter.alt}
-                      loading="lazy"
-                      width="600"
-                      height="400"
-                    />
-                  </figure>
-                )}
               </section>
             ))}
           </div>

@@ -16,13 +16,13 @@ A persistent, client-lazy Three.js data center model is the central visual. Nati
 
 The scene is an illustrative environment, not a CAD model, customer deployment, or live telemetry. Keep this qualification concise and visible. Do not imply autonomous electrical repair, live cabinet intervention, guaranteed uptime or unsupported customer relationships.
 
-Use a centered editorial composition. The opening headline and deployment action sit above the prominent architectural model. As scrolling enters the workflow chapters, the model becomes a low-opacity background behind large centered headings and one short sentence. Small uncaptained photographs sit at the page edges, with no side reading column. The composition adapts to phones without text or control overlap. Essential content remains HTML. Stage controls, rotation, reset, blueprint and pause controls are keyboard accessible. Respect reduced motion, suspend rendering offscreen, cap pixel ratio, release GPU resources on unmount, and retain the static blueprint and retry fallback.
+Use a centered editorial composition. The opening headline and deployment action sit above the prominent architectural model. As scrolling enters the workflow chapters, the model becomes a low-opacity background behind large centered headings and one short sentence. Photographs appear as substantial image-and-text blocks in the compute, cooling, and logistics chapters. Use consistent large image sizes and short text alongside, alternating left and right. Stack full-width photography above centered text on phones. Keep captions off. The composition adapts to phones without text or control overlap. Essential content remains HTML. Stage controls, rotation, reset, blueprint and pause controls are keyboard accessible. Respect reduced motion, suspend rendering offscreen, cap pixel ratio, release GPU resources on unmount, and retain the static blueprint and retry fallback.
 
 ## Photography
 
 Use the supplied photograph edited with the built-in image tool to give the humanoid a graphite-black finish. Display photographs without captions. Do not describe these images as evidence of CosmicBrain deployment.
 
-Real rack and cooling photographs provide context below the interactive sequence. Place required source and license credits on public/media/photo-credits.html, linked once from the shared footer. The cooling photograph remains CC BY-SA 3.0, including its web-sized adaptation. Full provenance is in public/media/data-centers/attribution.json. Do not imply that photographed facilities belong to CosmicBrain or a partner.
+Real rack and cooling photographs provide context throughout the scroll sequence. Place required source and license credits on public/media/photo-credits.html, linked once from the shared footer. The cooling photograph remains CC BY-SA 3.0, including its web-sized adaptation. Full provenance is in public/media/data-centers/attribution.json. Do not imply that photographed facilities belong to CosmicBrain or a partner.
 
 ## Navigation and Sales
 
