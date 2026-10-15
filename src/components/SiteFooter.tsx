@@ -53,6 +53,7 @@ export function SiteFooter() {
       <div className="footer-bottom page-width">
         <span>© {new Date().getFullYear()} CosmicBrain AI</span>
         <span>One workflow. Clear evidence. Practical scale.</span>
+        <a href="/media/photo-credits.html">Photo credits</a>
         <a href="#">Back to the top ↑</a>
       </div>
     </footer>

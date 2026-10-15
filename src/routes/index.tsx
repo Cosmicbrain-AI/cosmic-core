@@ -1,14 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { ContactDialog } from "@/components/ContactDialog";
 import { DataCenterExperience } from "@/components/DataCenterExperience";
 import "@/components/data-center-home.css";
 
 const title = "CosmicBrain — Humanoid automation for data centers";
 const description =
-  "Physical intelligence for the data center floor. Explore humanoid workflows across compute, cooling, power inspection, and equipment logistics. Plan a supervised deployment with CosmicBrain.";
+  "Humanoids for the data center floor. Rack operations, cooling inspections, power checks, and equipment logistics with CosmicBrain.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,146 +31,48 @@ const chapters = [
   {
     id: "compute",
     number: "01",
-    system: "COMPUTE / RACK OPERATIONS",
-    title: "Intelligence,",
-    emphasis: "at the rack.",
-    description:
-      "Navigate the aisle. Identify the rack. Capture the details that matter, from equipment labels to GPU server indicators.",
-    task: "Rack identification & visual inspection",
+    label: "Compute",
+    title: "At the rack.",
+    emphasis: "On the task.",
+    description: "Inspect equipment. Handle GPU trays. Keep your team in control.",
+    image: "/media/data-centers/rack-aisle.jpg",
+    alt: "Server racks and their cable infrastructure",
+    side: "left",
   },
   {
     id: "cooling",
     number: "02",
-    system: "COOLING / THERMAL SYSTEMS",
-    title: "A closer look",
-    emphasis: "at every connection.",
-    description:
-      "Inspect accessible cooling connections and read sensor displays along a defined route. Surface observations for your operations team.",
-    task: "Connection inspection & sensor readings",
+    label: "Cooling",
+    title: "Every connection.",
+    emphasis: "In view.",
+    description: "Check connections and read instruments along a defined inspection route.",
+    image: "/media/data-centers/cooling-infrastructure.jpg",
+    alt: "Data center cooling pipes and infrastructure",
+    side: "right",
   },
   {
     id: "power",
     number: "03",
-    system: "POWER / ELECTRICAL INFRASTRUCTURE",
-    title: "Keep a watch",
-    emphasis: "on the critical path.",
-    description:
-      "Check cabinet indicators, labels, and visible conditions within approved access boundaries. Escalate findings to qualified personnel.",
-    task: "Power cabinet visual inspection",
+    label: "Power",
+    title: "Watch the systems.",
+    emphasis: "Catch the details.",
+    description: "Inspect cabinet indicators. Bring exceptions to your operations team.",
+    image: null,
+    alt: "",
+    side: "left",
   },
   {
     id: "logistics",
     number: "04",
-    system: "LOGISTICS / THE PHYSICAL FLOOR",
-    title: "Move the work",
-    emphasis: "forward.",
-    description:
-      "Bring approved parts and equipment from staging to the work area. Plan each route, load, and handoff around the people on your floor.",
-    task: "Supervised equipment transport",
+    label: "Logistics",
+    title: "Move the hardware.",
+    emphasis: "Keep work moving.",
+    description: "Transport parts and equipment through your facility, with supervised handoffs.",
+    image: "/media/data-centers/graphite-robot.webp",
+    alt: "Graphite humanoid working at an electronics station",
+    side: "left",
   },
 ] as const;
-
-function DeploymentInquiry({ className = "button" }: { className?: string }) {
-  return (
-    <ContactDialog
-      title="Plan your data center deployment."
-      description="Start with one workflow. Tell us about your facility, operating constraints, and what a successful pilot should demonstrate."
-      subject="Data center humanoid deployment inquiry"
-      messagePlaceholder="Your data center / first workflow / site access and supervision requirements / pilot success criteria."
-      trigger={
-        <button type="button" className={className}>
-          Plan a deployment <ArrowUpRight size={17} />
-        </button>
-      }
-    />
-  );
-}
-
-function RailPhoto({ chapter }: { chapter: string }) {
-  if (chapter === "compute") {
-    return (
-      <figure className="dc-rail-photo">
-        <img
-          src="/media/data-centers/rack-aisle.jpg"
-          alt="Wired server racks at the University of Washington, Seattle"
-          loading="lazy"
-          width="600"
-          height="400"
-        />
-        <figcaption>
-          Illustrative photo ·{" "}
-          <a href="https://unsplash.com/@tvick" target="_blank" rel="noreferrer">
-            Taylor Vick
-          </a>{" "}
-          /{" "}
-          <a
-            href="https://unsplash.com/photos/cable-network-M5tzZtFCOfs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Unsplash
-          </a>{" "}
-          ·{" "}
-          <a href="https://unsplash.com/license" target="_blank" rel="noreferrer">
-            Unsplash License
-          </a>
-          .
-        </figcaption>
-      </figure>
-    );
-  }
-  if (chapter === "cooling") {
-    return (
-      <figure className="dc-rail-photo">
-        <img
-          src="/media/data-centers/cooling-infrastructure.jpg"
-          alt="Cooling pipes in the Academica data center, Helsinki"
-          loading="lazy"
-          width="600"
-          height="400"
-        />
-        <figcaption>
-          Illustrative photo · Helen Ltd mediabank /{" "}
-          <a
-            href="https://commons.wikimedia.org/wiki/File:Kaukojaahdytyslaitteistoja.jpg"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Wikimedia Commons
-          </a>{" "}
-          ·{" "}
-          <a
-            href="https://creativecommons.org/licenses/by-sa/3.0/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            CC BY-SA 3.0
-          </a>
-          .{" "}
-          <a href="/media/data-centers/cooling-infrastructure.jpg" target="_blank" rel="noreferrer">
-            Image
-          </a>{" "}
-          resized and cropped for layout; license applies to image only.
-        </figcaption>
-      </figure>
-    );
-  }
-  if (chapter === "logistics") {
-    return (
-      <figure className="dc-rail-photo dc-rail-concept">
-        <img
-          src="/media/data-centers/graphite-robot.webp"
-          alt="Graphite humanoid concept working with equipment in an industrial setting"
-          loading="lazy"
-          width="600"
-          height="338"
-        />
-        <figcaption>Concept image / AI-edited from supplied photograph</figcaption>
-      </figure>
-    );
-  }
-  return null;
-}
 
 function Home() {
   return (
@@ -181,43 +82,33 @@ function Home() {
         <div className="dc-experience" id="data-center-experience">
           <DataCenterExperience />
           <div className="dc-story">
-            <section
-              id="facility"
-              className="dc-chapter dc-hero page-width"
-              aria-labelledby="hero-heading"
-            >
+            <section id="facility" className="dc-chapter dc-hero" aria-labelledby="hero-heading">
               <div className="dc-hero-inner">
-                <div className="dc-hero-title">
-                  <p className="eyebrow">
-                    <span className="dc-status-dot" /> HUMANOID AUTOMATION / DATA CENTERS
-                  </p>
-                  <h1 id="hero-heading">
-                    <span>AI runs the data center.</span>
-                    <em>Now it can work the floor.</em>
-                  </h1>
-                </div>
-                <div className="dc-hero-summary">
-                  <p>Physical intelligence for the infrastructure that powers everything.</p>
-                  <Link to="/sales" className="dc-inline-link">
-                    Plan a deployment <ArrowUpRight size={16} />
-                  </Link>
-                </div>
+                <p className="eyebrow">Humanoid automation / Data centers</p>
+                <h1 id="hero-heading">
+                  <span>AI runs the data center.</span>
+                  <em>Now it can work the floor.</em>
+                </h1>
+                <p className="dc-hero-lead">Humanoids for the infrastructure behind AI.</p>
+                <Link to="/sales" className="button dc-primary-action">
+                  Plan a deployment <ArrowUpRight size={16} />
+                </Link>
               </div>
-              <a href="#compute" className="dc-explore">
-                <ArrowDown size={13} />
-                <span>SCROLL TO EXPLORE THE FLOOR</span>
+              <a href="#compute" className="dc-explore" aria-label="Explore data center workflows">
+                <ArrowDown size={16} />
+                <span>Explore the floor</span>
               </a>
             </section>
             {chapters.map((chapter) => (
               <section
                 key={chapter.id}
                 id={chapter.id}
-                className="dc-chapter page-width"
+                className="dc-chapter dc-workflow"
                 aria-labelledby={`${chapter.id}-heading`}
               >
                 <div className="dc-reading-rail">
                   <p className="eyebrow">
-                    <span>{chapter.number}</span> / {chapter.system}
+                    {chapter.number} / {chapter.label}
                   </p>
                   <h2 id={`${chapter.id}-heading`}>
                     {chapter.title}
@@ -225,15 +116,18 @@ function Home() {
                     <em>{chapter.emphasis}</em>
                   </h2>
                   <p className="dc-chapter-description">{chapter.description}</p>
-                  <div className="dc-task-line">
-                    <span className="dc-status-dot" />
-                    <span>{chapter.task}</span>
-                  </div>
-                  <Link to="/sales" className="dc-inline-link">
-                    Scope this workflow <ArrowUpRight size={15} />
-                  </Link>
-                  <RailPhoto chapter={chapter.id} />
                 </div>
+                {chapter.image && (
+                  <figure className="dc-side-photo" data-side={chapter.side}>
+                    <img
+                      src={chapter.image}
+                      alt={chapter.alt}
+                      loading="lazy"
+                      width="600"
+                      height="400"
+                    />
+                  </figure>
+                )}
               </section>
             ))}
           </div>
@@ -241,34 +135,15 @@ function Home() {
 
         <section className="dc-rollout" aria-labelledby="rollout-heading">
           <div className="page-width">
-            <div className="dc-rollout-heading">
-              <div>
-                <p className="eyebrow">FROM BLUEPRINT TO YOUR FLOOR</p>
-                <h2 id="rollout-heading">
-                  One workflow.
-                  <br />
-                  <em>Then the next.</em>
-                </h2>
-              </div>
-              <p>
-                A practical deployment starts with a clear task and a shared definition of success.
-                Human supervision and site procedures are part of the plan.
-              </p>
-            </div>
+            <p className="eyebrow">From your first workflow</p>
+            <h2 id="rollout-heading">
+              Your site. <em>One operating partner.</em>
+            </h2>
             <ol className="dc-rollout-steps">
               {[
-                [
-                  "Scope.",
-                  "Define the task, site constraints, operating limits, and acceptance criteria for a useful first pilot.",
-                ],
-                [
-                  "Integrate.",
-                  "Bring the hardware, interfaces, access requirements, and human supervision together in your environment.",
-                ],
-                [
-                  "Operate.",
-                  "Run supervised trials. Review task outcomes, interventions, and recovery before expanding the scope.",
-                ],
+                ["Scope", "One task. Clear operating limits."],
+                ["Integrate", "Hardware and workflows matched to your site."],
+                ["Operate", "Human supervision. Measurable progress."],
               ].map(([heading, copy], index) => (
                 <li key={heading}>
                   <span className="dc-rollout-number">0{index + 1}</span>
@@ -280,66 +155,25 @@ function Home() {
           </div>
         </section>
 
-        <section className="dc-evidence page-width" aria-labelledby="evidence-heading">
-          <div className="dc-evidence-heading">
-            <p className="eyebrow">EVIDENCE FOR THE NEXT STEP</p>
-            <h2 id="evidence-heading">
-              Physical work.
-              <br />
-              <em>Measurable progress.</em>
-            </h2>
-            <p>Connect each deployment to evaluation, learning, and a clear operating record.</p>
-          </div>
-          <div className="dc-resource-links">
-            {[
-              {
-                to: "/evaluations",
-                number: "01",
-                title: "Evals",
-                copy: "Define the trial. Measure the outcome. Understand the interventions.",
-              },
-              {
-                to: "/datasets",
-                number: "02",
-                title: "Datasets",
-                copy: "Explore robot experience, task coverage, and data for model learning.",
-              },
-              {
-                to: "/docs",
-                number: "03",
-                title: "Docs",
-                copy: "Go deeper into the interfaces, methods, and operating approach.",
-              },
-            ].map((resource) => (
-              <Link key={resource.to} to={resource.to} className="dc-resource-link">
-                <span className="dc-resource-number">{resource.number}</span>
-                <div>
-                  <h3>{resource.title}</h3>
-                  <p>{resource.copy}</p>
-                </div>
-                <ArrowUpRight size={21} strokeWidth={1.4} />
-              </Link>
-            ))}
-          </div>
-        </section>
-
         <section className="dc-closing" aria-labelledby="closing-heading">
           <div className="page-width">
-            <p className="eyebrow">YOUR FLOOR. OUR STARTING POINT.</p>
             <h2 id="closing-heading">
-              Let’s put intelligence
-              <br />
-              <em>to work.</em>
+              Put intelligence <em>to work.</em>
             </h2>
-            <p>
-              Start with your data center.
-              <br />
-              Define one workflow worth automating.
-            </p>
-            <DeploymentInquiry />
-            <Link to="/sales" className="dc-closing-link">
-              See how we start <ArrowRight size={15} />
+            <Link to="/sales" className="button dc-primary-action">
+              Plan a deployment <ArrowUpRight size={16} />
             </Link>
+            <nav className="dc-resource-links" aria-label="Deployment resources">
+              <Link to="/evaluations">
+                Evals <ArrowUpRight size={13} />
+              </Link>
+              <Link to="/datasets">
+                Datasets <ArrowUpRight size={13} />
+              </Link>
+              <Link to="/docs">
+                Docs <ArrowUpRight size={13} />
+              </Link>
+            </nav>
           </div>
         </section>
       </main>
