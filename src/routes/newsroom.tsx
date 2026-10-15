@@ -11,23 +11,23 @@ import "@/components/newsroom/newsroom.css";
 export const Route = createFileRoute("/newsroom")({
   head: () => ({
     meta: [
-      { title: "Newsroom · CosmicBrain in the conversation" },
+      { title: "Newsroom · CosmicBrain press coverage" },
       {
         name: "description",
         content:
-          "Read coverage of CosmicBrain, robotics, and the people building physical intelligence in TechCrunch, IBM Think, and Rest of World.",
+          "Read source reporting on CosmicBrain, robot training data and teleoperation from TechCrunch, IBM Think and Rest of World.",
       },
       { property: "og:title", content: "Newsroom · CosmicBrain" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/newsroom" },
       {
         property: "og:description",
-        content: "Stories, perspectives, and a wider conversation about useful robots.",
+        content: "Source reporting on CosmicBrain, robot training data and teleoperation.",
       },
       { name: "twitter:title", content: "Newsroom · CosmicBrain" },
       { name: "twitter:url", content: "https://www.cosmicbrain.ai/newsroom" },
       {
         name: "twitter:description",
-        content: "Stories, perspectives, and a wider conversation about useful robots.",
+        content: "Source reporting on CosmicBrain, robot training data and teleoperation.",
       },
     ],
     links: [{ rel: "canonical", href: "https://www.cosmicbrain.ai/newsroom" }],
@@ -51,18 +51,18 @@ function NewsroomPage() {
           <div>
             <span className="eyebrow">The CosmicBrain newsroom</span>
             <h1>
-              A few stories.
+              Press coverage.
               <br />
-              <em>A wider conversation.</em>
+              <em>Source reporting.</em>
             </h1>
           </div>
           <div className="newsroom-hero-note">
             <Newspaper size={30} strokeWidth={1.15} aria-hidden="true" />
             <p>
-              Robotics is a shared story. Here are a few perspectives on the work, the people, and
-              the questions moving it forward.
+              Reporting on robot training data, teleoperation and CosmicBrain. Filter by publication
+              and open the original article for its full context.
             </p>
-            <span>From our workshop to the wider world.</span>
+            <span>Publisher, date and original source.</span>
           </div>
         </header>
 
@@ -72,7 +72,7 @@ function NewsroomPage() {
         >
           <div className="newsroom-coverage-heading">
             <h2 id="newsroom-coverage-heading">In the press</h2>
-            <span className="eyebrow">Independent reporting · Open perspectives</span>
+            <span className="eyebrow">Original articles · Publication dates</span>
           </div>
           <div className="newsroom-filter-row">
             <div
@@ -105,16 +105,18 @@ function NewsroomPage() {
 
         <section className="newsroom-contact page-width" aria-labelledby="newsroom-contact-heading">
           <div>
-            <span className="eyebrow">Keep the conversation going</span>
-            <h2 id="newsroom-contact-heading">Working on a story?</h2>
-            <p>For press questions, interviews, or a closer look at CosmicBrain, say hello.</p>
+            <span className="eyebrow">Press contact</span>
+            <h2 id="newsroom-contact-heading">Request source material.</h2>
+            <p>Specify the publication, topic, interview requirements and deadline.</p>
           </div>
           <ContactDialog
-            title="Tell us about your story."
+            title="Submit a press inquiry."
+            description="Specify your publication, reporting topic, requested source material and deadline."
             subject="A press inquiry from the CosmicBrain newsroom"
+            messagePlaceholder="Publication / topic / interview or source material requested / deadline."
             trigger={
               <button type="button" className="text-link">
-                Get in touch <ArrowUpRight size={17} aria-hidden="true" />
+                Press inquiry <ArrowUpRight size={17} aria-hidden="true" />
               </button>
             }
           />

@@ -17,7 +17,7 @@ export function SiteFooter() {
             <br />
             the data center.
           </p>
-          <span className="eyebrow">Physical intelligence. Operational focus.</span>
+          <span className="eyebrow">Rack inspection. Asset audits. Parts runs.</span>
         </div>
         <div className="footer-column">
           <span className="eyebrow">Evidence</span>
@@ -31,12 +31,12 @@ export function SiteFooter() {
           <Link to="/sales">Sales</Link>
         </div>
         <div className="footer-column">
-          <span className="eyebrow">Your next workflow</span>
+          <span className="eyebrow">Pilot scope</span>
           <ContactDialog
             title="Plan your data center deployment."
-            description="Tell us about the workflow, your facility, and the criteria for a useful first pilot."
+            description="Specify the rack or row scope, scheduled tasks, supervision requirements and measurable acceptance criteria."
             subject="Data center humanoid deployment inquiry"
-            messagePlaceholder="Your data center / first workflow / site and supervision requirements / pilot success criteria."
+            messagePlaceholder="Facility and rack/row scope / task and frequency / access and supervision / network conditions / acceptance criteria."
             trigger={
               <button type="button" className="footer-email">
                 Plan a deployment <ArrowUpRight size={16} />
@@ -44,15 +44,15 @@ export function SiteFooter() {
             }
           />
           <span className="footer-location">
-            From site assessment
+            Scheduled tasks.
             <br />
-            to a measured pilot.
+            Logged operator time.
           </span>
         </div>
       </div>
       <div className="footer-bottom page-width">
         <span>© {new Date().getFullYear()} CosmicBrain AI</span>
-        <span>One workflow. Clear evidence. Practical scale.</span>
+        <span>Task outcomes. Operator minutes. Incident logs.</span>
         <a href="/media/photo-credits.html">Photo credits</a>
         <a href="#">Back to the top ↑</a>
       </div>

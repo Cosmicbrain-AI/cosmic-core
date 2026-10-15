@@ -190,9 +190,9 @@ function DatasetsPage() {
           kicker="Physical AI / Data library"
           title="Human demonstrations."
           accent="Robot trajectories."
-          sub="Data for models that act in the world. Explore public egocentric and teleoperation datasets, then scope CosmicBrain data around the tasks, platforms and deployment conditions that matter to you."
+          sub="Inspect observation/action signals, coordinate frames, calibration, control frequency and task coverage before selecting training data. Compare public collections and request the CosmicBrain inventory."
           sketch="arm"
-          note="An action is only as useful as its context."
+          note="Observations · Actions · Calibration · Control ownership"
         />
         <div className="explore-wrap data-page-content">
           <nav className="data-jumpnav" aria-label="Dataset page sections">
@@ -317,7 +317,7 @@ function DatasetsPage() {
             <div className="data-section-heading">
               <span className="explore-note-label">02 / CosmicBrain data</span>
               <h2 id="owned-heading">
-                Experience from operations. <em>Scoped for your model.</em>
+                Task coverage. <em>Signal specifications.</em>
               </h2>
               <p>
                 We collect real deployment data and have hundreds of thousands of hours of
@@ -355,7 +355,7 @@ function DatasetsPage() {
             <div className="data-section-heading">
               <span className="explore-note-label">03 / Read the record</span>
               <h2 id="signals-heading">
-                The view. The action. <em>The context.</em>
+                Observations, actions <em>and event logs.</em>
               </h2>
               <p>
                 Choose data by the supervision your model needs. A first-person video, a tracked
@@ -400,7 +400,7 @@ function DatasetsPage() {
           <div className="explore-wrap">
             <span className="explore-note-label">For physical AI model teams</span>
             <h2>
-              Start with the task. <em>Find the right data.</em>
+              Specify the task <em>and embodiment.</em>
             </h2>
             <p>Tell us what your model needs to learn, and the robot it needs to work on.</p>
             <DataInquiry label="Discuss your data requirements" />

@@ -14,11 +14,12 @@ import {
   benchmarkReferences,
 } from "@/data/evaluation-protocol";
 import { wilsonInterval } from "@/lib/evaluation-statistics";
+import { PilotScorecard } from "@/components/PilotScorecard";
 import "@/components/explore/evaluations.css";
 
 const title = "Data center model evaluations · CosmicBrain";
 const description =
-  "A public protocol for robot model evaluations at data center deployments. Define tasks, measure performance and retain reproducible evidence.";
+  "Data center robot pilot metrics for availability, rack rounds, asset audits, operator workload and network health, alongside public model-evaluation methods.";
 export const Route = createFileRoute("/evaluations")({
   head: () => ({
     meta: [
@@ -219,12 +220,12 @@ function EvaluationsPage() {
     <main className="explore-page eval-page">
       <SiteHeader />
       <PageHero
-        kicker="Data centers / Model evaluation protocol v0.1"
-        title="Evaluate the model."
-        accent="At the deployment."
-        sub="A public protocol for robot model evaluations in data centers. Define the task, measure performance and give model teams and site operators evidence they can inspect."
+        kicker="Data centers / Pilot measurement & model evaluation"
+        title="Task performance."
+        accent="Operator workload."
+        sub="Define rack-round coverage, asset-read accuracy and request-to-rack time. Record takeovers, operator minutes, incidents and network conditions alongside every task outcome."
         sketch="arm"
-        note="Define the task. Record every attempt."
+        note="Scheduled work. Initiated attempts. Control ownership."
       />
       <div className="explore-wrap">
         <div className="eval-intro-bar">
@@ -234,6 +235,7 @@ function EvaluationsPage() {
           </a>
         </div>
         <nav className="eval-jump-nav" aria-label="Evaluation page sections">
+          <a href="#pilot-scorecard">Pilot scorecard</a>
           <a href="#protocol">The protocol</a>
           <a href="#annotation">Data & annotation</a>
           <a href="#field-metrics">Field metrics</a>
@@ -241,6 +243,7 @@ function EvaluationsPage() {
           <a href="#open-benchmarks">Open benchmarks</a>
           <a href="#evidence">Evidence package</a>
         </nav>
+        <PilotScorecard embedded />
         <figure className="eval-montage">
           <img
             src="/evaluations/robot-task-montage.jpeg"
@@ -410,13 +413,18 @@ function EvaluationsPage() {
         </section>
 
         <section id="field-metrics" className="eval-section">
-          <SectionTitle number="03" title="Measure the work." accent="And the help it needed.">
-            A robot can finish a task while an operator does the hard part. Report autonomous
-            completion, assistance, progress and operational burden as separate measures.
+          <SectionTitle
+            number="03"
+            title="Model trial outcomes."
+            accent="Assistance accounted for."
+          >
+            Report unassisted success, assisted completion and subgoal progress for each registered
+            task and condition. These model-trial measures complement the operational pilot
+            scorecard above.
           </SectionTitle>
           <div className="eval-table-scroll">
             <table className="eval-table">
-              <caption>Data center field metrics and their reporting units</caption>
+              <caption>Model-trial metrics and their reporting units</caption>
               <thead>
                 <tr>
                   <th scope="col">Measure</th>
