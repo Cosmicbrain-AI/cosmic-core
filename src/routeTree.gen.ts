@@ -21,6 +21,7 @@ import { Route as SalesRouteImport } from './routes/sales'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
+import { Route as DocsVerifierAuditRouteImport } from './routes/docs_.verifier-audit'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 
@@ -84,6 +85,11 @@ const CatalogSlugRoute = CatalogSlugRouteImport.update({
   path: '/catalog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsVerifierAuditRoute = DocsVerifierAuditRouteImport.update({
+  id: '/docs_/verifier-audit',
+  path: '/docs/verifier-audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
   id: '/solutions/',
   path: '/solutions/',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog': typeof CatalogIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs_/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/verifier-audit'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/verifier-audit'
     | '/solutions/$slug'
     | '/catalog'
     | '/solutions'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs_/verifier-audit'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -207,6 +219,7 @@ export interface RootRouteChildren {
   SalesRoute: typeof SalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CatalogSlugRoute: typeof CatalogSlugRoute
+  DocsVerifierAuditRoute: typeof DocsVerifierAuditRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
   CatalogIndexRoute: typeof CatalogIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs_/verifier-audit': {
+      id: '/docs_/verifier-audit'
+      path: '/docs/verifier-audit'
+      fullPath: '/docs/verifier-audit'
+      preLoaderRoute: typeof DocsVerifierAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solutions/': {
       id: '/solutions/'
       path: '/solutions'
@@ -327,6 +347,7 @@ const rootRouteChildren: RootRouteChildren = {
   SalesRoute: SalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CatalogSlugRoute: CatalogSlugRoute,
+  DocsVerifierAuditRoute: DocsVerifierAuditRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
   CatalogIndexRoute: CatalogIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
