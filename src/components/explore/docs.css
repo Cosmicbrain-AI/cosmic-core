@@ -11,6 +11,25 @@
 .docs-paper-card:last-child {
   margin-bottom: 0;
 }
+.docs-paper-card-link {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+.docs-paper-card-link:hover {
+  border-color: var(--primary);
+  background: #ebe7dcaa;
+}
+.docs-paper-card-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 6px;
+}
+.docs-paper-card-link:hover .docs-paper-cover,
+.docs-paper-card-link:focus-visible .docs-paper-cover {
+  transform: translateY(-3px);
+}
 .docs-paper-cover {
   display: block;
   border: 1px solid var(--border);
@@ -25,6 +44,41 @@
   display: block;
   width: 100%;
   height: auto;
+}
+.docs-brief-cover {
+  color: #302d25;
+  background: #f7f4ec;
+}
+.docs-brief-cover-art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.docs-brief-cover-brand,
+.docs-brief-cover-kicker,
+.docs-brief-cover-caption,
+.docs-brief-cover-footer {
+  fill: currentColor;
+  font: 8px var(--font-mono);
+}
+.docs-brief-cover-brand {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.docs-brief-cover-kicker {
+  fill: #b94e32;
+}
+.docs-brief-cover-title {
+  fill: currentColor;
+  font: 400 28px var(--font-display);
+  letter-spacing: -0.025em;
+}
+.docs-brief-cover-caption {
+  font-size: 7px;
+}
+.docs-brief-cover-footer {
+  fill: #716c60;
+  font-size: 7px;
 }
 .docs-paper-label {
   color: var(--primary);
@@ -86,5 +140,11 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .docs-paper-card-link,
+  .docs-paper-card-link .docs-paper-cover {
+    transition: none;
   }
 }
