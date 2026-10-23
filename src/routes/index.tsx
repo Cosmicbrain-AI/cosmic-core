@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { DataCenterExperience } from "@/components/DataCenterExperience";
+import { BackgroundVideo } from "@/components/BackgroundVideo";
 import { PilotScorecard } from "@/components/PilotScorecard";
 import "@/components/data-center-home.css";
 
@@ -44,8 +44,8 @@ const chapters = [
         "GPU tray alignment and insertion require a separate trial for the hardware, tooling and OEM procedure.",
       ],
     ],
-    image: "/media/data-centers/server-aisle.jpg",
-    alt: "Bright server aisle with full-height racks and overhead cable trays",
+    image: null,
+    alt: "",
     side: "left",
   },
   {
@@ -128,9 +128,14 @@ function Home() {
       <SiteHeader />
       <main>
         <div className="dc-experience" id="data-center-experience">
-          <DataCenterExperience />
           <div className="dc-story">
             <section id="facility" className="dc-chapter dc-hero" aria-labelledby="hero-heading">
+              <BackgroundVideo
+                name="data center"
+                src="/media/data-centers/datacenter-background.mp4"
+                mobileSrc="/media/data-centers/datacenter-background-mobile.mp4"
+                poster="/media/data-centers/datacenter-poster.webp"
+              />
               <div className="dc-hero-inner">
                 <p className="eyebrow">Humanoid deployments / Data centers</p>
                 <h1 id="hero-heading">
@@ -155,9 +160,17 @@ function Home() {
               <section
                 key={chapter.id}
                 id={chapter.id}
-                className={`dc-chapter dc-workflow${chapter.image ? " dc-workflow--illustrated" : ""}`}
+                className={`dc-chapter dc-workflow${chapter.image ? " dc-workflow--illustrated" : ""}${chapter.id === "compute" ? " dc-workflow--film" : ""}`}
                 aria-labelledby={`${chapter.id}-heading`}
               >
+                {chapter.id === "compute" && (
+                  <BackgroundVideo
+                    name="cable"
+                    src="/media/data-centers/cable-background.mp4"
+                    mobileSrc="/media/data-centers/cable-background-mobile.mp4"
+                    poster="/media/data-centers/cable-poster.webp"
+                  />
+                )}
                 <div className="dc-workflow-inner" data-image-side={chapter.side}>
                   {chapter.image && (
                     <figure className="dc-workflow-image">
