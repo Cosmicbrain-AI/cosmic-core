@@ -12,9 +12,9 @@ CosmicBrain is focused on humanoid automation inside data centers. The opening i
 
 ## Homepage
 
-The homepage uses the two supplied films as decorative section backgrounds. The datacenter film opens the page beneath a centered editorial headline; the cable close-up sits behind the compute workflow. Warm ivory gradients, restrained saturation, charcoal type and terracotta actions blend the films into the established palette. The interactive 3D facility and its stage, blueprint and rotation controls are removed from the homepage.
+The homepage uses the two supplied films as decorative section backgrounds. The replacement datacenter film from the supplied MOV opens the page beneath a centered editorial headline; the cable close-up sits behind the compute workflow. Warm ivory gradients, restrained saturation, charcoal type and terracotta actions blend the films into the established palette. The interactive 3D facility and its stage, blueprint and rotation controls are removed from the homepage.
 
-Keep all essential content in HTML. Preserve the workflow descriptions, specification rows, operational scorecard and existing pages. Cooling and logistics retain the large, softly feathered photography blocks. On phones, move the video emphasis below the reading area and keep the robot and cable connection in the crop.
+Keep all essential content in HTML. The homepage workflow sequence contains only 01 / Compute and 02 / Logistics; Cooling checks and Power checks are removed. Preserve the remaining workflow descriptions, specification rows, operational scorecard and existing pages. Logistics retains its large, softly feathered photography block. On phones, move the video emphasis below the reading area and keep the robot and cable connection in the crop.
 
 Background films are muted, loop inline, and use audio-free H.264 MP4s with faststart. Use 1080p on desktop and 720p on phones. Load video only when its section enters the viewport, pause offscreen and in hidden tabs, and keep a poster available on load or playback failure. Respect reduced-motion and data-saving preferences by showing the poster until explicit play. Each film has a keyboard-accessible play/pause control with a visible focus indicator.
 

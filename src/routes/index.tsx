@@ -8,7 +8,7 @@ import "@/components/data-center-home.css";
 
 const title = "CosmicBrain — Humanoid deployments for data centers";
 const description =
-  "Humanoid deployments for data center operations. Scope compute, cooling, power and logistics workflows with defined operating limits and measurable task performance.";
+  "Humanoid deployments for data center operations. Scope compute and logistics workflows with defined operating limits and measurable task performance.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,58 +49,8 @@ const chapters = [
     side: "left",
   },
   {
-    id: "cooling",
-    number: "02",
-    label: "Cooling",
-    title: "Cooling checks.",
-    emphasis: "At the equipment.",
-    description: "Scope repeatable observations of accessible cooling infrastructure.",
-    details: [
-      [
-        "Observe",
-        "CDU indicators, visible hose connections and rack-inlet conditions, subject to the agreed sensor package.",
-      ],
-      [
-        "Record",
-        "Instrument value, unit, equipment ID and image; reconcile observations with site telemetry.",
-      ],
-      [
-        "Qualify",
-        "Use equipment-specific inlet and liquid-cooling limits. Define escalation and any connection handling with the site.",
-      ],
-    ],
-    image: "/media/data-centers/cooling-infrastructure.jpg",
-    alt: "Data center cooling pipes and infrastructure",
-    side: "right",
-  },
-  {
-    id: "power",
-    number: "03",
-    label: "Power",
-    title: "Power checks.",
-    emphasis: "External indicators.",
-    description: "Define an inspection route around approved electrical equipment access points.",
-    details: [
-      [
-        "Observe",
-        "Visible UPS, PDU and switchgear indicators within the approved inspection boundary.",
-      ],
-      [
-        "Record",
-        "Panel ID, indicator state, timestamp and image for the responsible site technician.",
-      ],
-      [
-        "Qualify",
-        "Switching, resets and cabinet access require a separately authorized procedure.",
-      ],
-    ],
-    image: null,
-    alt: "",
-    side: "left",
-  },
-  {
     id: "logistics",
-    number: "04",
+    number: "02",
     label: "Logistics",
     title: "Parts runs.",
     emphasis: "Verified handoffs.",
@@ -132,9 +82,9 @@ function Home() {
             <section id="facility" className="dc-chapter dc-hero" aria-labelledby="hero-heading">
               <BackgroundVideo
                 name="data center"
-                src="/media/data-centers/datacenter-background.mp4"
-                mobileSrc="/media/data-centers/datacenter-background-mobile.mp4"
-                poster="/media/data-centers/datacenter-poster.webp"
+                src="/media/data-centers/datacenter-background-v2.mp4"
+                mobileSrc="/media/data-centers/datacenter-background-mobile-v2.mp4"
+                poster="/media/data-centers/datacenter-poster-v2.webp"
               />
               <div className="dc-hero-inner">
                 <p className="eyebrow">Humanoid deployments / Data centers</p>
