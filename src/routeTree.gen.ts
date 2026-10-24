@@ -21,6 +21,8 @@ import { Route as SalesRouteImport } from './routes/sales'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
+import { Route as DocsRobotDataEvaluationRouteImport } from './routes/docs_.robot-data-evaluation'
+import { Route as DocsTheRobotAlreadyKnowsRouteImport } from './routes/docs_.the-robot-already-knows'
 import { Route as DocsVerifierAuditRouteImport } from './routes/docs_.verifier-audit'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
@@ -85,6 +87,17 @@ const CatalogSlugRoute = CatalogSlugRouteImport.update({
   path: '/catalog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsRobotDataEvaluationRoute = DocsRobotDataEvaluationRouteImport.update({
+  id: '/docs_/robot-data-evaluation',
+  path: '/docs/robot-data-evaluation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsTheRobotAlreadyKnowsRoute =
+  DocsTheRobotAlreadyKnowsRouteImport.update({
+    id: '/docs_/the-robot-already-knows',
+    path: '/docs/the-robot-already-knows',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DocsVerifierAuditRoute = DocsVerifierAuditRouteImport.update({
   id: '/docs_/verifier-audit',
   path: '/docs/verifier-audit',
@@ -113,6 +126,8 @@ export interface FileRoutesByFullPath {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
+  '/docs/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
@@ -130,6 +145,8 @@ export interface FileRoutesByTo {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
+  '/docs/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog': typeof CatalogIndexRoute
@@ -148,6 +165,8 @@ export interface FileRoutesById {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs_/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
+  '/docs_/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs_/verifier-audit': typeof DocsVerifierAuditRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
@@ -167,6 +186,8 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/robot-data-evaluation'
+    | '/docs/the-robot-already-knows'
     | '/docs/verifier-audit'
     | '/solutions/$slug'
     | '/catalog/'
@@ -184,6 +205,8 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/robot-data-evaluation'
+    | '/docs/the-robot-already-knows'
     | '/docs/verifier-audit'
     | '/solutions/$slug'
     | '/catalog'
@@ -201,6 +224,8 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs_/robot-data-evaluation'
+    | '/docs_/the-robot-already-knows'
     | '/docs_/verifier-audit'
     | '/solutions/$slug'
     | '/catalog/'
@@ -219,6 +244,8 @@ export interface RootRouteChildren {
   SalesRoute: typeof SalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CatalogSlugRoute: typeof CatalogSlugRoute
+  DocsRobotDataEvaluationRoute: typeof DocsRobotDataEvaluationRoute
+  DocsTheRobotAlreadyKnowsRoute: typeof DocsTheRobotAlreadyKnowsRoute
   DocsVerifierAuditRoute: typeof DocsVerifierAuditRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
   CatalogIndexRoute: typeof CatalogIndexRoute
@@ -311,6 +338,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs_/robot-data-evaluation': {
+      id: '/docs_/robot-data-evaluation'
+      path: '/docs/robot-data-evaluation'
+      fullPath: '/docs/robot-data-evaluation'
+      preLoaderRoute: typeof DocsRobotDataEvaluationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs_/the-robot-already-knows': {
+      id: '/docs_/the-robot-already-knows'
+      path: '/docs/the-robot-already-knows'
+      fullPath: '/docs/the-robot-already-knows'
+      preLoaderRoute: typeof DocsTheRobotAlreadyKnowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs_/verifier-audit': {
       id: '/docs_/verifier-audit'
       path: '/docs/verifier-audit'
@@ -347,6 +388,8 @@ const rootRouteChildren: RootRouteChildren = {
   SalesRoute: SalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CatalogSlugRoute: CatalogSlugRoute,
+  DocsRobotDataEvaluationRoute: DocsRobotDataEvaluationRoute,
+  DocsTheRobotAlreadyKnowsRoute: DocsTheRobotAlreadyKnowsRoute,
   DocsVerifierAuditRoute: DocsVerifierAuditRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
   CatalogIndexRoute: CatalogIndexRoute,

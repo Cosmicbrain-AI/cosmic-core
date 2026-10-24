@@ -7,7 +7,7 @@ import "@/components/explore/docs.css";
 
 const title = "CosmicBrain Research · Papers and briefs";
 const description =
-  "Research papers and a verification brief on demonstration scoring, telemetry-first verification, input clocks and human-to-humanoid skill transfer.";
+  "Research papers and briefs on robot-data evaluation, physical-evidence verification, input clocks and human-to-humanoid skill transfer.";
 const evalPaper = "/docs/cosmicbrain-eval-layer-2026-10.pdf?v=34a4cce2";
 const shareImage = "https://www.cosmicbrain.ai/social/cosmicbrain-docs-v2.jpg";
 const shareImageAlt =
@@ -38,6 +38,33 @@ export const Route = createFileRoute("/docs")({
   component: TechnicalReportPage,
 });
 
+const newBriefs = [
+  {
+    id: "robot-knows",
+    to: "/docs/the-robot-already-knows",
+    label: "Physical evidence / Research brief",
+    coverKicker: "Physical evidence",
+    coverTitle: ["The Robot", "Already Knows"],
+    coverCaption: "Robot logs · Critics · Policy evaluation",
+    title: "The Robot Already Knows",
+    subtitle: "Physical evidence as a verifier for Cosmos, GR00T and real-world evaluation",
+    description:
+      "A study of robot-log signals for judging rollouts, ranking policies and auditing public training code, with pre-registered tests and six negative results.",
+  },
+  {
+    id: "robot-data",
+    to: "/docs/robot-data-evaluation",
+    label: "Independent evaluation / Research brief",
+    coverKicker: "Independent evaluation",
+    coverTitle: ["Gemini 4 Argon", "on real robot", "recordings"],
+    coverCaption: "Labels · Verdicts · Robot state",
+    title: "Gemini 4 Argon on real robot recordings",
+    subtitle: "Where it leads, where it leaks, and a fix from robot state",
+    description:
+      "A pre-registered evaluation of hindsight labeling and success judging on held-out robot recordings, with model comparisons, failure modes and gripper-signal fixes.",
+  },
+] as const;
+
 function TechnicalReportPage() {
   return (
     <main className="explore-page">
@@ -46,12 +73,81 @@ function TechnicalReportPage() {
         kicker="Research notebook / Papers and briefs"
         title="Research and briefs."
         accent="Methods and evidence."
-        sub="Demonstration scoring, telemetry-based verification and human-to-humanoid skill transfer. Read the methods, limitations and evaluation protocols in our papers and verification brief."
+        sub="Robot-data evaluation, physical-evidence verification and human-to-humanoid skill transfer. Read the findings, methods and limitations in our research papers and briefs."
         sketch="orbit"
         note="Methods · Provenance · Evaluation protocols"
       />
       <section className="explore-content">
         <div className="explore-wrap">
+          {newBriefs.map((brief) => (
+            <Link
+              key={brief.id}
+              to={brief.to}
+              className="docs-paper-card docs-paper-card-link"
+              aria-labelledby={`${brief.id}-title`}
+              aria-describedby={`${brief.id}-description`}
+            >
+              <div className="docs-paper-cover docs-brief-cover" aria-hidden="true">
+                <svg viewBox="0 0 260 336" fill="none" className="docs-brief-cover-art">
+                  <text x="22" y="29" className="docs-brief-cover-brand">
+                    CosmicBrain AI
+                  </text>
+                  <path d="M22 43H238" stroke="currentColor" opacity=".25" />
+                  <text x="22" y="65" className="docs-brief-cover-kicker">
+                    {brief.coverKicker}
+                  </text>
+                  <text x="22" y="100" className="docs-brief-cover-title">
+                    {brief.coverTitle.map((line, index) => (
+                      <tspan x="22" y={100 + index * 29} key={line}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                  <g transform="translate(22 190)">
+                    <path d="M0 8H216M0 38H216M0 68H216" stroke="currentColor" opacity=".16" />
+                    <path
+                      d="M18 0V80M78 0V80M138 0V80M198 0V80"
+                      stroke="currentColor"
+                      opacity=".16"
+                      strokeDasharray="2 5"
+                    />
+                    <path
+                      d="M0 68H34V38H68V68H103V8H138V38H176V8H216"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <path d="M0 68H68L103 38H176L216 8" stroke="#b94e32" strokeWidth="1.5" />
+                    <circle cx="103" cy="38" r="4" fill="#f7f4ec" stroke="#b94e32" />
+                    <circle cx="176" cy="38" r="4" fill="#b94e32" />
+                  </g>
+                  <text x="22" y="295" className="docs-brief-cover-caption">
+                    {brief.coverCaption}
+                  </text>
+                  <text x="22" y="320" className="docs-brief-cover-footer">
+                    October 2026 / Read online
+                  </text>
+                </svg>
+              </div>
+              <div className="docs-paper-copy">
+                <span className="explore-note-label docs-paper-label">{brief.label}</span>
+                <div className="docs-paper-meta">
+                  <time dateTime="2026-10">October 2026</time>
+                  <span>CosmicBrain AI</span>
+                  <span>Read online</span>
+                </div>
+                <h2 id={`${brief.id}-title`}>{brief.title}</h2>
+                <p className="docs-paper-subtitle">{brief.subtitle}</p>
+                <p className="docs-paper-description" id={`${brief.id}-description`}>
+                  {brief.description}
+                </p>
+                <div className="docs-paper-actions">
+                  <span className="button">
+                    Read brief <ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
           <Link
             to="/docs/verifier-audit"
             className="docs-paper-card docs-paper-card-link"
@@ -123,7 +219,7 @@ function TechnicalReportPage() {
             </div>
             <div className="docs-paper-copy">
               <span className="explore-note-label docs-paper-label">
-                Latest publication / Web brief
+                Verification research / Web brief
               </span>
               <div className="docs-paper-meta">
                 <time dateTime="2026-10">October 2026</time>
