@@ -1,0 +1,41 @@
+<svg width="880" height="300" style="color:#3A3A33;background:#FFFFFF" class="diagram" viewBox="0 0 880 300" role="img" aria-label="A cycle showing human demonstration data feeding the Cosmic pipeline, producing policies, which run on deployed robots, whose telemetry and operator corrections return as new training data, with both revenue streams attached to the loop." xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="monospace" fill="currentColor">
+        <rect x="30" y="112" width="170" height="60" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+        <text x="46" y="136" font-size="11.5">Human demonstration</text>
+        <text x="46" y="154" font-size="9.5" opacity=".65">video &#183; egocentric &#183; VR</text>
+
+        <rect x="255" y="112" width="170" height="60" rx="3" fill="none" stroke="#1B3A66" stroke-width="1.6"/>
+        <text x="271" y="136" font-size="11.5" fill="#1B3A66">Cosmic pipeline</text>
+        <text x="271" y="154" font-size="9.5" opacity=".65">canonical &#8594; retargeted</text>
+
+        <rect x="480" y="112" width="170" height="60" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+        <text x="496" y="136" font-size="11.5">Policies</text>
+        <text x="496" y="154" font-size="9.5" opacity=".65">trained on the bundle</text>
+
+        <rect x="705" y="112" width="150" height="60" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <text x="721" y="136" font-size="11.5">Deployed robots</text>
+        <text x="721" y="154" font-size="9.5" opacity=".65">supervised hours</text>
+
+        <g stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#f1)">
+          <path d="M200 142 L250 142"/>
+          <path d="M425 142 L475 142"/>
+          <path d="M650 142 L700 142"/>
+        </g>
+
+        <path d="M780 172 L780 242 L115 242 L115 174" stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#f1)"/>
+        <text x="360" y="262" font-size="10" opacity=".72">telemetry, operator corrections and failures return as new data</text>
+
+        <path d="M340 112 L340 74" stroke="currentColor" stroke-width="1.1" fill="none" stroke-dasharray="4 4" opacity=".8"/>
+        <text x="252" y="62" font-size="10" opacity=".8">sold to model teams</text>
+        <text x="252" y="46" font-size="9.5" opacity=".55">dexterous data collection</text>
+
+        <path d="M780 112 L780 74" stroke="currentColor" stroke-width="1.1" fill="none" stroke-dasharray="4 4" opacity=".8"/>
+        <text x="672" y="62" font-size="10" opacity=".8">sold to facilities</text>
+        <text x="672" y="46" font-size="9.5" opacity=".55">labour as a service</text>
+      </g>
+    </svg>

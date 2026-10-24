@@ -1,0 +1,28 @@
+<svg width="900" height="260" style="color:#3A3A33;background:#FFFFFF" class="diagram" viewBox="0 0 900 260" role="img" aria-label="A three-rung ladder of replay modes, from kinematic anchored through kinematic with root motion to full physics integration, showing what each mode can and cannot prove about a trajectory." xmlns="http://www.w3.org/2000/svg">
+      <g font-family="monospace" fill="currentColor">
+        <text x="20" y="28" font-size="11" letter-spacing="1.5" opacity=".65">WHAT EACH MODE CAN PROVE</text>
+
+        <rect x="20" y="46" width="270" height="88" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="36" y="70" font-size="12">Kinematic, anchored</text>
+        <text x="36" y="88" font-size="9.5" opacity=".65">default &#183; joints teleport exactly</text>
+        <text x="36" y="110" font-size="10" fill="#1B3A66">&#10003; motion matches the capture</text>
+        <text x="36" y="126" font-size="10" opacity=".6">&#10007; says nothing about dynamics</text>
+
+        <rect x="315" y="46" width="270" height="88" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="331" y="70" font-size="12">Kinematic, root motion</text>
+        <text x="331" y="88" font-size="9.5" opacity=".65">world anchor released</text>
+        <text x="331" y="110" font-size="10" fill="#1B3A66">&#10003; exposes root drift</text>
+        <text x="331" y="126" font-size="10" opacity=".6">&#10007; still no contact forces</text>
+
+        <rect x="610" y="46" width="270" height="88" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <text x="626" y="70" font-size="12">Physics integrated</text>
+        <text x="626" y="88" font-size="9.5" opacity=".65">debug tool, not default</text>
+        <text x="626" y="110" font-size="10" fill="#1B3A66">&#10003; can falsify feasibility</text>
+        <text x="626" y="126" font-size="10" opacity=".6">&#10007; failures may be sim artefacts</text>
+
+        <line x1="20" y1="166" x2="880" y2="166" stroke="currentColor" stroke-width="1" opacity=".3"/>
+        <text x="20" y="192" font-size="10.5" opacity=".8">increasing evidential strength &#8594; increasing cost and false-positive rate</text>
+        <text x="20" y="222" font-size="10.5" opacity=".65">A trajectory that passes only the left-hand mode is cleared to be looked at.</text>
+        <text x="20" y="240" font-size="10.5" opacity=".65">A trajectory cleared to run on hardware passes the gates in Fig. 14 as well.</text>
+      </g>
+    </svg>

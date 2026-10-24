@@ -1,0 +1,56 @@
+<svg width="900" height="300" style="color:#3A3A33;background:#FFFFFF" class="diagram" viewBox="0 0 900 300" role="img" aria-label="The gated execution chain: an action bundle passes through pose planning, ghost preview, an arming gate bound to an environment variable, default-pose and collision checks, and a reflex governor before reaching the actuators, with an emergency stop able to interrupt at any point." xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+        <marker id="g2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#7C2D12"/>
+        </marker>
+      </defs>
+      <g font-family="monospace" fill="currentColor">
+        <rect x="14" y="94" width="120" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="28" y="118" font-size="11">Action bundle</text>
+        <text x="28" y="134" font-size="9" opacity=".65">.npz on disk</text>
+
+        <rect x="164" y="94" width="120" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="178" y="112" font-size="11">Plan to start</text>
+        <text x="178" y="128" font-size="9" opacity=".65">current pose &#8594;</text>
+        <text x="178" y="140" font-size="9" opacity=".65">sequence start</text>
+
+        <rect x="314" y="94" width="120" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="328" y="118" font-size="11">Ghost preview</text>
+        <text x="328" y="134" font-size="9" opacity=".65">same exec path</text>
+
+        <rect x="464" y="82" width="140" height="76" rx="3" fill="none" stroke="#1B3A66" stroke-width="1.8"/>
+        <text x="478" y="104" font-size="11.5" fill="#1B3A66">Arming gate</text>
+        <text x="478" y="122" font-size="9" opacity=".7">env var on host</text>
+        <text x="478" y="136" font-size="9" opacity=".7">default pose required</text>
+        <text x="478" y="150" font-size="9" opacity=".7">collision check</text>
+
+        <rect x="634" y="94" width="120" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="648" y="112" font-size="11">Governor</text>
+        <text x="648" y="128" font-size="9" opacity=".65">reflex layer</text>
+        <text x="648" y="140" font-size="9" opacity=".65">joint limits</text>
+
+        <rect x="784" y="94" width="102" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <text x="798" y="118" font-size="11">Actuators</text>
+        <text x="798" y="134" font-size="9" opacity=".65">lowcmd</text>
+
+        <g stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#g1)">
+          <path d="M134 120 L160 120"/>
+          <path d="M284 120 L310 120"/>
+          <path d="M434 120 L460 120"/>
+          <path d="M604 120 L630 120"/>
+          <path d="M754 120 L780 120"/>
+        </g>
+
+        <path d="M534 158 L534 196 L120 196 L120 150" stroke="currentColor" stroke-width="1.1" fill="none" stroke-dasharray="4 4" marker-end="url(#g1)" opacity=".8"/>
+        <text x="250" y="212" font-size="9.5" opacity=".7">any gate fails &#8594; nothing moves, bundle returned unexecuted</text>
+
+        <rect x="380" y="240" width="150" height="40" rx="3" fill="none" stroke="#7C2D12" stroke-width="1.8"/>
+        <text x="396" y="265" font-size="11.5" fill="#7C2D12">E-STOP</text>
+        <path d="M455 240 L455 226 L700 226 L700 150" stroke="#7C2D12" stroke-width="1.4" fill="none" marker-end="url(#g2)"/>
+        <path d="M455 240 L455 226 L835 226 L835 150" stroke="#7C2D12" stroke-width="1.4" fill="none" marker-end="url(#g2)"/>
+        <text x="545" y="268" font-size="9.5" fill="#7C2D12" opacity=".9">interrupts downstream of every gate</text>
+      </g>
+    </svg>
