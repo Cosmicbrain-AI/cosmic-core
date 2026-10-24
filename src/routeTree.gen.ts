@@ -21,9 +21,11 @@ import { Route as SalesRouteImport } from './routes/sales'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
+import { Route as DocsCosmic05RouteImport } from './routes/docs_.cosmic-0-5'
 import { Route as DocsRobotDataEvaluationRouteImport } from './routes/docs_.robot-data-evaluation'
 import { Route as DocsTheRobotAlreadyKnowsRouteImport } from './routes/docs_.the-robot-already-knows'
 import { Route as DocsVerifierAuditRouteImport } from './routes/docs_.verifier-audit'
+import { Route as DocsWhoChecksTheCheckerRouteImport } from './routes/docs_.who-checks-the-checker'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 
@@ -87,6 +89,11 @@ const CatalogSlugRoute = CatalogSlugRouteImport.update({
   path: '/catalog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsCosmic05Route = DocsCosmic05RouteImport.update({
+  id: '/docs_/cosmic-0-5',
+  path: '/docs/cosmic-0-5',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsRobotDataEvaluationRoute = DocsRobotDataEvaluationRouteImport.update({
   id: '/docs_/robot-data-evaluation',
   path: '/docs/robot-data-evaluation',
@@ -101,6 +108,11 @@ const DocsTheRobotAlreadyKnowsRoute =
 const DocsVerifierAuditRoute = DocsVerifierAuditRouteImport.update({
   id: '/docs_/verifier-audit',
   path: '/docs/verifier-audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsWhoChecksTheCheckerRoute = DocsWhoChecksTheCheckerRouteImport.update({
+  id: '/docs_/who-checks-the-checker',
+  path: '/docs/who-checks-the-checker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
@@ -126,9 +138,11 @@ export interface FileRoutesByFullPath {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/cosmic-0-5': typeof DocsCosmic05Route
   '/docs/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
   '/docs/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs/verifier-audit': typeof DocsVerifierAuditRoute
+  '/docs/who-checks-the-checker': typeof DocsWhoChecksTheCheckerRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -145,9 +159,11 @@ export interface FileRoutesByTo {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs/cosmic-0-5': typeof DocsCosmic05Route
   '/docs/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
   '/docs/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs/verifier-audit': typeof DocsVerifierAuditRoute
+  '/docs/who-checks-the-checker': typeof DocsWhoChecksTheCheckerRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog': typeof CatalogIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -165,9 +181,11 @@ export interface FileRoutesById {
   '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/docs_/cosmic-0-5': typeof DocsCosmic05Route
   '/docs_/robot-data-evaluation': typeof DocsRobotDataEvaluationRoute
   '/docs_/the-robot-already-knows': typeof DocsTheRobotAlreadyKnowsRoute
   '/docs_/verifier-audit': typeof DocsVerifierAuditRoute
+  '/docs_/who-checks-the-checker': typeof DocsWhoChecksTheCheckerRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -186,9 +204,11 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/cosmic-0-5'
     | '/docs/robot-data-evaluation'
     | '/docs/the-robot-already-knows'
     | '/docs/verifier-audit'
+    | '/docs/who-checks-the-checker'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -205,9 +225,11 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs/cosmic-0-5'
     | '/docs/robot-data-evaluation'
     | '/docs/the-robot-already-knows'
     | '/docs/verifier-audit'
+    | '/docs/who-checks-the-checker'
     | '/solutions/$slug'
     | '/catalog'
     | '/solutions'
@@ -224,9 +246,11 @@ export interface FileRouteTypes {
     | '/sales'
     | '/sitemap.xml'
     | '/catalog/$slug'
+    | '/docs_/cosmic-0-5'
     | '/docs_/robot-data-evaluation'
     | '/docs_/the-robot-already-knows'
     | '/docs_/verifier-audit'
+    | '/docs_/who-checks-the-checker'
     | '/solutions/$slug'
     | '/catalog/'
     | '/solutions/'
@@ -244,9 +268,11 @@ export interface RootRouteChildren {
   SalesRoute: typeof SalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CatalogSlugRoute: typeof CatalogSlugRoute
+  DocsCosmic05Route: typeof DocsCosmic05Route
   DocsRobotDataEvaluationRoute: typeof DocsRobotDataEvaluationRoute
   DocsTheRobotAlreadyKnowsRoute: typeof DocsTheRobotAlreadyKnowsRoute
   DocsVerifierAuditRoute: typeof DocsVerifierAuditRoute
+  DocsWhoChecksTheCheckerRoute: typeof DocsWhoChecksTheCheckerRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
   CatalogIndexRoute: typeof CatalogIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
@@ -338,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs_/cosmic-0-5': {
+      id: '/docs_/cosmic-0-5'
+      path: '/docs/cosmic-0-5'
+      fullPath: '/docs/cosmic-0-5'
+      preLoaderRoute: typeof DocsCosmic05RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs_/robot-data-evaluation': {
       id: '/docs_/robot-data-evaluation'
       path: '/docs/robot-data-evaluation'
@@ -357,6 +390,13 @@ declare module '@tanstack/react-router' {
       path: '/docs/verifier-audit'
       fullPath: '/docs/verifier-audit'
       preLoaderRoute: typeof DocsVerifierAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs_/who-checks-the-checker': {
+      id: '/docs_/who-checks-the-checker'
+      path: '/docs/who-checks-the-checker'
+      fullPath: '/docs/who-checks-the-checker'
+      preLoaderRoute: typeof DocsWhoChecksTheCheckerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/solutions/': {
@@ -388,9 +428,11 @@ const rootRouteChildren: RootRouteChildren = {
   SalesRoute: SalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CatalogSlugRoute: CatalogSlugRoute,
+  DocsCosmic05Route: DocsCosmic05Route,
   DocsRobotDataEvaluationRoute: DocsRobotDataEvaluationRoute,
   DocsTheRobotAlreadyKnowsRoute: DocsTheRobotAlreadyKnowsRoute,
   DocsVerifierAuditRoute: DocsVerifierAuditRoute,
+  DocsWhoChecksTheCheckerRoute: DocsWhoChecksTheCheckerRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
   CatalogIndexRoute: CatalogIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,

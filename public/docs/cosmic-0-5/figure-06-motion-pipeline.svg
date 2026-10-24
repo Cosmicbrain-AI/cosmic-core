@@ -1,0 +1,67 @@
+<svg width="900" height="620" style="color:#3A3A33;background:#FFFFFF" class="diagram" viewBox="0 0 900 620" role="img" aria-label="Flowchart of the motion pipeline: pose provider and hand specialist are fused with confidence weighting, passed through a three-stage temporal filter, gated by a view classifier into diffusion refinement or occlusion infill, then retargeted and packaged into a bundle." xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+
+      <g font-family="monospace" fill="currentColor">
+        <rect x="130" y="20" width="290" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="146" y="45" font-size="12">Pose provider: body estimate</text>
+
+        <rect x="470" y="20" width="300" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="486" y="45" font-size="12">Hand specialist: RTMW3D</text>
+
+        <path d="M275 60 L275 96" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+        <path d="M620 60 L620 82 L500 82 L500 96" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+        <text x="628" y="76" font-size="9.5" opacity=".6">conf &#8805; 0.5 &#183; gap-fill 8 fr</text>
+
+        <rect x="130" y="98" width="640" height="52" rx="3" fill="none" stroke="#1B3A66" stroke-width="1.6"/>
+        <text x="146" y="121" font-size="12.5" fill="#1B3A66">Confidence-weighted fusion</text>
+        <text x="146" y="140" font-size="10" opacity=".7">monotonic across modality switches &#183; blend floor &#945; = 0.35 &#183; margin 0.02</text>
+
+        <path d="M450 150 L450 182" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+
+        <rect x="130" y="184" width="640" height="106" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="146" y="206" font-size="12">Temporal filter stack</text>
+        <rect x="152" y="220" width="180" height="52" rx="2" fill="none" stroke="currentColor" stroke-width="1" opacity=".75"/>
+        <text x="166" y="242" font-size="11">One-Euro</text>
+        <text x="166" y="259" font-size="9.5" opacity=".65">adaptive, per-segment</text>
+        <rect x="352" y="220" width="180" height="52" rx="2" fill="none" stroke="currentColor" stroke-width="1" opacity=".75"/>
+        <text x="366" y="242" font-size="11">Savitzky&#8211;Golay</text>
+        <text x="366" y="259" font-size="9.5" opacity=".65">window 9, order 2</text>
+        <rect x="552" y="220" width="196" height="52" rx="2" fill="none" stroke="currentColor" stroke-width="1" opacity=".75"/>
+        <text x="566" y="242" font-size="11">RTS smoother</text>
+        <text x="566" y="259" font-size="9.5" opacity=".65">damping 0.985</text>
+        <path d="M332 246 L348 246" stroke="currentColor" stroke-width="1.1" marker-end="url(#p1)"/>
+        <path d="M532 246 L548 246" stroke="currentColor" stroke-width="1.1" marker-end="url(#p1)"/>
+
+        <path d="M450 290 L450 320" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+
+        <path d="M450 322 L610 366 L450 410 L290 366 z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="450" y="362" font-size="11.5" text-anchor="middle">View classifier</text>
+        <text x="450" y="379" font-size="9.5" text-anchor="middle" opacity=".65">body visibility score</text>
+
+        <path d="M290 366 L180 366 L180 424" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+        <text x="188" y="358" font-size="9.5" opacity=".7">&lt; 0.30 partial</text>
+        <path d="M610 366 L720 366 L720 424" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+        <text x="628" y="358" font-size="9.5" opacity=".7">&gt; 0.70 full body</text>
+
+        <rect x="70" y="426" width="220" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="86" y="448" font-size="11.5">Occlusion infill</text>
+        <text x="86" y="466" font-size="9.5" opacity=".65">continue hidden limbs</text>
+
+        <rect x="610" y="426" width="220" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="626" y="448" font-size="11.5">Diffusion refinement</text>
+        <text x="626" y="466" font-size="9.5" opacity=".65">50 steps &#183; seed 42</text>
+
+        <path d="M180 478 L180 506 L440 506" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <path d="M720 478 L720 506 L462 506" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <path d="M450 506 L450 528" stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#p1)"/>
+
+        <rect x="130" y="530" width="640" height="66" rx="3" fill="none" stroke="#1B3A66" stroke-width="1.6"/>
+        <text x="146" y="553" font-size="12.5" fill="#1B3A66">Retarget &#8594; bundle</text>
+        <text x="146" y="572" font-size="10" opacity=".7">hand profile &#183; joint clamp &#183; velocity limit &#183; feet stabilisation</text>
+        <text x="146" y="589" font-size="10" opacity=".7">SOMA npz &#183; robot CSV &#183; BVH &#183; 2D/3D keypoints &#183; confidence</text>
+      </g>
+    </svg>
