@@ -89,11 +89,11 @@ export function TeleopFeature() {
           <span>
             <strong>Curious about what makes it work?</strong>
             <small>
-              Cosmic 0.5 · Human-to-humanoid skill transfer, capture, retargeting, and evaluation.
+              From Human Motion to Humanoid Action · Capture, retargeting, and supervised execution.
             </small>
           </span>
         </div>
-        <Link to="/docs">
+        <Link to="/docs/cosmic-0-5">
           Read the technical report <ArrowRight size={17} />
         </Link>
       </div>

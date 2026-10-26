@@ -669,8 +669,8 @@ function EvaluationsPage() {
                 </button>
               }
             />
-            <a href="/docs" className="explore-text-link">
-              Read Cosmic 0.5 <ArrowRight size={16} />
+            <a href="/docs/cosmic-0-5" className="explore-text-link">
+              Read From Human Motion to Humanoid Action <ArrowRight size={16} />
             </a>
           </div>
         </section>

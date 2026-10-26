@@ -9,9 +9,9 @@ import "@/components/explore/docs.css";
 const title = "CosmicBrain Research · Papers and briefs";
 const description =
   "Research papers and briefs on robot-data evaluation, physical-evidence verification, input clocks and human-to-humanoid skill transfer.";
-const shareImage = "https://www.cosmicbrain.ai/social/cosmicbrain-docs-v2.jpg";
+const shareImage = "https://www.cosmicbrain.ai/social/cosmicbrain-docs-v3.jpg";
 const shareImageAlt =
-  "CosmicBrain Research: Inside the engineering. Covers of Who Checks the Checker? and Cosmic 0.5, with demonstration scoring, verification and skill transfer research.";
+  "CosmicBrain Research: Who Checks the Checker? and From Human Motion to Humanoid Action, with demonstration scoring, verification and skill transfer research.";
 
 export const Route = createFileRoute("/docs")({
   head: () => ({
@@ -114,12 +114,12 @@ const documents = [
     label: "Technical report / Preprint",
     cover: "transfer",
     kicker: "Technical report",
-    coverTitle: ["Cosmic 0.5"],
+    coverTitle: ["From Human", "Motion to", "Humanoid Action"],
     caption: ["Human motion · Robot execution"],
     coverFooter: "August 2026 / Technical report",
     dateTime: "2026-08",
     date: "August 2026",
-    title: "Cosmic 0.5",
+    title: "From Human Motion to Humanoid Action",
     subtitle: "A Universal Stack for Human-to-Humanoid Skill Transfer",
     description:
       "A technical report on turning human video, egocentric recordings and VR teleoperation into a canonical motion representation, retargeting it across robot bodies, and executing it through a supervised hardware stack.",

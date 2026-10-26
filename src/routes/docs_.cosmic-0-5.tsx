@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import "@/components/explore/explore.css";
 import "@/components/explore/research-article.css";
 
-const title = "Cosmic 0.5 · CosmicBrain Research";
+const title = "From Human Motion to Humanoid Action · CosmicBrain Research";
 const description =
   "A universal stack for human-to-humanoid skill transfer: canonical motion, capture, fusion, retargeting and gated execution, with architecture, production parameters and limitations.";
 const url = "https://www.cosmicbrain.ai/docs/cosmic-0-5";
@@ -278,9 +278,9 @@ function CosmicHalfArticle() {
           </Link>
           <p className="eyebrow">CosmicBrain AI / Technical report</p>
           <h1>
-            Cosmic 0.5:
+            From human motion
             <br />
-            <em>from human to humanoid.</em>
+            <em>to humanoid action.</em>
           </h1>
           <p className="research-subtitle">
             A universal stack for human-to-humanoid skill transfer
@@ -310,7 +310,10 @@ function CosmicHalfArticle() {
               </a>
             ))}
           </nav>
-          <article className="research-body" aria-label="Cosmic 0.5 technical report">
+          <article
+            className="research-body"
+            aria-label="From Human Motion to Humanoid Action technical report"
+          >
             <aside className="research-takeaway">
               <p className="eyebrow">The central design</p>
               <p>
@@ -1369,11 +1372,11 @@ function CosmicHalfArticle() {
             </section>
             <footer className="research-article-footer">
               <p>
-                <strong>Cosmic 0.5</strong>: CosmicBrain AI, August 2026. Figures 1, 3, 4, 7, 8, 10,
-                12, 13, 15, 16, 17 and 18 are captured from the running system; figures 2, 6, 9, 11,
-                14 and 19 are architecture drawings; figure 5 is an internal design document.
-                Account identifiers and filesystem paths visible in captured interfaces have been
-                redacted.
+                <strong>From Human Motion to Humanoid Action</strong>: CosmicBrain AI, August 2026.
+                Figures 1, 3, 4, 7, 8, 10, 12, 13, 15, 16, 17 and 18 are captured from the running
+                system; figures 2, 6, 9, 11, 14 and 19 are architecture drawings; figure 5 is an
+                internal design document. Account identifiers and filesystem paths visible in
+                captured interfaces have been redacted.
               </p>
               <p>
                 This report describes a system under active development. Parameter values shown are
