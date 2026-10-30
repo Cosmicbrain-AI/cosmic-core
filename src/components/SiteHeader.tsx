@@ -43,7 +43,7 @@ const links = [
   ["Evals", "/evaluations"],
   ["Datasets", "/datasets"],
   ["Newsroom", "/newsroom"],
-  ["Docs", "/docs"],
+  ["Research", "/docs"],
   ["Sales", "/sales"],
 ] as const;
 export function SiteHeader() {
