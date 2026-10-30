@@ -15,7 +15,7 @@ export const Route = createFileRoute("/newsroom")({
       {
         name: "description",
         content:
-          "Read source reporting on CosmicBrain, robot training data and teleoperation from TechCrunch, IBM Think and Rest of World.",
+          "Read source reporting on CosmicBrain, robot training data and teleoperation from TechCrunch and IBM Think.",
       },
       { property: "og:title", content: "Newsroom · CosmicBrain" },
       { property: "og:url", content: "https://www.cosmicbrain.ai/newsroom" },

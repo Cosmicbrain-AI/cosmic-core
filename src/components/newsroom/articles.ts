@@ -1,9 +1,9 @@
-export type Publication = "Rest of World" | "TechCrunch" | "IBM Think";
+export type Publication = "TechCrunch" | "IBM Think";
 
 export interface NewsArticle {
   id: string;
   publication: Publication;
-  theme: "world" | "techcrunch" | "ibm";
+  theme: "techcrunch" | "ibm";
   title: string;
   description: string;
   author: string;
@@ -34,23 +34,6 @@ export const newsArticles: NewsArticle[] = [
     },
   },
   {
-    id: "rest-of-world-robot-manufacturing",
-    publication: "Rest of World",
-    theme: "world",
-    title: "Ban on Chinese robots leaves U.S. startups stranded",
-    description:
-      "A look at the manufacturing challenges facing U.S. robotics startups, with perspective from CosmicBrain founder Anto.",
-    author: "Viola Zhou",
-    date: "2026-08-17",
-    dateLabel: "August 17, 2026",
-    url: "https://restofworld.org/2026/china-robot-ban-silicon-valley/",
-    domain: "restofworld.org",
-    image: {
-      src: "https://restofworld.org/wp-content/uploads/2026/08/illo_ai_robot_ban-1600x900.jpg",
-      alt: "Three humanoid robots with metallic bodies and dark heads sit on a bench.",
-    },
-  },
-  {
     id: "techcrunch-startup-battlefield",
     publication: "TechCrunch",
     theme: "techcrunch",
@@ -69,4 +52,4 @@ export const newsArticles: NewsArticle[] = [
   },
 ];
 
-export const publications: Publication[] = ["IBM Think", "Rest of World", "TechCrunch"];
+export const publications: Publication[] = ["IBM Think", "TechCrunch"];
